@@ -4,8 +4,14 @@ import { AppHeader } from "@/components/layout/app-header"
 import { AppSidebar } from "@/components/layout/app-sidebar"
 import { SidebarProvider } from "@/components/ui/sidebar"
 
+type AppShellProps = {
+  children: ReactNode
+  /** Account control for the header (rendered by the route layout, may suspend). */
+  accountMenu: ReactNode
+}
+
 /** Authenticated application frame: sidebar, header and main content area. */
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children, accountMenu }: AppShellProps) {
   return (
     <SidebarProvider>
       <a
@@ -16,7 +22,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </a>
       <AppSidebar />
       <div className="flex min-h-svh min-w-0 flex-1 flex-col">
-        <AppHeader />
+        <AppHeader accountMenu={accountMenu} />
         <main id="main-content" tabIndex={-1} className="flex-1 bg-surface outline-none">
           <div className="mx-auto w-full max-w-content px-4 py-6 md:px-6 lg:px-8 lg:py-8">
             {children}

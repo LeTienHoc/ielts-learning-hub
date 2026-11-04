@@ -1,11 +1,17 @@
 import { screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
 import DashboardPage from "@/app/(app)/dashboard/page"
 import ReadingPage from "@/app/(app)/reading/page"
 import SettingsPage from "@/app/(app)/settings/page"
 
 import { renderWithProviders } from "../test-utils"
+
+// Server-only data sections are covered by E2E tests; stub them here.
+vi.mock("@/features/settings", () => ({
+  ProfileSection: () => <p>Profile section</p>,
+  DeleteAccountDialog: () => <button type="button">Delete account</button>,
+}))
 
 describe("route pages", () => {
   it("renders the dashboard with its title and an empty state, not fake data", () => {
@@ -22,9 +28,11 @@ describe("route pages", () => {
     ).toBeInTheDocument()
   })
 
-  it("renders the settings page with the appearance control", () => {
+  it("renders the settings sections", () => {
     renderWithProviders(<SettingsPage />)
     expect(screen.getByRole("heading", { level: 1, name: "Settings" })).toBeInTheDocument()
+    expect(screen.getByText("Profile section")).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Change theme" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Delete account" })).toBeInTheDocument()
   })
 })

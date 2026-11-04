@@ -35,6 +35,12 @@ const eslintConfig = defineConfig([
     },
   },
   {
+    // Unit tests exercise a feature's internals (schemas, forms, actions) directly; the
+    // public-index rule protects production code from cross-feature coupling, not tests.
+    files: ["tests/**"],
+    rules: { "no-restricted-imports": ["error", { paths: restrictedImports.paths }] },
+  },
+  {
     // The token-aware cn wrapper is the one place allowed to use the raw package.
     files: ["src/lib/utils/cn.ts"],
     rules: { "no-restricted-imports": "off" },

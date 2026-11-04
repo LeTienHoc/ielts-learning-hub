@@ -13,6 +13,8 @@ import {
   type LucideIcon,
 } from "lucide-react"
 
+import { HOME_ROUTE as DEFAULT_HOME_ROUTE } from "@/config/routes"
+
 export type AppRoute =
   | "/dashboard"
   | "/learning"
@@ -39,7 +41,7 @@ export type NavSection = {
   items: readonly NavItem[]
 }
 
-export const HOME_ROUTE: AppRoute = "/dashboard"
+export const HOME_ROUTE: AppRoute = DEFAULT_HOME_ROUTE
 
 /** Primary application navigation. Single source for sidebar, breadcrumbs and page headers. */
 export const NAV_SECTIONS: readonly NavSection[] = [

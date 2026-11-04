@@ -2,35 +2,44 @@ import { describe, expect, it } from "vitest"
 
 import { clientEnvSchema, parseEnv, serverEnvSchema } from "@/config/env/schema"
 
+const SUPABASE = {
+  NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321",
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_test",
+}
+
 describe("client env", () => {
-  it("runs without any integration variables", () => {
-    expect(parseEnv(clientEnvSchema, {})).toEqual({ NEXT_PUBLIC_APP_URL: "http://localhost:3000" })
+  it("requires the Supabase URL and publishable key", () => {
+    expect(() => parseEnv(clientEnvSchema, {})).toThrow(
+      /NEXT_PUBLIC_SUPABASE_URL[\s\S]*NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY/,
+    )
   })
 
-  it("treats empty strings as unset", () => {
-    const env = parseEnv(clientEnvSchema, {
-      NEXT_PUBLIC_APP_URL: "",
-      NEXT_PUBLIC_SUPABASE_URL: "",
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: "",
-    })
-    expect(env.NEXT_PUBLIC_SUPABASE_URL).toBeUndefined()
+  it("defaults the app URL and treats empty strings as unset", () => {
+    const env = parseEnv(clientEnvSchema, { ...SUPABASE, NEXT_PUBLIC_APP_URL: "" })
     expect(env.NEXT_PUBLIC_APP_URL).toBe("http://localhost:3000")
   })
 
+  it("rejects an empty publishable key", () => {
+    expect(() =>
+      parseEnv(clientEnvSchema, { ...SUPABASE, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "" }),
+    ).toThrow(/NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY/)
+  })
+
   it("rejects invalid URLs with a message naming the variable", () => {
-    expect(() => parseEnv(clientEnvSchema, { NEXT_PUBLIC_SUPABASE_URL: "not-a-url" })).toThrow(
-      /NEXT_PUBLIC_SUPABASE_URL/,
-    )
+    expect(() =>
+      parseEnv(clientEnvSchema, { ...SUPABASE, NEXT_PUBLIC_SUPABASE_URL: "not-a-url" }),
+    ).toThrow(/NEXT_PUBLIC_SUPABASE_URL/)
   })
 })
 
 describe("server env", () => {
-  it("runs without credentials", () => {
+  it("runs without integration credentials", () => {
     const env = parseEnv(serverEnvSchema, { NODE_ENV: "test" })
     expect(env.ANTHROPIC_API_KEY).toBeUndefined()
+    expect(env.SUPABASE_SECRET_KEY).toBeUndefined()
   })
 
-  it("does not echo secret values in errors", () => {
+  it("does not echo values in errors", () => {
     expect(() => parseEnv(serverEnvSchema, { NODE_ENV: "staging-secret-value" })).toThrow(
       expect.objectContaining({ message: expect.not.stringContaining("staging-secret-value") }),
     )

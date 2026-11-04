@@ -1,6 +1,6 @@
 "use client"
 
-import { LogIn, Settings, User } from "lucide-react"
+import { LogOut, Settings } from "lucide-react"
 import Link from "next/link"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -13,24 +13,38 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Skeleton } from "@/components/ui/skeleton"
 
-/** Account menu. Shows a guest placeholder until authentication is implemented. */
-export function UserMenu() {
+type UserMenuProps = {
+  name: string | null
+  email: string
+  /** Server Action that signs the user out (provided by the auth feature). */
+  signOutAction: () => Promise<void>
+}
+
+function initials(name: string | null, email: string) {
+  const source = name?.trim() || email
+  const [first = "", second = ""] = source.split(/[\s@._-]+/).filter(Boolean)
+  return (second ? first.charAt(0) + second.charAt(0) : source.slice(0, 2)).toUpperCase()
+}
+
+/** Account menu in the app header. */
+export function UserMenu({ name, email, signOutAction }: UserMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full" aria-label="Account menu">
           <Avatar className="size-8">
-            <AvatarFallback className="bg-primary-subtle text-primary-subtle-foreground">
-              <User aria-hidden="true" className="size-4" />
+            <AvatarFallback className="bg-primary-subtle text-caption font-semibold text-primary-subtle-foreground">
+              {initials(name, email)}
             </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-60">
         <DropdownMenuLabel className="flex flex-col gap-0.5">
-          <span className="text-label text-foreground">Guest learner</span>
-          <span className="text-caption font-normal text-muted-foreground">Not signed in</span>
+          <span className="truncate text-label text-foreground">{name ?? "Learner"}</span>
+          <span className="truncate text-caption font-normal text-muted-foreground">{email}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
@@ -39,11 +53,20 @@ export function UserMenu() {
             Settings
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <LogIn aria-hidden="true" />
-          Sign in (coming soon)
-        </DropdownMenuItem>
+        <form action={signOutAction}>
+          <DropdownMenuItem asChild>
+            <button type="submit" className="w-full">
+              <LogOut aria-hidden="true" />
+              Sign out
+            </button>
+          </DropdownMenuItem>
+        </form>
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+
+/** Placeholder while the current user loads. */
+export function UserMenuSkeleton() {
+  return <Skeleton className="size-9 rounded-full" aria-label="Loading account" />
 }

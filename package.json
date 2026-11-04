@@ -13,10 +13,20 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "supabase": "node scripts/supabase.mjs",
+    "db:start": "node scripts/supabase.mjs start",
+    "db:stop": "node scripts/supabase.mjs stop",
+    "db:status": "node scripts/supabase.mjs status",
+    "db:reset": "node scripts/supabase.mjs db reset",
+    "db:test": "node scripts/supabase.mjs test db",
+    "db:types": "node scripts/supabase.mjs gen types typescript --local --schema public > src/server/database/database.types.ts && prettier --write src/server/database/database.types.ts",
+    "env:local": "node scripts/write-local-env.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.2",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.119.0",
     "@tanstack/react-query": "^5.105.3",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",

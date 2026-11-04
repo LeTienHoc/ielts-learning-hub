@@ -24,6 +24,8 @@ type FormFieldProps<TValues extends FieldValues, TName extends FieldPath<TValues
   name: TName
   label: string
   description?: string
+  /** "horizontal" puts the control before the label (checkboxes, switches). */
+  orientation?: "vertical" | "horizontal"
   render: (props: {
     field: ControllerRenderProps<TValues, TName>
     fieldState: ControllerFieldState
@@ -45,6 +47,7 @@ export function FormField<TValues extends FieldValues, TName extends FieldPath<T
   name,
   label,
   description,
+  orientation = "vertical",
   render,
 }: FormFieldProps<TValues, TName>) {
   const id = useId()
@@ -60,20 +63,40 @@ export function FormField<TValues extends FieldValues, TName extends FieldPath<T
           [description && descriptionId, fieldState.invalid && errorId].filter(Boolean).join(" ") ||
           undefined
 
-        return (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor={id}>{label}</FieldLabel>
-            {render({
-              field,
-              fieldState,
-              controlProps: {
-                id,
-                "aria-invalid": fieldState.invalid,
-                "aria-describedby": describedBy,
-              },
-            })}
+        const labelElement = <FieldLabel htmlFor={id}>{label}</FieldLabel>
+        const controlElement = render({
+          field,
+          fieldState,
+          controlProps: {
+            id,
+            "aria-invalid": fieldState.invalid,
+            "aria-describedby": describedBy,
+          },
+        })
+        const messages = (
+          <>
             {description && <FieldDescription id={descriptionId}>{description}</FieldDescription>}
             {fieldState.invalid && <FieldError id={errorId} errors={[fieldState.error]} />}
+          </>
+        )
+
+        if (orientation === "horizontal") {
+          return (
+            <div className="flex flex-col gap-1.5" data-invalid={fieldState.invalid}>
+              <Field orientation="horizontal" data-invalid={fieldState.invalid}>
+                {controlElement}
+                {labelElement}
+              </Field>
+              {messages}
+            </div>
+          )
+        }
+
+        return (
+          <Field data-invalid={fieldState.invalid}>
+            {labelElement}
+            {controlElement}
+            {messages}
           </Field>
         )
       }}

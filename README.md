@@ -82,5 +82,6 @@ Server-only variables are read through `src/config/env/server.ts`, which imports
   [`docs/design-system/components.md`](docs/design-system/components.md)
 - Development: [`docs/development/setup.md`](docs/development/setup.md),
   [`docs/development/claude-code-governance.md`](docs/development/claude-code-governance.md)
+- Product: [`docs/product/`](docs/product/) — requirements, information architecture, user journeys, MVP roadmap (draft)
 - Decisions: [`docs/decisions/`](docs/decisions/)
 - Contributing: [`CONTRIBUTING.md`](CONTRIBUTING.md)

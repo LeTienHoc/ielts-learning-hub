@@ -1,0 +1,283 @@
+/*
+ * IELTS Learning Hub — design tokens.
+ *
+ * Single source of truth for colour, typography, radius, elevation and layout.
+ * Raw values live in :root / .dark as CSS variables; the @theme inline block maps
+ * them to Tailwind utilities (bg-primary, text-h1, rounded-card, shadow-subtle …).
+ * Feature code must use these utilities — never hardcoded colours.
+ * Documented in docs/design-system/design-tokens.md.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+ * Tailwind theme mapping
+ * ------------------------------------------------------------------------- */
+@theme inline {
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Brand & neutral */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-subtle-foreground: var(--primary-subtle-foreground);
+
+  /* Semantic status colours: base (icons, fills, borders), subtle (tinted
+   * backgrounds) and emphasis (AA-compliant text on background or subtle). */
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-success-emphasis: var(--success-emphasis);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-warning-emphasis: var(--warning-emphasis);
+  --color-error: var(--error);
+  --color-error-subtle: var(--error-subtle);
+  --color-error-emphasis: var(--error-emphasis);
+  --color-info: var(--info);
+  --color-info-subtle: var(--info-subtle);
+  --color-info-emphasis: var(--info-emphasis);
+
+  /* shadcn/ui contract */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography scale — text-display … text-label.
+   * Each token sets size, line-height, weight and tracking together. */
+  --text-display: 3rem;
+  --text-display--line-height: 3.5rem;
+  --text-display--font-weight: 700;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: 2.25rem;
+  --text-h1--line-height: 2.75rem;
+  --text-h1--font-weight: 700;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: 1.875rem;
+  --text-h2--line-height: 2.375rem;
+  --text-h2--font-weight: 600;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 2rem;
+  --text-h3--font-weight: 600;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.75rem;
+  --text-h4--font-weight: 600;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.875rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.625rem;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.375rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.25rem;
+  --text-label--font-weight: 500;
+
+  /* Radius scale (shadcn components use sm–4xl) + semantic aliases */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
+  --radius-card: var(--radius-xl);
+  --radius-modal: var(--radius-2xl);
+
+  /* Elevation */
+  --shadow-subtle: var(--elevation-subtle);
+  --shadow-elevated: var(--elevation-elevated);
+
+  /* Layout — max-w-content, h-header */
+  --container-content: var(--layout-content-max-width);
+  --spacing-header: var(--layout-header-height);
+}
+
+/* ---------------------------------------------------------------------------
+ * Light theme (default)
+ * ------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Layout */
+  --layout-sidebar-width: 15.5rem; /* 248px */
+  --layout-sidebar-width-collapsed: 4.5rem; /* 72px */
+  --layout-header-height: 4rem; /* 64px */
+  --layout-content-max-width: 90rem; /* 1440px */
+
+  /* Brand */
+  --primary: #635bdb;
+  --primary-hover: #4942b7;
+  --primary-subtle: #eef0ff;
+  --primary-subtle-foreground: #4942b7;
+  --primary-foreground: #ffffff;
+
+  /* Neutral */
+  --background: #ffffff;
+  --foreground: #17172b;
+  --surface: #f8f9fc;
+  --surface-foreground: #17172b;
+  --border: #dde1e9;
+  --muted-foreground: #626b7a;
+
+  /* Semantic */
+  --success: #16a36a;
+  --success-subtle: #e8f7f0;
+  --success-emphasis: #0b7a4e;
+  --warning: #e6a23c;
+  --warning-subtle: #fdf5e7;
+  --warning-emphasis: #8a5608;
+  --error: #dc5252;
+  --error-subtle: #fceded;
+  --error-emphasis: #b53434;
+  --info: #3987d5;
+  --info-subtle: #eaf3fc;
+  --info-emphasis: #1e64ae;
+
+  /* shadcn/ui contract, expressed through the tokens above */
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--surface);
+  --accent: #f1f3f8;
+  --accent-foreground: var(--foreground);
+  --destructive: var(--error-emphasis);
+  --input: #b4bbc8;
+  --ring: var(--primary);
+  --chart-1: var(--primary);
+  --chart-2: var(--info);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: var(--error);
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Used by sonner and other third-party components */
+  --radius: 0.625rem;
+
+  /* Elevation */
+  --elevation-subtle: 0 1px 2px 0 rgb(23 23 43 / 0.05), 0 1px 3px 0 rgb(23 23 43 / 0.04);
+  --elevation-elevated: 0 8px 24px -6px rgb(23 23 43 / 0.12), 0 2px 6px -2px rgb(23 23 43 / 0.06);
+}
+
+/* ---------------------------------------------------------------------------
+ * Dark theme
+ * ------------------------------------------------------------------------- */
+.dark {
+  color-scheme: dark;
+
+  --primary: #8a84f0;
+  --primary-hover: #a29df5;
+  --primary-subtle: #25234d;
+  --primary-subtle-foreground: #c4c1ff;
+  --primary-foreground: #0f1020;
+
+  --background: #121325;
+  --foreground: #ecedf5;
+  --surface: #0d0e1c;
+  --surface-foreground: #ecedf5;
+  --border: #272a40;
+  --muted-foreground: #9aa1b2;
+
+  --success: #3ccb8e;
+  --success-subtle: #0f2a20;
+  --success-emphasis: #5fd9a4;
+  --warning: #f0b95e;
+  --warning-subtle: #2e2410;
+  --warning-emphasis: #f5c97f;
+  --error: #f07878;
+  --error-subtle: #33171a;
+  --error-emphasis: #f59595;
+  --info: #6aaaf0;
+  --info-subtle: #13243a;
+  --info-emphasis: #8cbff5;
+
+  --accent: #1d1f36;
+  --input: #3b3f5a;
+
+  --elevation-subtle: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --elevation-elevated: 0 8px 24px -6px rgb(0 0 0 / 0.55), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Base styles
+ * ------------------------------------------------------------------------- */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-body text-foreground antialiased;
+    font-feature-settings:
+      "cv11" 1,
+      "ss01" 1;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

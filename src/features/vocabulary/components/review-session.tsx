@@ -97,12 +97,18 @@ export function ReviewSession({ plan, language }: ReviewSessionProps) {
     const previous = chains.current.get(wordId) ?? Promise.resolve()
     const next = previous.then(async () => {
       const expected = reviewCounts.current.get(wordId) ?? 0
-      const result = await reviewWordAction({
-        wordId,
-        grade: value,
-        exercise,
-        expectedReviewCount: expected,
-      })
+      let result: Awaited<ReturnType<typeof reviewWordAction>>
+      try {
+        result = await reviewWordAction({
+          wordId,
+          grade: value,
+          exercise,
+          expectedReviewCount: expected,
+        })
+      } catch {
+        // Network or server failure: keep the chain resolved so later grades still go out.
+        result = { ok: false, reason: "failed" }
+      }
       if (result.ok) {
         reviewCounts.current.set(wordId, expected + 1)
       } else {

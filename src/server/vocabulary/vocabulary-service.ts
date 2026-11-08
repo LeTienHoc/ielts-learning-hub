@@ -10,6 +10,7 @@ import {
 } from "@/lib/content/practice-set-schema"
 import { toEngineError, type EngineResult } from "@/lib/learning/engine-errors"
 import { gardenStage, MASTERED_INTERVAL_DAYS, type GardenStage } from "@/lib/learning/mastery"
+import { splitSessionRows } from "@/lib/learning/session-plan"
 import { createSupabaseServerClient } from "@/server/database/server-client"
 
 // Vocabulary data access. Reads use RLS (published words, own SRS state); every write goes
@@ -303,27 +304,26 @@ export async function startReviewSession(): Promise<ReviewSessionPlan> {
   // Slack for clock differences between this server and the database (see the ledger ruling).
   const startedAt = new Date(Date.now() - 60_000).toISOString()
 
-  const { data: introduced, error: introduceError } = await supabase.rpc("introduce_new_words")
+  const { error: introduceError } = await supabase.rpc("introduce_new_words")
   if (introduceError) throw new Error("Could not start the review session.")
-  const newIds = new Set(z.array(z.string()).parse(introduced))
 
+  // Never-reviewed words (just introduced, or left from an abandoned session) regardless of
+  // due time, plus words that are due. The split below gives new words their card first.
   const { data, error } = await supabase
     .from("user_words")
     .select(`${USER_WORD_COLUMNS}, words(${WORD_COLUMNS})`)
     .eq("status", "learning")
-    .lte("due_at", new Date().toISOString())
-    .order("due_at", { ascending: true })
+    .or(`review_count.eq.0,due_at.lte.${new Date().toISOString()}`)
   if (error) throw new Error("Could not start the review session.")
 
   const rows = z.array(userWordRowSchema.extend({ words: wordRowSchema })).parse(data)
-  const newWords = rows.filter((row) => newIds.has(row.word_id))
-  const due = rows.filter((row) => !newIds.has(row.word_id))
+  const { fresh, due, extraDueCount } = splitSessionRows(rows, SESSION_REVIEW_CAP)
 
   return {
     startedAt,
-    newWords: newWords.map((row) => toCard(row.words, row)),
-    dueWords: due.slice(0, SESSION_REVIEW_CAP).map((row) => toCard(row.words, row)),
-    extraDueCount: Math.max(0, due.length - SESSION_REVIEW_CAP),
+    newWords: fresh.map((row) => toCard(row.words, row)),
+    dueWords: due.map((row) => toCard(row.words, row)),
+    extraDueCount,
   }
 }
 

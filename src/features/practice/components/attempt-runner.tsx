@@ -109,11 +109,16 @@ export function AttemptRunner({
     if (!instantCheck) return
     setCheckingId(questionId)
     setCheckErrors(({ [questionId]: _cleared, ...rest }) => rest)
-    const result = await instantCheck({
-      attemptId: attempt.id,
-      questionId,
-      response: [...response],
-    })
+    let result: CheckAnswerResult
+    try {
+      result = await instantCheck({ attemptId: attempt.id, questionId, response: [...response] })
+    } catch {
+      // Network or server failure: explain it and keep every Check button usable.
+      result = {
+        ok: false,
+        error: "Could not check this answer. Check your connection and try again.",
+      }
+    }
     setCheckingId(null)
     if (!result.ok) {
       setCheckErrors((current) => ({ ...current, [questionId]: result.error }))

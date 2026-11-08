@@ -77,6 +77,55 @@ test.describe("vocabulary", () => {
     await expect(page.getByRole("region", { name: "New word" })).toHaveCount(0)
   })
 
+  // Regression (final review): words introduced in an abandoned session came back as games
+  // the learner had never seen, without their card.
+  test("an abandoned session's new words come back as cards first", async ({ page }) => {
+    await signUpAndConfirm(page, uniqueEmail("abandon"))
+    await page.goto("/vocabulary/sets/health")
+    await page.getByRole("button", { name: "Start learning this set" }).click()
+    await expect(page.getByRole("main").getByText("All words are in My words")).toBeVisible()
+    await setDailyLimit(page, 5)
+
+    await page.goto("/vocabulary/review")
+    await expect(page.getByRole("region", { name: "New word" })).toBeVisible()
+    await page.goto("/vocabulary") // Leave without answering anything.
+
+    await page.goto("/vocabulary/review")
+    await expect(page.getByRole("region", { name: "New word" })).toBeVisible()
+    expect(await playSession(page)).toBe(5)
+  })
+
+  // Regression (final review): reopening the session with client-side navigation kept the old
+  // finished session on screen instead of starting the new plan.
+  test("reopening the session by navigation starts a fresh plan", async ({ page, isMobile }) => {
+    test.skip(isMobile, "Uses the desktop sidebar for client-side navigation")
+    await signUpAndConfirm(page, uniqueEmail("reopen"))
+    await page.goto("/vocabulary/sets/technology")
+    await page.getByRole("button", { name: "Start learning this set" }).click()
+    await expect(page.getByRole("main").getByText("All words are in My words")).toBeVisible()
+    await setDailyLimit(page, 5)
+
+    await page.goto("/vocabulary/review")
+    expect(await playSession(page)).toBe(5)
+
+    // Client-side navigation only from here on.
+    await page.getByRole("link", { name: "Back to Vocabulary" }).click()
+    await page
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "Settings" })
+      .click()
+    await page.getByRole("radio", { name: "10 words", exact: true }).click()
+    await page.getByRole("button", { name: "Save changes" }).click()
+    await expect(page.getByText("Profile saved")).toBeVisible()
+    await page
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "Vocabulary" })
+      .click()
+    await page.getByRole("main").getByRole("link", { name: "Start today's session" }).click()
+
+    await expect(page.getByRole("region", { name: "New word" })).toBeVisible()
+  })
+
   test("a word page explains the word in both languages", async ({ page }) => {
     await signUpAndConfirm(page, uniqueEmail("word"))
     await page.goto("/vocabulary/words/sustainable")

@@ -31,5 +31,9 @@ export async function ReviewSessionPage() {
   }
 
   const [plan, user] = await Promise.all([startReviewSession(), getCurrentUser()])
-  return <ReviewSession plan={plan} language={user?.explanationLanguage ?? "en"} />
+  // A new plan is a new session: the key resets client state that soft navigation (and
+  // Activity) would otherwise keep, e.g. a finished session's summary.
+  return (
+    <ReviewSession key={plan.startedAt} plan={plan} language={user?.explanationLanguage ?? "en"} />
+  )
 }

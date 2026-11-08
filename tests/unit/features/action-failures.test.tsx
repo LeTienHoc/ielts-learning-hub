@@ -30,13 +30,17 @@ describe("AttemptRunner when an instant check fails", () => {
     topics: [],
     questionCount: 1,
     testTimeLimitSeconds: null,
-    passage: null,
+    kind: "practice",
+    questionTypes: [],
+    passageCount: 0,
+    passages: [],
     groups: [
       {
         id: "g1",
         type: "multiple_choice",
         instructions: "Choose.",
         sharedOptions: [],
+        passageId: null,
         questions: [
           {
             id: "q1",

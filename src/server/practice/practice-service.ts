@@ -6,6 +6,7 @@ import {
   answerOptionSchema,
   CONTENT_LEVELS,
   CONTENT_TOPICS,
+  PRACTICE_SET_KINDS,
   QUESTION_TYPES,
   RESPONSE_KINDS,
   type AnswerOption,
@@ -13,6 +14,7 @@ import {
   type ContentTopic,
   type PracticeModule,
   type QuestionType,
+  type PracticeSetKind,
   type ResponseKind,
 } from "@/lib/content/practice-set-schema"
 import { toEngineError, type EngineResult } from "@/lib/learning/engine-errors"
@@ -33,6 +35,29 @@ export type PracticeSetSummary = {
   topics: ContentTopic[]
   questionCount: number
   testTimeLimitSeconds: number | null
+  kind: PracticeSetKind
+  /** Distinct question types, in group order (library filters, READ-01). */
+  questionTypes: QuestionType[]
+  passageCount: number
+}
+
+/** A word underlined in a passage (READ-06). */
+export type PassageKeyWord = {
+  wordId: string
+  slug: string
+  lemma: string
+  form: string
+  meaningEn: string
+  meaningVi: string
+  inMyWords: boolean
+}
+
+export type PracticePassage = {
+  id: string
+  position: number
+  title: string | null
+  text: string
+  keyWords: PassageKeyWord[]
 }
 
 export type PracticeQuestion = {
@@ -52,11 +77,13 @@ export type PracticeQuestionGroup = {
   instructions: string
   /** Options listed once for the whole group (e.g. headings), if any. */
   sharedOptions: AnswerOption[]
+  /** The passage this group's questions (and evidence offsets) refer to. */
+  passageId: string | null
   questions: PracticeQuestion[]
 }
 
 export type PracticeSetDetail = PracticeSetSummary & {
-  passage: { title: string | null; text: string } | null
+  passages: PracticePassage[]
   groups: PracticeQuestionGroup[]
 }
 
@@ -91,6 +118,7 @@ export type AnswerKey = {
 
 const summaryRowSchema = z.object({
   id: z.string(),
+  kind: z.enum(PRACTICE_SET_KINDS),
   test_time_limit_seconds: z.number().nullable(),
   content_items: z.object({
     slug: z.string(),
@@ -99,12 +127,19 @@ const summaryRowSchema = z.object({
     level: z.enum(CONTENT_LEVELS),
     topics: z.array(z.enum(CONTENT_TOPICS)),
   }),
+  question_groups: z.array(
+    z.object({ position: z.number(), question_type: z.enum(QUESTION_TYPES) }).passthrough(),
+  ),
+  practice_set_passages: z.array(z.object({ id: z.string() }).passthrough()),
 })
 
 function toSummary(
   row: z.infer<typeof summaryRowSchema>,
   questionCount: number,
 ): PracticeSetSummary {
+  const types = [...row.question_groups]
+    .sort((a, b) => a.position - b.position)
+    .map((group) => group.question_type)
   return {
     id: row.id,
     slug: row.content_items.slug,
@@ -114,6 +149,9 @@ function toSummary(
     topics: row.content_items.topics,
     questionCount,
     testTimeLimitSeconds: row.test_time_limit_seconds,
+    kind: row.kind,
+    questionTypes: [...new Set(types)],
+    passageCount: row.practice_set_passages.length,
   }
 }
 
@@ -125,7 +163,7 @@ export async function listPublishedPracticeSets(
   const { data, error } = await supabase
     .from("practice_sets")
     .select(
-      "id, test_time_limit_seconds, content_items!inner(slug, title, summary, level, topics), questions(count)",
+      "id, kind, test_time_limit_seconds, content_items!inner(slug, title, summary, level, topics), question_groups(position, question_type), practice_set_passages(id), questions(count)",
     )
     .eq("module", module)
   if (error) throw new Error("Could not load practice sets.")
@@ -138,8 +176,6 @@ export async function listPublishedPracticeSets(
 }
 
 const detailRowSchema = summaryRowSchema.extend({
-  passage_title: z.string().nullable(),
-  passage_text: z.string().nullable(),
   question_groups: z.array(
     z.object({
       id: z.string(),
@@ -147,6 +183,7 @@ const detailRowSchema = summaryRowSchema.extend({
       question_type: z.enum(QUESTION_TYPES),
       instructions: z.string(),
       options: optionsSchema,
+      passage_id: z.string().nullable(),
       questions: z.array(
         z.object({
           id: z.string(),
@@ -161,9 +198,29 @@ const detailRowSchema = summaryRowSchema.extend({
       ),
     }),
   ),
+  practice_set_passages: z.array(
+    z.object({
+      id: z.string(),
+      position: z.number(),
+      title: z.string().nullable(),
+      text: z.string(),
+      practice_set_words: z.array(
+        z.object({
+          word_id: z.string(),
+          form: z.string(),
+          words: z.object({
+            slug: z.string(),
+            lemma: z.string(),
+            meaning_en: z.string(),
+            meaning_vi: z.string(),
+          }),
+        }),
+      ),
+    }),
+  ),
 })
 
-/** A published practice set with its questions (never answer keys), or null. */
+/** A published practice set with its passages and questions (never answer keys), or null. */
 export async function getPracticeSetBySlug(
   module: PracticeModule,
   slug: string,
@@ -172,9 +229,11 @@ export async function getPracticeSetBySlug(
   const { data, error } = await supabase
     .from("practice_sets")
     .select(
-      `id, test_time_limit_seconds, passage_title, passage_text,
+      `id, kind, test_time_limit_seconds,
        content_items!inner(slug, title, summary, level, topics),
-       question_groups(id, position, question_type, instructions, options,
+       practice_set_passages(id, position, title, text,
+         practice_set_words(word_id, form, words(slug, lemma, meaning_en, meaning_vi))),
+       question_groups(id, position, question_type, instructions, options, passage_id,
          questions(id, position, number, prompt, options, response_kind, select_count, max_words))`,
     )
     .eq("module", module)
@@ -184,6 +243,38 @@ export async function getPracticeSetBySlug(
   if (!data) return null
 
   const row = detailRowSchema.parse(data)
+  const keyWordIds = row.practice_set_passages.flatMap((passage) =>
+    passage.practice_set_words.map((link) => link.word_id),
+  )
+  const mine = new Set<string>()
+  if (keyWordIds.length > 0) {
+    const { data: owned, error: ownedError } = await supabase
+      .from("user_words")
+      .select("word_id")
+      .in("word_id", keyWordIds)
+    if (ownedError) throw new Error("Could not load the practice set.")
+    for (const item of z.array(z.object({ word_id: z.string() })).parse(owned))
+      mine.add(item.word_id)
+  }
+
+  const passages = [...row.practice_set_passages]
+    .sort((a, b) => a.position - b.position)
+    .map((passage) => ({
+      id: passage.id,
+      position: passage.position,
+      title: passage.title,
+      text: passage.text,
+      keyWords: passage.practice_set_words.map((link) => ({
+        wordId: link.word_id,
+        slug: link.words.slug,
+        lemma: link.words.lemma,
+        form: link.form,
+        meaningEn: link.words.meaning_en,
+        meaningVi: link.words.meaning_vi,
+        inMyWords: mine.has(link.word_id),
+      })),
+    }))
+
   const groups = [...row.question_groups]
     .sort((a, b) => a.position - b.position)
     .map((group) => ({
@@ -191,6 +282,7 @@ export async function getPracticeSetBySlug(
       type: group.question_type,
       instructions: group.instructions,
       sharedOptions: group.options ?? [],
+      passageId: group.passage_id,
       questions: [...group.questions]
         .sort((a, b) => a.position - b.position)
         .map((question) => ({
@@ -209,7 +301,7 @@ export async function getPracticeSetBySlug(
       row,
       groups.reduce((count, group) => count + group.questions.length, 0),
     ),
-    passage: row.passage_text ? { title: row.passage_title, text: row.passage_text } : null,
+    passages,
     groups,
   }
 }

@@ -62,16 +62,25 @@ const set: PracticeSetDetail = {
   topics: [],
   questionCount: 3,
   testTimeLimitSeconds: 1200,
-  passage: {
-    title: "Rooftop gardens",
-    text: "Roofs are rarely visited.\n\nOld buildings need reinforcement.",
-  },
+  kind: "practice",
+  questionTypes: ["true_false_not_given", "sentence_completion", "multiple_choice_multi"],
+  passageCount: 1,
+  passages: [
+    {
+      id: "p1",
+      position: 1,
+      title: "Rooftop gardens",
+      text: "Roofs are rarely visited.\n\nOld buildings need reinforcement.",
+      keyWords: [],
+    },
+  ],
   groups: [
     {
       id: "g1",
       type: "true_false_not_given",
       instructions: "Choose TRUE, FALSE or NOT GIVEN.",
       sharedOptions: TFNG,
+      passageId: "p1",
       questions: [singleQuestion],
     },
     {
@@ -79,6 +88,7 @@ const set: PracticeSetDetail = {
       type: "sentence_completion",
       instructions: "Write NO MORE THAN TWO WORDS.",
       sharedOptions: [],
+      passageId: "p1",
       questions: [textQuestion],
     },
     {
@@ -86,6 +96,7 @@ const set: PracticeSetDetail = {
       type: "multiple_choice_multi",
       instructions: "Choose TWO letters.",
       sharedOptions: [],
+      passageId: "p1",
       questions: [multipleQuestion],
     },
   ],

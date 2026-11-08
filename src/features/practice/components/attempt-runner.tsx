@@ -135,6 +135,7 @@ export function AttemptRunner({
     }))
   }
 
+  const firstPassage = set.passages[0]
   const questionIds = set.groups.flatMap((group) => group.questions.map((question) => question.id))
   const answeredCount = countAnswered(questionIds, answers)
   const unansweredCount = questionIds.length - answeredCount
@@ -189,12 +190,12 @@ export function AttemptRunner({
         </>
       }
     >
-      <div className={set.passage ? "grid gap-8 lg:grid-cols-2" : "mx-auto max-w-3xl"}>
-        {set.passage && (
+      <div className={firstPassage ? "grid gap-8 lg:grid-cols-2" : "mx-auto max-w-3xl"}>
+        {firstPassage && (
           // Desktop: the passage stays in view while the questions scroll (below header,
           // above the sticky footer). No token covers this viewport-relative height.
           <div className="rounded-card border border-border bg-background p-5 lg:sticky lg:top-20 lg:max-h-[calc(100svh-11rem)] lg:overflow-y-auto">
-            <PassageView title={set.passage.title} text={set.passage.text} />
+            <PassageView title={firstPassage.title} text={firstPassage.text} />
           </div>
         )}
         <div className="flex flex-col gap-8">

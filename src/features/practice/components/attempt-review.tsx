@@ -41,6 +41,13 @@ export function AttemptReview({
   actions,
 }: AttemptReviewProps) {
   const questions = set.groups.flatMap((group) => group.questions)
+  // Evidence offsets are relative to the passage of the question's group.
+  const passageOfQuestion = new Map(
+    set.groups.flatMap((group) => {
+      const passage = set.passages.find((candidate) => candidate.id === group.passageId)
+      return passage ? group.questions.map((question) => [question.id, passage] as const) : []
+    }),
+  )
   // "Spot the mistake" options are the sentence's words: show the word, not its id.
   const spotIds = new Set(
     set.groups
@@ -102,8 +109,8 @@ export function AttemptReview({
             key && explanationLanguage === "vi" && key.explanationVi
               ? key.explanationVi
               : key?.explanation
-          const evidence =
-            key && set.passage ? evidenceExcerpt(set.passage.text, key.evidence) : null
+          const passage = passageOfQuestion.get(question.id)
+          const evidence = key && passage ? evidenceExcerpt(passage.text, key.evidence) : null
 
           return (
             <li key={question.id}>

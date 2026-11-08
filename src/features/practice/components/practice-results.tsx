@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation"
 
 import { PageHeader } from "@/components/layout/page-header"
 import { Button } from "@/components/ui/button"
+import { AddToMyWordsButton } from "@/features/vocabulary"
 import type { PracticeModule } from "@/lib/content/practice-set-schema"
 import { getCurrentUser } from "@/server/auth/session"
 import {
@@ -51,6 +52,20 @@ export async function PracticeResults({
   const keys = await getAttemptReview(attempt.id)
   if (!keys.ok) notFound()
 
+  const keyWordActions = Object.fromEntries(
+    set.passages.flatMap((passage) =>
+      passage.keyWords.map((keyWord) => [
+        keyWord.wordId,
+        <AddToMyWordsButton
+          key={keyWord.wordId}
+          kind="word"
+          id={keyWord.wordId}
+          isAdded={keyWord.inMyWords}
+        />,
+      ]),
+    ),
+  )
+
   return (
     <div className="flex flex-col gap-6 lg:gap-8">
       <div className="flex flex-col gap-4">
@@ -67,6 +82,7 @@ export async function PracticeResults({
         attempt={attempt}
         keys={keys.value}
         explanationLanguage={user?.explanationLanguage ?? "en"}
+        keyWordActions={keyWordActions}
         actions={
           <StartAttemptButton
             practiceSetId={set.id}

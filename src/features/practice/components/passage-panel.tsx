@@ -63,6 +63,7 @@ function SegmentText({ segment }: { segment: TextSegment }) {
   if (!segment.isHighlighted && !segment.isEvidence) return segment.text
   return (
     <mark
+      data-evidence={segment.isEvidence ? "" : undefined}
       className={cn(
         "rounded-sm text-foreground",
         segment.isEvidence ? "bg-success-subtle ring-1 ring-success" : "bg-warning-subtle",

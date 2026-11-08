@@ -301,3 +301,100 @@ describe("AttemptReview", () => {
     expect(items[2]).toHaveTextContent("A — insurance, B — weeding")
   })
 })
+
+describe("AttemptReview score and evidence", () => {
+  const submitted: AttemptState = {
+    id: "attempt-2",
+    practiceSetId: "set-1",
+    mode: "test",
+    status: "submitted",
+    startedAt: "2026-11-08T10:00:00Z",
+    deadlineAt: "2026-11-08T11:00:00Z",
+    remainingMs: null,
+    submittedAt: "2026-11-08T10:50:00Z",
+    submitReason: "learner",
+    score: 30,
+    maxScore: 40,
+    answers: {},
+    results: {},
+  }
+
+  it("shows an estimated band for a full test", () => {
+    render(
+      <AttemptReview
+        set={{ ...set, kind: "full_test" }}
+        attempt={submitted}
+        keys={{}}
+        explanationLanguage="en"
+      />,
+    )
+    expect(screen.getByText("Estimated band 7")).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Estimate based on the commonly published IELTS Academic Reading conversion — not an official score.",
+      ),
+    ).toBeInTheDocument()
+  })
+
+  it("shows the raw score without a band for a practice set", () => {
+    render(
+      <AttemptReview
+        set={set}
+        attempt={{ ...submitted, score: 8, maxScore: 13 }}
+        keys={{}}
+        explanationLanguage="en"
+      />,
+    )
+    expect(screen.getByText("8 / 13")).toBeInTheDocument()
+    expect(screen.queryByText(/Estimated band/)).not.toBeInTheDocument()
+  })
+
+  it("shows the evidence of an answer in its passage", async () => {
+    const scrollIntoView = vi.fn()
+    Element.prototype.scrollIntoView = scrollIntoView
+    const twoPassages: PracticeSetDetail = {
+      ...set,
+      passages: [
+        ...set.passages,
+        {
+          id: "p2",
+          position: 2,
+          title: "Deep oceans",
+          text: "Whales sing at night.",
+          keyWords: [],
+        },
+      ],
+      groups: set.groups.map((group) =>
+        group.id === "g2" ? { ...group, passageId: "p2" } : group,
+      ),
+    }
+    const user = userEvent.setup()
+    render(
+      <AttemptReview
+        set={twoPassages}
+        attempt={{ ...submitted, score: 0, maxScore: 4 }}
+        keys={{
+          q2: {
+            questionId: "q2",
+            accepted: ["night"],
+            explanation: "They sing at night.",
+            explanationVi: null,
+            evidence: { start: 7, end: 20 },
+            correction: null,
+          },
+        }}
+        explanationLanguage="en"
+      />,
+    )
+
+    const item = within(
+      screen.getByRole("list", { name: "Answers and explanations" }),
+    ).getAllByRole("listitem")[1]
+    if (!item) throw new Error("Missing answer for question 2")
+    await user.click(within(item).getByRole("button", { name: "Show in passage" }))
+
+    expect(screen.getByRole("heading", { name: "Deep oceans" })).toBeInTheDocument()
+    expect(screen.getByText("sing at night", { selector: "mark" })).toBeInTheDocument()
+    expect(scrollIntoView).toHaveBeenCalled()
+  })
+})

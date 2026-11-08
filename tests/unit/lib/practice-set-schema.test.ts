@@ -17,6 +17,7 @@ function validSet(): PracticeSetSource {
     reviewStatus: "draft",
     version: 1,
     module: "reading",
+    kind: "practice",
     passages: [{ title: "Passage", text: "Plants cool roofs. Rain drains slowly.", keyWords: [] }],
     groups: [
       {

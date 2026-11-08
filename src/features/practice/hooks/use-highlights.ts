@@ -50,6 +50,16 @@ function subscribe(listener: () => void) {
   return () => listeners.delete(listener)
 }
 
+/** Removes an attempt's highlights from this device (after it is submitted). */
+export function forgetHighlights(attemptId: string) {
+  cache.delete(attemptId)
+  try {
+    window.localStorage.removeItem(storageKey(attemptId))
+  } catch {
+    // Blocked storage: nothing was stored.
+  }
+}
+
 /** The learner's highlights for an attempt, stored on this device. */
 export function useHighlights(attemptId: string) {
   const highlights = useSyncExternalStore(

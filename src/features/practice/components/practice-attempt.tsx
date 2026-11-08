@@ -63,7 +63,12 @@ export async function PracticeAttempt({
   return (
     <AttemptRunner
       set={set}
-      attempt={{ id: attempt.id, mode: attempt.mode, answers: attempt.answers }}
+      attempt={{
+        id: attempt.id,
+        mode: attempt.mode,
+        answers: attempt.answers,
+        answersSavedAt: attempt.answersSavedAt,
+      }}
       initialRemainingMs={attempt.remainingMs}
       exitHref={exitHref}
       reviewHref={reviewHref}

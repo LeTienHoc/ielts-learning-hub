@@ -248,6 +248,7 @@ describe("AttemptReview", () => {
     score: 2,
     maxScore: 4,
     answers: { q1: ["FALSE"], q3: ["A", "B"] },
+    answersSavedAt: {},
     results: {
       q1: { isCorrect: true, points: 1 },
       q2: { isCorrect: false, points: 0 },
@@ -317,6 +318,7 @@ describe("AttemptReview score and evidence", () => {
     score: 30,
     maxScore: 40,
     answers: {},
+    answersSavedAt: {},
     results: {},
   }
 

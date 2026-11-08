@@ -166,7 +166,9 @@ describe("useAttemptAnswers offline buffer", () => {
     const offline = mount(vi.fn().mockResolvedValue({ ok: false, reason: "retry" }))
     act(() => offline.result.current.setAnswer("q1", ["B"]))
     await advance(0)
-    expect(JSON.parse(window.localStorage.getItem(KEY) ?? "null")).toEqual({ q1: ["B"] })
+    expect(JSON.parse(window.localStorage.getItem(KEY) ?? "null")).toEqual({
+      q1: { response: ["B"], savedAt: expect.any(String) },
+    })
     offline.unmount()
 
     const save = vi.fn().mockResolvedValue({ ok: true })
@@ -175,6 +177,36 @@ describe("useAttemptAnswers offline buffer", () => {
 
     expect(online.result.current.answers.q1).toEqual(["B"])
     expect(save).toHaveBeenCalledWith({ attemptId: "attempt-1", questionId: "q1", response: ["B"] })
+    expect(window.localStorage.getItem(KEY)).toBeNull()
+  })
+
+  it("keeps a newer server answer over an older copy on this device", async () => {
+    window.localStorage.setItem(
+      KEY,
+      JSON.stringify({ q1: { response: ["B"], savedAt: "2026-11-08T10:00:00.000Z" } }),
+    )
+    const save = vi.fn().mockResolvedValue({ ok: true })
+    const { result } = renderHook(() =>
+      useAttemptAnswers({
+        attemptId: "attempt-1",
+        initialAnswers: { q1: ["C"] },
+        initialSavedAt: { q1: "2026-11-08T11:00:00.000Z" },
+        saveAnswer: save,
+        onClosed: vi.fn(),
+        persistKey: KEY,
+      }),
+    )
+    await advance(0)
+
+    expect(result.current.answers.q1).toEqual(["C"])
+    expect(save).not.toHaveBeenCalled()
+    expect(window.localStorage.getItem(KEY)).toBeNull()
+  })
+
+  it("forgets the device copy when the server has closed the attempt", async () => {
+    const { result } = mount(vi.fn().mockResolvedValue({ ok: false, reason: "submitted" }))
+    act(() => result.current.setAnswer("q2", ["x"]))
+    await advance(0)
     expect(window.localStorage.getItem(KEY)).toBeNull()
   })
 

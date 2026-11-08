@@ -262,6 +262,7 @@ describe("AttemptReview for Spot the mistake", () => {
           score: 0,
           maxScore: 1,
           answers: { q1: ["t4"] },
+          answersSavedAt: {},
           results: { q1: { isCorrect: false, points: 0 } },
         }}
         keys={{

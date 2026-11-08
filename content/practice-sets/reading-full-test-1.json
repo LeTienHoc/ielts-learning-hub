@@ -179,40 +179,36 @@
       "text": "A  Ten years ago, the typical online course looked much like a university lecture that had been filmed and uploaded: an hour of a speaker standing in front of slides, followed by a long quiz. Many learners signed up with good intentions, but completion rates were notoriously low, often below ten per cent. Since then, a very different model has spread rapidly through language apps, workplace training and even school homework. Known as microlearning, it breaks material into short units, usually lasting between two and ten minutes, each focused on a single idea or skill. Supporters claim that the format fits naturally into modern life, since a lesson can be completed while waiting for a bus or during a coffee break.\n\nB  The approach is often presented as a response to shrinking attention spans, but researchers who study memory argue that its real strength lies elsewhere. More than a century ago, the German psychologist Hermann Ebbinghaus showed that people forget new information quickly unless they meet it again. Spacing practice over several days produces far better long-term memory than the same amount of study packed into a single session. Short units are simply easier to spread out, so microlearning makes it practical to follow advice that has been known for generations. In other words, the benefit comes less from the shortness of each lesson than from the regular return to the same material.\n\nC  A second argument concerns motivation. Finishing a five-minute lesson gives a small but genuine sense of achievement, and app designers have become skilled at building on that feeling. Daily streaks, progress bars and gentle reminders encourage learners to return at the same time each day until studying becomes a habit. Critics, however, warn that these features can reward the wrong thing. A learner who protects a long streak by completing the easiest possible lesson every evening may feel productive while making very little real progress.\n\nD  There are also limits to what can be learned in small pieces. Microlearning works well for vocabulary, facts and clearly defined procedures, such as the steps needed to use a new piece of software. It is far less suited to complex skills that require extended concentration, such as writing a persuasive essay or analysing a difficult text. In these cases, the ability to connect ideas across a longer task is exactly what learners need to develop, and dividing the task into fragments may prevent them from doing so. Some teachers also worry that a steady diet of short tasks may make longer reading feel more tiring than before, although there is little research on this so far.\n\nE  Employers have been among the most enthusiastic adopters. For companies, short online modules are cheaper to produce than classroom training and can be completed without taking staff away from their work for a whole day. A study of several hundred employees at a European logistics firm found that workers who received safety training in weekly five-minute sessions remembered more of the rules six months later than colleagues who had attended a single half-day course. The researchers noted, though, that the short sessions were most effective when supervisors discussed the content with their teams afterwards. Similar results have been reported in hospitals and retail chains, where staff work irregular shifts and full-day courses are difficult to arrange.\n\nF  That finding points to a wider lesson. Short units appear to work best as part of a larger structure rather than as a complete course in themselves. Teachers who use microlearning successfully tend to combine it with longer activities: a few minutes of daily vocabulary practice, for example, followed by a weekly discussion in which students use the new words. Without this connecting framework, learners risk collecting isolated pieces of knowledge that they are unable to apply. In this sense, microlearning is better understood as a method of practice than as a replacement for teaching.\n\nG  Looking ahead, some developers believe that new technology will allow each learner to receive exactly the right unit at exactly the right moment, based on a detailed record of what they have already mastered. Others are more cautious, pointing out that personalisation depends on large amounts of data about learners' behaviour. Whatever the technology, most experts agree on one point: the length of a lesson matters less than whether learners return to what they have studied, and whether they are asked to use it.",
       "keyWords": [
         {
-          "form": "notoriously",
+          "form": "intentions",
           "word": {
-            "slug": "notoriously",
-            "lemma": "notoriously",
-            "partOfSpeech": "adverb",
-            "ipa": "/nəʊˈtɔːriəsli/",
-            "meaningEn": "in a way that is well known for being bad or difficult",
-            "meaningVi": "nổi tiếng (theo nghĩa xấu): ai cũng biết là tệ hoặc khó",
+            "slug": "intention",
+            "lemma": "intention",
+            "partOfSpeech": "noun",
+            "ipa": "/ɪnˈtenʃn/",
+            "meaningEn": "something that you plan or want to do",
+            "meaningVi": "ý định, dự định: điều mình định làm hoặc muốn làm",
             "examples": [
               {
-                "en": "Traffic in the city centre is notoriously slow at rush hour.",
-                "vi": "Giao thông ở trung tâm thành phố nổi tiếng là chậm vào giờ cao điểm.",
-                "cloze": "notoriously"
+                "en": "I have no intention of moving to another city.",
+                "vi": "Tôi không hề có ý định chuyển đến thành phố khác.",
+                "cloze": "intention"
               },
               {
-                "en": "English spelling is notoriously difficult for learners.",
-                "vi": "Chính tả tiếng Anh nổi tiếng là khó với người học.",
-                "cloze": "notoriously"
+                "en": "Many people start the year with good intentions about exercise.",
+                "vi": "Nhiều người bắt đầu năm mới với những dự định tốt về việc tập thể dục.",
+                "cloze": "intentions"
               }
             ],
-            "collocations": [
-              "notoriously difficult",
-              "notoriously unreliable",
-              "notoriously expensive"
-            ],
+            "collocations": ["good intentions", "have no intention of", "the intention is to"],
             "commonMistakes": [
               {
-                "wrong": "She is notoriously kind to everyone.",
-                "right": "She is famously kind to everyone.",
-                "whyEn": "Notoriously is for things known as bad or difficult. For good qualities, use famously or well known for.",
-                "whyVi": "Notoriously dùng cho điều tiêu cực hoặc khó khăn. Với điều tốt, dùng famously hoặc well known for."
+                "wrong": "I have the intention to study abroad.",
+                "right": "I intend to study abroad. / I have no intention of giving up.",
+                "whyEn": "The verb 'intend to' sounds more natural; the noun is common in 'have no intention of + -ing'.",
+                "whyVi": "Dùng động từ 'intend to' tự nhiên hơn; danh từ hay gặp trong cụm 'have no intention of + V-ing'."
               }
             ],
-            "level": "C1",
+            "level": "B1",
             "topics": ["society"]
           }
         },
@@ -313,34 +309,30 @@
           }
         },
         {
-          "form": "personalisation",
+          "form": "logistics",
           "word": {
-            "slug": "personalisation",
-            "lemma": "personalisation",
+            "slug": "logistics",
+            "lemma": "logistics",
             "partOfSpeech": "noun",
-            "ipa": "/ˌpɜːsənəlaɪˈzeɪʃn/",
-            "meaningEn": "changing something so that it suits one particular person",
-            "meaningVi": "cá nhân hoá: điều chỉnh cho phù hợp với từng người",
+            "ipa": "/ləˈdʒɪstɪks/",
+            "meaningEn": "the work of moving, storing and delivering goods",
+            "meaningVi": "hậu cần, logistics: vận chuyển, lưu kho và giao hàng hoá",
             "examples": [
               {
-                "en": "Personalisation lets the app choose lessons that match your level.",
-                "vi": "Tính năng cá nhân hoá giúp ứng dụng chọn bài phù hợp với trình độ của bạn.",
-                "cloze": "Personalisation"
+                "en": "Online shopping has created many jobs in logistics.",
+                "vi": "Mua sắm trực tuyến đã tạo ra nhiều việc làm trong ngành logistics.",
+                "cloze": "logistics"
               },
               {
-                "en": "Some users worry that personalisation requires too much personal data.",
-                "vi": "Một số người dùng lo rằng việc cá nhân hoá đòi hỏi quá nhiều dữ liệu cá nhân.",
-                "cloze": "personalisation"
+                "en": "The logistics of moving a whole office can be complicated.",
+                "vi": "Khâu hậu cần khi chuyển cả một văn phòng có thể rất phức tạp.",
+                "cloze": "logistics"
               }
             ],
-            "collocations": [
-              "greater personalisation",
-              "personalisation of learning",
-              "content personalisation"
-            ],
+            "collocations": ["a logistics company", "logistics network", "the logistics of"],
             "commonMistakes": [],
             "level": "C1",
-            "topics": ["technology", "education"]
+            "topics": ["work"]
           }
         }
       ]

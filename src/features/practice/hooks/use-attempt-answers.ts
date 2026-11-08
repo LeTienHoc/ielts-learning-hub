@@ -22,14 +22,22 @@ type UseAttemptAnswersOptions = {
   onClosed: (reason: "expired" | "submitted") => void
   /**
    * Storage key for answers not yet saved. They are kept on the device, restored and sent on
-   * the next visit (e.g. after the tab was closed while offline), and removed once saved.
+   * the next visit (e.g. after the tab was closed while offline), and removed once saved or
+   * once the attempt is closed.
    */
   persistKey?: string
+  /** When the server last saved each answer (ISO time); a newer server answer wins. */
+  initialSavedAt?: Readonly<Record<string, string>>
 }
 
-const storedAnswersSchema = z.record(z.string(), z.array(z.string()))
+type StoredAnswer = { response: string[]; savedAt: string }
 
-function readStored(key: string): Record<string, string[]> {
+const storedAnswersSchema = z.record(
+  z.string(),
+  z.object({ response: z.array(z.string()), savedAt: z.iso.datetime() }),
+)
+
+function readStored(key: string): Record<string, StoredAnswer> {
   try {
     const raw = window.localStorage.getItem(key)
     const parsed = raw ? storedAnswersSchema.safeParse(JSON.parse(raw)) : null
@@ -40,7 +48,7 @@ function readStored(key: string): Record<string, string[]> {
   }
 }
 
-function writeStored(key: string, answers: ReadonlyMap<string, string[]>) {
+function writeStored(key: string, answers: ReadonlyMap<string, StoredAnswer>) {
   try {
     if (answers.size === 0) window.localStorage.removeItem(key)
     else window.localStorage.setItem(key, JSON.stringify(Object.fromEntries(answers)))
@@ -63,6 +71,7 @@ export function useAttemptAnswers({
   saveAnswer,
   onClosed,
   persistKey,
+  initialSavedAt,
 }: UseAttemptAnswersOptions) {
   const [answers, setAnswers] = useState<Answers>(initialAnswers)
   const [status, setStatus] = useState<SaveStatus>("idle")
@@ -74,17 +83,23 @@ export function useAttemptAnswers({
   const running = useRef<Promise<FlushResult> | null>(null)
   const closed = useRef(false)
   // Answers not yet confirmed by the server (mirrored to storage when persistKey is set).
-  const unsaved = useRef(new Map<string, string[]>())
+  const unsaved = useRef(new Map<string, StoredAnswer>())
 
   const markSaved = useCallback(
     (questionId: string, response: string[]) => {
       // Only if the learner has not changed it since.
-      if (unsaved.current.get(questionId) !== response) return
+      if (unsaved.current.get(questionId)?.response !== response) return
       unsaved.current.delete(questionId)
       if (persistKey) writeStored(persistKey, unsaved.current)
     },
     [persistKey],
   )
+
+  /** The attempt is closed: nothing on this device can be saved any more. */
+  const forgetUnsaved = useCallback(() => {
+    unsaved.current.clear()
+    if (persistKey) writeStored(persistKey, unsaved.current)
+  }, [persistKey])
 
   // Kept in refs so the save loop always calls the latest callbacks.
   const saveRef = useRef(saveAnswer)
@@ -137,11 +152,12 @@ export function useAttemptAnswers({
         continue
       }
       closed.current = true
+      forgetUnsaved()
       onClosedRef.current(result.reason)
       return "closed"
     }
     return "closed"
-  }, [attemptId, markSaved])
+  }, [attemptId, markSaved, forgetUnsaved])
 
   /** Saves everything pending now and reports the outcome. */
   const flush = useCallback((): Promise<FlushResult> => {
@@ -169,7 +185,7 @@ export function useAttemptAnswers({
       if (closed.current) return
       setAnswers((current) => ({ ...current, [questionId]: response }))
       pending.current.set(questionId, response)
-      unsaved.current.set(questionId, response)
+      unsaved.current.set(questionId, { response, savedAt: new Date().toISOString() })
       if (persistKey) writeStored(persistKey, unsaved.current)
       const existing = debounceTimers.current.get(questionId)
       if (existing) clearTimeout(existing)
@@ -184,12 +200,18 @@ export function useAttemptAnswers({
     [persistKey],
   )
 
-  // Answers left unsaved on this device last time win over the server copy and are sent now.
+  // Answers left unsaved on this device last time are sent now, unless the server already has
+  // a newer answer (saved later, e.g. from another device).
+  const savedAtRef = useRef(initialSavedAt)
   useEffect(() => {
     if (!persistKey) return
-    for (const [questionId, response] of Object.entries(readStored(persistKey))) {
-      setAnswer(questionId, response)
+    for (const [questionId, stored] of Object.entries(readStored(persistKey))) {
+      const serverSavedAt = savedAtRef.current?.[questionId]
+      if (serverSavedAt && Date.parse(serverSavedAt) >= Date.parse(stored.savedAt)) continue
+      setAnswer(questionId, stored.response)
     }
+    // Drop the copies that were not restored.
+    writeStored(persistKey, unsaved.current)
   }, [persistKey, setAnswer])
 
   useEffect(() => {

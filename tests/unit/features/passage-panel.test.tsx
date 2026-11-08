@@ -226,4 +226,56 @@ describe("AttemptRunner on small screens", () => {
     expect(screen.getByRole("textbox", { name: "Answer for question 1" })).toHaveValue("growth")
     await act(() => Promise.resolve())
   })
+
+  it("returns to where the learner was in each panel", async () => {
+    const scrollTo = vi.fn()
+    window.scrollTo = scrollTo
+    const scrollY = (value: number) =>
+      Object.defineProperty(window, "scrollY", { value, configurable: true })
+    const user = userEvent.setup()
+    render(
+      <AttemptRunner
+        set={set}
+        attempt={{ id: "attempt-m2", mode: "learn", answers: {} }}
+        initialRemainingMs={null}
+        exitHref="/reading"
+        reviewHref="/review"
+      />,
+    )
+
+    scrollY(120)
+    await user.click(screen.getByRole("tab", { name: "Questions" }))
+    scrollY(900)
+    await user.click(screen.getByRole("tab", { name: "Passage" }))
+    expect(scrollTo).toHaveBeenLastCalledWith(0, 120)
+    scrollY(0)
+    await user.click(screen.getByRole("tab", { name: "Questions" }))
+    expect(scrollTo).toHaveBeenLastCalledWith(0, 900)
+    scrollY(0)
+  })
+
+  it("forgets the device copies of an attempt once it is submitted", async () => {
+    vi.mocked(saveAnswerAction).mockResolvedValue({ ok: true })
+    vi.mocked(submitAttemptAction).mockResolvedValue({ ok: true })
+    window.localStorage.setItem(
+      "ielts-hub:highlights:attempt-m3",
+      JSON.stringify({ p1: [{ start: 0, end: 6 }] }),
+    )
+    const user = userEvent.setup()
+    render(
+      <AttemptRunner
+        set={set}
+        attempt={{ id: "attempt-m3", mode: "learn", answers: {} }}
+        initialRemainingMs={null}
+        exitHref="/reading"
+        reviewHref="/review"
+      />,
+    )
+
+    await user.click(screen.getByRole("button", { name: "Submit" }))
+    await user.click(screen.getByRole("button", { name: "Submit answers" }))
+    await vi.waitFor(() =>
+      expect(window.localStorage.getItem("ielts-hub:highlights:attempt-m3")).toBeNull(),
+    )
+  })
 })

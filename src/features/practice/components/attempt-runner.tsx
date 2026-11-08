@@ -1,7 +1,14 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useCallback, useRef, useState, useTransition, type ReactNode } from "react"
+import {
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useTransition,
+  type ReactNode,
+} from "react"
 
 import { FocusShell } from "@/components/layout/focus-shell"
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -21,6 +28,7 @@ import { cn } from "@/lib/utils"
 
 import { saveAnswerAction, submitAttemptAction, type CheckAnswerResult } from "../actions"
 import { useAttemptAnswers } from "../hooks/use-attempt-answers"
+import { forgetHighlights } from "../hooks/use-highlights"
 import type { AttemptMode, PracticeSetDetail } from "../types"
 import {
   countAnswered,
@@ -37,7 +45,13 @@ import { SaveStatus } from "./save-status"
 
 type AttemptRunnerProps = {
   set: PracticeSetDetail
-  attempt: { id: string; mode: AttemptMode; answers: Answers }
+  attempt: {
+    id: string
+    mode: AttemptMode
+    answers: Answers
+    /** When the server last saved each answer, so a newer one beats a device copy. */
+    answersSavedAt?: Readonly<Record<string, string>>
+  }
   /** Test mode: time left when the page was rendered. Null in learn mode. */
   initialRemainingMs: number | null
   exitHref: string
@@ -74,6 +88,19 @@ export function AttemptRunner({
   keyWordActions,
 }: AttemptRunnerProps) {
   const [mobileView, setMobileView] = useState<MobileView>("passage")
+  // Small screens: each panel keeps its own scroll position across tab switches.
+  const scrollPositions = useRef<Partial<Record<MobileView, number>>>({})
+  const hasSwitched = useRef(false)
+  const switchView = (view: MobileView) => {
+    if (view === mobileView) return
+    scrollPositions.current[mobileView] = window.scrollY
+    hasSwitched.current = true
+    setMobileView(view)
+  }
+  useLayoutEffect(() => {
+    if (!hasSwitched.current) return
+    window.scrollTo(0, scrollPositions.current[mobileView] ?? 0)
+  }, [mobileView])
   const router = useRouter()
   const [checked, setChecked] = useState<Record<string, CheckedView>>(initialChecked)
   const [checkingId, setCheckingId] = useState<string | null>(null)
@@ -91,6 +118,8 @@ export function AttemptRunner({
       setSubmitError(result.error)
       return
     }
+    // Submitted: the device copies (highlights, unsaved answers) are no longer needed.
+    forgetHighlights(attempt.id)
     router.replace(reviewHref)
   }, [attempt.id, reviewHref, router])
 
@@ -101,6 +130,7 @@ export function AttemptRunner({
     // Closed on the server (time is up or submitted elsewhere): show the results.
     onClosed: () => startSubmitting(finish),
     persistKey: `ielts-hub:pending-answers:${attempt.id}`,
+    initialSavedAt: attempt.answersSavedAt,
   })
 
   const submit = () =>
@@ -222,7 +252,11 @@ export function AttemptRunner({
     >
       {hasPassage && (
         // Small screens: one panel at a time. Both stay mounted so typed answers survive.
-        <div role="tablist" aria-label="View" className="mb-4 grid grid-cols-2 gap-2 lg:hidden">
+        <div
+          role="tablist"
+          aria-label="View"
+          className="sticky top-header z-10 -mx-4 mb-4 grid grid-cols-2 gap-2 bg-background px-4 py-2 md:-mx-6 md:px-6 lg:hidden"
+        >
           {(["passage", "questions"] as const).map((view) => (
             <Button
               key={view}
@@ -231,7 +265,7 @@ export function AttemptRunner({
               aria-controls={`attempt-panel-${view}`}
               aria-selected={mobileView === view}
               variant={mobileView === view ? "default" : "outline"}
-              onClick={() => setMobileView(view)}
+              onClick={() => switchView(view)}
             >
               {view === "passage" ? "Passage" : "Questions"}
             </Button>

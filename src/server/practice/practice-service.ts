@@ -103,6 +103,8 @@ export type AttemptState = {
   score: number | null
   maxScore: number | null
   answers: Record<string, string[]>
+  /** When the server last saved each answer (ISO time). */
+  answersSavedAt: Record<string, string>
   results: Record<string, { isCorrect: boolean; points: number }>
 }
 
@@ -338,6 +340,7 @@ const attemptRowSchema = z.object({
       response: responseSchema,
       is_correct: z.boolean().nullable(),
       points: z.number().nullable(),
+      updated_at: z.string(),
     }),
   ),
 })
@@ -348,7 +351,7 @@ export async function getAttempt(attemptId: string): Promise<AttemptState | null
   const { data, error } = await supabase
     .from("attempts")
     .select(
-      "id, practice_set_id, mode, status, started_at, deadline_at, submitted_at, submit_reason, score, max_score, attempt_answers(question_id, response, is_correct, points)",
+      "id, practice_set_id, mode, status, started_at, deadline_at, submitted_at, submit_reason, score, max_score, attempt_answers(question_id, response, is_correct, points, updated_at)",
     )
     .eq("id", attemptId)
     .maybeSingle()
@@ -357,9 +360,11 @@ export async function getAttempt(attemptId: string): Promise<AttemptState | null
 
   const row = attemptRowSchema.parse(data)
   const answers: AttemptState["answers"] = {}
+  const answersSavedAt: AttemptState["answersSavedAt"] = {}
   const results: AttemptState["results"] = {}
   for (const answer of row.attempt_answers) {
     answers[answer.question_id] = answer.response
+    answersSavedAt[answer.question_id] = answer.updated_at
     if (answer.is_correct !== null) {
       results[answer.question_id] = { isCorrect: answer.is_correct, points: answer.points ?? 0 }
     }
@@ -382,6 +387,7 @@ export async function getAttempt(attemptId: string): Promise<AttemptState | null
     score: row.score,
     maxScore: row.max_score,
     answers,
+    answersSavedAt,
     results,
   }
 }

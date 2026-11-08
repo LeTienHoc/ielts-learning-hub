@@ -20,10 +20,14 @@ values
   ('bbbbbbbb-0000-0000-0000-000000000002', 'practice_set', 'test-draft', 'Draft set',
    'B1', 'original', 'draft');
 
-insert into public.practice_sets (id, module, test_time_limit_seconds, passage_text)
+insert into public.practice_sets (id, module, test_time_limit_seconds)
 values
-  ('bbbbbbbb-0000-0000-0000-000000000001', 'reading', 600, 'A short passage.'),
-  ('bbbbbbbb-0000-0000-0000-000000000002', 'reading', null, 'Draft passage.');
+  ('bbbbbbbb-0000-0000-0000-000000000001', 'reading', 600),
+  ('bbbbbbbb-0000-0000-0000-000000000002', 'reading', null);
+insert into public.practice_set_passages (practice_set_id, position, text)
+values
+  ('bbbbbbbb-0000-0000-0000-000000000001', 1, 'A short passage.'),
+  ('bbbbbbbb-0000-0000-0000-000000000002', 1, 'Draft passage.');
 
 insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
 values

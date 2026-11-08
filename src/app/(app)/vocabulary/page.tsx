@@ -1,18 +1,19 @@
-import { BookA } from "lucide-react"
+import { Suspense } from "react"
 
-import { EmptyState } from "@/components/feedback/empty-state"
 import { RoutePage, routeMetadata } from "@/components/layout/route-page"
+import { Skeleton } from "@/components/ui/skeleton"
+import { VocabularyHome } from "@/features/vocabulary"
 
 export const metadata = routeMetadata("/vocabulary")
 
 export default function VocabularyPage() {
   return (
     <RoutePage href="/vocabulary">
-      <EmptyState
-        icon={BookA}
-        title="No vocabulary yet"
-        description="Words and phrases you study will be collected here for review."
-      />
+      <Suspense
+        fallback={<Skeleton className="h-48 w-full max-w-2xl rounded-card" aria-label="Loading" />}
+      >
+        <VocabularyHome />
+      </Suspense>
     </RoutePage>
   )
 }

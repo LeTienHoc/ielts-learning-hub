@@ -11,6 +11,7 @@ export async function ProfileSection() {
       defaultValues={{
         displayName: user.displayName ?? "",
         explanationLanguage: user.explanationLanguage,
+        dailyNewWords: user.dailyNewWords,
       }}
     />
   )

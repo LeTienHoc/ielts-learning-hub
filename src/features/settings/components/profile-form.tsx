@@ -8,6 +8,8 @@ import { toast } from "sonner"
 import { FormField } from "@/components/shared/form-field"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
   Select,
   SelectContent,
@@ -18,6 +20,7 @@ import {
 
 import { updateProfileAction } from "../actions"
 import {
+  DAILY_NEW_WORDS_OPTIONS,
   EXPLANATION_LANGUAGES,
   profileSchema,
   type ProfileInput,
@@ -74,6 +77,30 @@ export function ProfileForm({ email, defaultValues }: ProfileFormProps) {
               ))}
             </SelectContent>
           </Select>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="dailyNewWords"
+        label="New words per day"
+        description="A few words a day is easier to remember. Reviews of older words are not limited."
+        render={({ field, controlProps }) => (
+          <RadioGroup
+            value={String(field.value)}
+            onValueChange={(value) => field.onChange(Number(value))}
+            name={field.name}
+            className="flex flex-wrap gap-4"
+            {...controlProps}
+          >
+            {DAILY_NEW_WORDS_OPTIONS.map((count) => (
+              <div key={count} className="flex items-center gap-2">
+                <RadioGroupItem id={`daily-new-words-${count}`} value={String(count)} />
+                <Label htmlFor={`daily-new-words-${count}`} className="font-normal">
+                  {count} words
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
         )}
       />
       <div>

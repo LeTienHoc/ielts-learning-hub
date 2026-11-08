@@ -33,6 +33,7 @@ export async function updateProfileAction(input: ProfileInput): Promise<ActionRe
     .update({
       display_name: parsed.data.displayName || null,
       explanation_language: parsed.data.explanationLanguage,
+      daily_new_words: parsed.data.dailyNewWords,
     })
     .eq("id", userId)
   if (error) return { ok: false, error: "Could not save your profile. Please try again." }

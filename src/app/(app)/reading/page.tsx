@@ -1,14 +1,27 @@
+import { History } from "lucide-react"
+import Link from "next/link"
 import { Suspense } from "react"
 
 import { RoutePage, routeMetadata } from "@/components/layout/route-page"
+import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ReadingLibrary } from "@/features/reading"
 
 export const metadata = routeMetadata("/reading")
 
-export default function ReadingPage() {
+export default function ReadingPage({ searchParams }: PageProps<"/reading">) {
   return (
-    <RoutePage href="/reading">
+    <RoutePage
+      href="/reading"
+      actions={
+        <Button asChild variant="outline">
+          <Link href="/reading/history">
+            <History aria-hidden="true" />
+            History
+          </Link>
+        </Button>
+      }
+    >
       <Suspense
         fallback={
           <div
@@ -20,7 +33,7 @@ export default function ReadingPage() {
           </div>
         }
       >
-        <ReadingLibrary />
+        <ReadingLibrary searchParams={searchParams} />
       </Suspense>
     </RoutePage>
   )

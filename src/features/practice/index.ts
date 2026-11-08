@@ -4,4 +4,9 @@ export { AttemptRunner } from "./components/attempt-runner"
 export { PracticeAttempt } from "./components/practice-attempt"
 export { PracticeResults } from "./components/practice-results"
 export { StartAttemptButton } from "./components/start-attempt-button"
-export type { AttemptMode, PracticeSetDetail, PracticeSetSummary } from "./types"
+export type {
+  AttemptMode,
+  PracticeSetDetail,
+  PracticeSetSummary,
+  ReadingHistoryItem,
+} from "./types"

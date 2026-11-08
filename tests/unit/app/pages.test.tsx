@@ -24,8 +24,14 @@ describe("route pages", () => {
   })
 
   it("renders a practice page from the navigation config", () => {
-    renderWithProviders(<ReadingPage />)
+    renderWithProviders(
+      <ReadingPage params={Promise.resolve({})} searchParams={Promise.resolve({})} />,
+    )
     expect(screen.getByRole("heading", { level: 1, name: "Reading" })).toBeInTheDocument()
+    expect(screen.getByRole("link", { name: "History" })).toHaveAttribute(
+      "href",
+      "/reading/history",
+    )
     expect(
       screen.getByText("Practise IELTS Reading passages and question types."),
     ).toBeInTheDocument()

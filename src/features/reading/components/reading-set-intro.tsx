@@ -16,8 +16,10 @@ import {
 import { QUESTION_TYPE_LABELS } from "@/lib/content/practice-set-schema"
 import { StartAttemptButton } from "@/features/practice"
 import { getActiveAttempt, getPracticeSetBySlug } from "@/server/practice/practice-service"
+import { listReadingHistory } from "@/server/practice/reading-history"
 
 import { readingAttemptHref, readingAttemptsHref, readingSetParamsSchema } from "../routes"
+import { ReadingHistoryList } from "./reading-history-list"
 
 type ReadingSetIntroProps = { params: Promise<{ setSlug: string }> }
 
@@ -28,7 +30,10 @@ export async function ReadingSetIntro({ params }: ReadingSetIntroProps) {
 
   const set = await getPracticeSetBySlug("reading", parsed.data.setSlug)
   if (!set) notFound()
-  const active = await getActiveAttempt(set.id)
+  const [active, recent] = await Promise.all([
+    getActiveAttempt(set.id),
+    listReadingHistory({ practiceSetId: set.id, limit: 3 }),
+  ])
 
   const questionTypes = [...new Set(set.groups.map((group) => QUESTION_TYPE_LABELS[group.type]))]
   const minutes =
@@ -46,6 +51,7 @@ export async function ReadingSetIntro({ params }: ReadingSetIntroProps) {
         </Button>
         <PageHeader title={set.title} description={set.summary ?? undefined} />
         <div className="flex flex-wrap gap-1.5">
+          {set.kind === "full_test" && <Badge>Full test</Badge>}
           <Badge variant="secondary">{set.level}</Badge>
           {set.topics.map((topic) => (
             <Badge key={topic} variant="outline" className="capitalize">
@@ -54,6 +60,7 @@ export async function ReadingSetIntro({ params }: ReadingSetIntroProps) {
           ))}
         </div>
         <p className="text-body-sm text-muted-foreground">
+          {set.passages.length > 1 && `${set.passages.length} passages · `}
           {set.questionCount} questions · {questionTypes.join(" · ")}
         </p>
       </div>
@@ -126,6 +133,23 @@ export async function ReadingSetIntro({ params }: ReadingSetIntroProps) {
             </Card>
           )}
         </div>
+      )}
+
+      {recent.length > 0 && (
+        <section aria-labelledby="recent-attempts" className="flex max-w-xl flex-col gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <h2 id="recent-attempts" className="text-h4 text-foreground">
+              Recent attempts
+            </h2>
+            <Link
+              href="/reading/history"
+              className="text-body-sm text-primary underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+            >
+              All history
+            </Link>
+          </div>
+          <ReadingHistoryList items={recent} hideTitle />
+        </section>
       )}
     </div>
   )

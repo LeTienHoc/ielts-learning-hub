@@ -1,16 +1,23 @@
-import { BookOpenText, Clock, ListChecks } from "lucide-react"
-import Link from "next/link"
+import { BookOpenText } from "lucide-react"
 
 import { EmptyState } from "@/components/feedback/empty-state"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { QUESTION_TYPES } from "@/lib/content/practice-set-schema"
 import { listPublishedPracticeSets } from "@/server/practice/practice-service"
 
-import { readingSetHref } from "../routes"
+import { filterReadingSets, parseReadingFilters } from "../utils/filters"
+import { ReadingFilterNav } from "./reading-filters"
+import { ReadingSetList } from "./reading-set-list"
 
-/** Published Reading practice sets. Reads the session: render inside <Suspense>. */
-export async function ReadingLibrary() {
-  const sets = await listPublishedPracticeSets("reading")
+type ReadingLibraryProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}
+
+/**
+ * Published Reading sets with filters from the URL (READ-01).
+ * Reads the session and search params: render inside <Suspense>.
+ */
+export async function ReadingLibrary({ searchParams }: ReadingLibraryProps) {
+  const [sets, params] = await Promise.all([listPublishedPracticeSets("reading"), searchParams])
 
   if (sets.length === 0) {
     return (
@@ -22,48 +29,16 @@ export async function ReadingLibrary() {
     )
   }
 
+  const filters = parseReadingFilters(params)
+  const usedTypes = new Set(sets.flatMap((set) => set.questionTypes))
+
   return (
-    <ul aria-label="Reading practice sets" className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {sets.map((set) => (
-        <li key={set.id}>
-          <Card className="relative h-full transition-colors focus-within:ring-2 focus-within:ring-ring hover:bg-muted/40">
-            <CardHeader className="gap-3">
-              <div className="flex flex-wrap gap-1.5">
-                <Badge variant="secondary">{set.level}</Badge>
-                {set.topics.map((topic) => (
-                  <Badge key={topic} variant="outline" className="capitalize">
-                    {topic}
-                  </Badge>
-                ))}
-              </div>
-              <CardTitle className="text-h4">
-                <h2>
-                  {/* The link covers the card so the whole card is clickable. */}
-                  <Link
-                    href={readingSetHref(set.slug)}
-                    className="outline-none after:absolute after:inset-0"
-                  >
-                    {set.title}
-                  </Link>
-                </h2>
-              </CardTitle>
-              {set.summary && <CardDescription>{set.summary}</CardDescription>}
-              <p className="flex flex-wrap gap-x-4 gap-y-1 text-caption text-muted-foreground">
-                <span className="inline-flex items-center gap-1">
-                  <ListChecks aria-hidden="true" className="size-4" />
-                  {set.questionCount} questions
-                </span>
-                {set.testTimeLimitSeconds !== null && (
-                  <span className="inline-flex items-center gap-1">
-                    <Clock aria-hidden="true" className="size-4" />
-                    Test: {Math.round(set.testTimeLimitSeconds / 60)} min
-                  </span>
-                )}
-              </p>
-            </CardHeader>
-          </Card>
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col gap-6">
+      <ReadingFilterNav
+        filters={filters}
+        types={QUESTION_TYPES.filter((type) => usedTypes.has(type))}
+      />
+      <ReadingSetList sets={filterReadingSets(sets, filters)} />
+    </div>
   )
 }

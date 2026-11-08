@@ -55,11 +55,18 @@ only ([ADR 0007](0007-content-and-practice-engine.md)). P4 completes READ-01..07
 - Highlights (READ-03) are kept per attempt on the device only, in
   `localStorage["ielts-hub:highlights:<attemptId>"]`. They are not synced, and they still work
   for the visit when storage is blocked.
-- Offline buffer: unsaved answers are mirrored to
-  `localStorage["ielts-hub:pending-answers:<attemptId>"]`. They are restored and sent on the next
-  visit, and removed once the server confirms them.
-- Below `lg`, the attempt shows Passage / Questions tabs. Both panels stay mounted, so typed
-  answers survive switching.
+- Offline buffer:
+  - Unsaved answers are mirrored, with the time they were given, to
+    `localStorage["ielts-hub:pending-answers:<attemptId>"]`.
+  - On the next visit, a stored answer is restored and sent only if it is newer than the
+    server's copy (`attempt_answers.updated_at`, exposed as `answersSavedAt`). A newer answer
+    saved from another device wins.
+  - Entries are removed once the server confirms them or closes the attempt. Highlights are
+    removed after a successful submit.
+- Below `lg`, the attempt shows Passage / Questions tabs:
+  - The tab bar is sticky under the header.
+  - Both panels stay mounted, so typed answers survive switching.
+  - Each panel's scroll position is restored when the learner switches back.
 
 **Library and history** (`src/features/reading`)
 
@@ -84,8 +91,9 @@ only ([ADR 0007](0007-content-and-practice-engine.md)). P4 completes READ-01..07
   and an RLS policy.
 - The band is an estimate from a fixed table, not calibrated per test. That is acceptable only
   with the note, and should be revisited if real IELTS-calibrated material is licensed.
-- The offline buffer replays answers only while the attempt is open. If the attempt closed in
-  the meantime (deadline or submitted), the attempt page redirects to the results, so the
-  buffered answers are never sent and a small stale storage entry remains on the device.
+- The offline buffer compares the device clock with the server clock, so a device clock that is
+  far ahead could still let an older copy win.
+- An attempt submitted on another device leaves a small stale storage entry on the first device,
+  because its attempt page never opens again.
 - Counting marks changes the rooftop set to number its last question 11, because question 9 is a
   "choose TWO" question.

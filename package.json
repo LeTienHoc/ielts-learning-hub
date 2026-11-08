@@ -21,7 +21,8 @@
     "db:reset": "node scripts/supabase.mjs db reset",
     "db:test": "node scripts/supabase.mjs test db",
     "db:types": "node scripts/supabase.mjs gen types typescript --local --schema public > src/server/database/database.types.ts && prettier --write src/server/database/database.types.ts",
-    "env:local": "node scripts/write-local-env.mjs"
+    "env:local": "node scripts/write-local-env.mjs",
+    "content:seed": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-content-seed.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.2",

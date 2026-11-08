@@ -76,8 +76,21 @@ updated docs, and a demo on staging. Phase 0 is complete.
 - Done locally: AUTH-01, 02, 04, 05, 06; SET-01 without avatar; SET-05 account deletion only.
   This includes migrations with RLS and pgTAP tests, the `ActivityEvent` table and emitter, the
   `(auth)` route group, and settings.
-- Open: AUTH-03 Google OAuth (needs a Google OAuth client), the `(onboarding)` route group, and
-  a staging demo.
+- Open: AUTH-03 Google OAuth (deferred by the user), the `(onboarding)` route group, and a
+  staging demo.
+
+**P2 status (2026-11-08): implemented locally** ([ADR 0007](../decisions/0007-content-and-practice-engine.md)).
+
+- **Content model:** `content_items` with review status, practice sets, question groups,
+  questions and hidden answer keys.
+- **Content import:** JSON → `pnpm content:seed` → local `seed.sql`.
+- **Attempt engine:** SQL functions for start, save, submit and score, using server time; one
+  active attempt per set; test-mode deadline with auto-submit; `attempt.submitted` events.
+- **Learner UI:** question renderers for the 11 question types; focus-mode layout; minimal
+  Reading flow (library → intro → attempt → results).
+- Open: a production content import with a review workflow, and real reviewed content (D-04,
+  D-13). P3/P4 build on the engine: grammar instant checking, Reading filters, highlight, band
+  conversion and history.
 
 ```
 P0 Foundation ✔

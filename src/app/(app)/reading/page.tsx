@@ -1,18 +1,27 @@
-import { BookOpenText } from "lucide-react"
+import { Suspense } from "react"
 
-import { EmptyState } from "@/components/feedback/empty-state"
 import { RoutePage, routeMetadata } from "@/components/layout/route-page"
+import { Skeleton } from "@/components/ui/skeleton"
+import { ReadingLibrary } from "@/features/reading"
 
 export const metadata = routeMetadata("/reading")
 
 export default function ReadingPage() {
   return (
     <RoutePage href="/reading">
-      <EmptyState
-        icon={BookOpenText}
-        title="No reading practice yet"
-        description="IELTS Reading passages and question sets will appear here."
-      />
+      <Suspense
+        fallback={
+          <div
+            className="grid gap-4 md:grid-cols-2 xl:grid-cols-3"
+            aria-label="Loading practice sets"
+          >
+            <Skeleton className="h-40 rounded-card" />
+            <Skeleton className="h-40 rounded-card" />
+          </div>
+        }
+      >
+        <ReadingLibrary />
+      </Suspense>
     </RoutePage>
   )
 }

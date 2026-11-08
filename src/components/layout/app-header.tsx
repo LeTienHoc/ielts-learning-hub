@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import { Suspense, type ReactNode } from "react"
 
 import { AppBreadcrumb } from "@/components/layout/app-breadcrumb"
 import { NotificationsMenu } from "@/components/layout/notifications-menu"
@@ -16,7 +16,10 @@ export function AppHeader({ accountMenu }: { accountMenu: ReactNode }) {
         orientation="vertical"
         className="mx-1 data-vertical:h-5 data-vertical:self-center"
       />
-      <AppBreadcrumb />
+      {/* Reads the URL: on dynamic routes it streams in after the static shell. */}
+      <Suspense fallback={null}>
+        <AppBreadcrumb />
+      </Suspense>
       <div className="ml-auto flex shrink-0 items-center gap-1">
         <SearchDialog />
         <NotificationsMenu />

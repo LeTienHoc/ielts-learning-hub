@@ -3,6 +3,7 @@
 import { GraduationCap } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { Suspense } from "react"
 
 import {
   Sidebar,
@@ -20,7 +21,6 @@ import { APP_NAME } from "@/config/site"
 import { HOME_ROUTE, isRouteActive, NAV_SECTIONS } from "@/config/navigation"
 
 export function AppSidebar() {
-  const pathname = usePathname()
   const { isMobile, setOpenMobile } = useSidebar()
 
   // The mobile drawer should close once the user picks a destination.
@@ -46,44 +46,56 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <nav aria-label="Main navigation">
-          {NAV_SECTIONS.map((section) => (
-            <SidebarGroup key={section.title} className="px-3 group-data-[collapsible=icon]:px-0">
-              <SidebarGroupLabel className="text-caption font-semibold tracking-wider text-muted-foreground uppercase">
-                {section.title}
-              </SidebarGroupLabel>
-              <SidebarMenu className="gap-0.5 group-data-[collapsible=icon]:items-center">
-                {section.items.map((item) => {
-                  const active = isRouteActive(pathname, item.href)
-                  const Icon = item.icon
-                  return (
-                    <SidebarMenuItem key={item.href}>
-                      <SidebarMenuButton
-                        asChild
-                        isActive={active}
-                        tooltip={item.title}
-                        className="h-10 gap-3 px-3 text-body-sm font-medium text-muted-foreground group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center hover:text-foreground data-active:bg-primary-subtle data-active:text-primary-subtle-foreground [&_svg]:size-[1.125rem]"
-                      >
-                        <Link
-                          href={item.href}
-                          aria-current={active ? "page" : undefined}
-                          onClick={closeMobileDrawer}
-                        >
-                          <Icon aria-hidden="true" />
-                          <span className="group-data-[collapsible=icon]:sr-only">
-                            {item.title}
-                          </span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  )
-                })}
-              </SidebarMenu>
-            </SidebarGroup>
-          ))}
-        </nav>
+        {/* The active item depends on the URL; on dynamic routes it streams in after the
+            static shell, which shows the same menu without a highlight. */}
+        <Suspense fallback={<MainNav pathname={null} onNavigate={closeMobileDrawer} />}>
+          <CurrentMainNav onNavigate={closeMobileDrawer} />
+        </Suspense>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
+  )
+}
+
+function CurrentMainNav({ onNavigate }: { onNavigate: () => void }) {
+  return <MainNav pathname={usePathname()} onNavigate={onNavigate} />
+}
+
+function MainNav({ pathname, onNavigate }: { pathname: string | null; onNavigate: () => void }) {
+  return (
+    <nav aria-label="Main navigation">
+      {NAV_SECTIONS.map((section) => (
+        <SidebarGroup key={section.title} className="px-3 group-data-[collapsible=icon]:px-0">
+          <SidebarGroupLabel className="text-caption font-semibold tracking-wider text-muted-foreground uppercase">
+            {section.title}
+          </SidebarGroupLabel>
+          <SidebarMenu className="gap-0.5 group-data-[collapsible=icon]:items-center">
+            {section.items.map((item) => {
+              const active = pathname !== null && isRouteActive(pathname, item.href)
+              const Icon = item.icon
+              return (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={active}
+                    tooltip={item.title}
+                    className="h-10 gap-3 px-3 text-body-sm font-medium text-muted-foreground group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center hover:text-foreground data-active:bg-primary-subtle data-active:text-primary-subtle-foreground [&_svg]:size-[1.125rem]"
+                  >
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      onClick={onNavigate}
+                    >
+                      <Icon aria-hidden="true" />
+                      <span className="group-data-[collapsible=icon]:sr-only">{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+      ))}
+    </nav>
   )
 }

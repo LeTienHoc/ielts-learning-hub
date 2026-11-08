@@ -10,7 +10,7 @@ adapt to the tokens. Business-specific (IELTS/learning) components never go in `
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Actions    | `Button`, `IconButton`, `DropdownMenu`                                                                                               |
 | Forms      | `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Label`, `Field*`, `FormField` (`@/components/shared/form-field`) |
-| Navigation | `Sidebar*`, `Breadcrumb`, `Tabs`, `NavigationMenu`, `Pagination`; app shell in `@/components/layout`                                 |
+| Navigation | `Sidebar*`, `Breadcrumb`, `Tabs`, `NavigationMenu`, `Pagination`; app shell and `FocusShell` in `@/components/layout`                |
 | Feedback   | `Alert`, `Toaster` (sonner), `Tooltip`, `Progress`, `Skeleton`, `EmptyState` / `ErrorState` (`@/components/feedback`)                |
 | Overlays   | `Dialog`, `Sheet`, `Drawer`, `Popover`                                                                                               |
 | Data       | `Card`, `Badge`, `Avatar`, `Table`, `Separator`, `Empty`                                                                             |
@@ -40,6 +40,9 @@ variants `success`, `warning`, `info` (subtle background + emphasis text).
 **Card** — `size`: `default` (16px padding) or `sm` (12px). Uses `rounded-card`, a border and
 `shadow-subtle`. Parts: `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`,
 `CardContent`, `CardFooter`.
+
+`CardTitle` renders a `div`. When the title is a section heading, put a heading element inside
+it (`<CardTitle className="text-h4"><h2>…</h2></CardTitle>`) so the page outline stays correct.
 
 **Form controls** — 36px default height (`h-9`) for `Input` and `SelectTrigger` (`size="sm"` 32px)
 so they align with `Button`.
@@ -72,15 +75,32 @@ Route pages use `RoutePage` (title and description from `src/config/navigation.t
 `EmptyState` until real content exists. Never show fake statistics or scores.
 
 ```tsx
-export const metadata = routeMetadata("/reading")
+export const metadata = routeMetadata("/listening")
 
-export default function ReadingPage() {
+export default function ListeningPage() {
   return (
-    <RoutePage href="/reading">
-      <EmptyState icon={BookOpenText} title="No reading practice yet" description="…" />
+    <RoutePage href="/listening">
+      <EmptyState icon={Headphones} title="No listening practice yet" description="…" />
     </RoutePage>
   )
 }
+```
+
+### Focus mode
+
+Practice and test sessions use `FocusShell` (`@/components/layout/focus-shell`) inside the
+`(focus)` route group, which has no sidebar: a minimal top bar (exit link, title, a `status` slot
+such as a timer), the task area and a sticky `footer` for progress and submit.
+
+```tsx
+<FocusShell
+  title="Rooftop gardens"
+  exitHref="/reading/rooftop"
+  status={<Badge>Learn mode</Badge>}
+  footer={<Button>Submit</Button>}
+>
+  {/* passage and questions */}
+</FocusShell>
 ```
 
 ### Styling

@@ -18,13 +18,14 @@ Next.js App Router (src/app)
   ├─ (marketing)  public pages            "/"
   ├─ (auth)       sign-in/up, reset       /sign-in … /reset-password, /auth/confirm
   ├─ (app)        app shell + routes      /dashboard … /settings (sign-in required)
+  ├─ (focus)      focus mode, no sidebar  /reading/[setSlug]/attempt/[attemptId]
   └─ api/         route handlers          /api/health
         │
         ▼
-Feature modules (src/features/*)          auth, settings · planned: vocabulary, reading, …
+Feature modules (src/features/*)          auth, settings, practice, reading · planned: grammar, …
         │
         ▼
-Server adapters (src/server/*)            auth, database, activity · planned: ai, speech, storage
+Server adapters (src/server/*)            auth, database, activity, practice · planned: ai, speech, storage
         │
         ▼
 External providers                        Supabase (Postgres + Auth) · planned: Claude, STT/TTS
@@ -32,6 +33,10 @@ External providers                        Supabase (Postgres + Auth) · planned:
 
 Phase 0 implemented the routing layer, shared UI, configuration and design system. P1 adds
 Supabase, authentication and settings (see [ADR 0006](../decisions/0006-supabase-auth-platform.md)).
+P2 adds the content catalogue and the practice engine: scoring and deadlines run in Postgres
+functions, answer keys are never sent before submission, and `features/practice` holds the UI
+that Reading (and later Grammar and Listening) reuse (see
+[ADR 0007](../decisions/0007-content-and-practice-engine.md)).
 Feature modules and server adapters are introduced with the first feature that needs them (empty
 placeholder folders are intentionally not created).
 

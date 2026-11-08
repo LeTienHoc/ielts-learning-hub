@@ -1,0 +1,149 @@
+{
+  "slug": "reading-rooftop-gardens",
+  "title": "Rooftop gardens in growing cities",
+  "summary": "A short Academic-style passage about green roofs, with five common Reading question types.",
+  "level": "B1",
+  "topics": ["environment", "cities"],
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "module": "reading",
+  "testTimeLimitMinutes": 20,
+  "passage": {
+    "title": "Rooftop gardens in growing cities",
+    "text": "A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.\n\nB  The most frequently cited benefit is temperature control. A layer of vegetation shades the roof and releases moisture into the air, so the building beneath it stays cooler. Researchers in several Asian cities have measured roof surfaces that were more than twenty degrees cooler than nearby bare concrete on hot afternoons. Lower roof temperatures also reduce the energy needed for air conditioning on the top floors.\n\nC  Green roofs also help with water. Instead of rushing straight into drains, rain is absorbed by the soil and released slowly over several hours. In neighbourhoods where old drainage systems flood after heavy storms, this delay can make a noticeable difference. Some of the water evaporates, while the rest reaches the drains after the peak of the storm has passed.\n\nD  Not every roof is suitable. Soil becomes extremely heavy when it is wet, and older buildings may need structural reinforcement before any planting begins. Installation costs are therefore higher than for a conventional roof, and owners must also budget for regular maintenance, including weeding and the repair of waterproof layers.\n\nE  City governments have tried different ways of encouraging the idea. Some offer tax reductions to owners who install green roofs, while others have made them compulsory on large new commercial buildings. Supporters argue that the long-term savings on energy and flood damage justify the public cost, although critics point out that the benefits are hard to measure for individual buildings."
+  },
+  "groups": [
+    {
+      "type": "matching_headings",
+      "instructions": "The passage has five paragraphs, A–E. Choose the correct heading for paragraphs B–D from the list of headings.",
+      "options": [
+        { "id": "i", "text": "The financial and physical limits of rooftop planting" },
+        { "id": "ii", "text": "Slowing the flow of rainwater" },
+        { "id": "iii", "text": "A cooler building in hot weather" },
+        { "id": "iv", "text": "Why residents prefer rooftop parks" },
+        { "id": "v", "text": "Choosing plants for a dry climate" }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "prompt": "Paragraph B",
+          "accepted": ["iii"],
+          "explanation": "Paragraph B is about temperature: vegetation shades the roof and keeps the building cooler.",
+          "explanationVi": "Đoạn B nói về nhiệt độ: lớp cây che bóng cho mái và giúp tòa nhà mát hơn.",
+          "evidence": "The most frequently cited benefit is temperature control."
+        },
+        {
+          "number": 2,
+          "prompt": "Paragraph C",
+          "accepted": ["ii"],
+          "explanation": "Paragraph C explains that soil absorbs rain and releases it slowly, so water reaches drains later.",
+          "explanationVi": "Đoạn C giải thích đất hấp thụ nước mưa và thải ra từ từ, nên nước xuống cống chậm hơn.",
+          "evidence": "rain is absorbed by the soil and released slowly over several hours"
+        },
+        {
+          "number": 3,
+          "prompt": "Paragraph D",
+          "accepted": ["i"],
+          "explanation": "Paragraph D lists the limits: heavy wet soil, reinforcement for older buildings and higher costs.",
+          "explanationVi": "Đoạn D nêu các hạn chế: đất ướt rất nặng, nhà cũ cần gia cố và chi phí cao hơn.",
+          "evidence": "Not every roof is suitable."
+        }
+      ]
+    },
+    {
+      "type": "true_false_not_given",
+      "instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE or NOT GIVEN.",
+      "questions": [
+        {
+          "number": 4,
+          "prompt": "Flat roofs in growing cities are often visited by members of the public.",
+          "accepted": ["FALSE"],
+          "explanation": "The passage says flat roofs are rarely visited by anyone except maintenance workers, which contradicts the statement.",
+          "explanationVi": "Bài đọc nói mái bằng hiếm khi có ai lên ngoài thợ bảo trì, trái với nhận định.",
+          "evidence": "are rarely visited by anyone except maintenance workers"
+        },
+        {
+          "number": 5,
+          "prompt": "Green roofs were first introduced in Asian cities.",
+          "accepted": ["NOT_GIVEN"],
+          "explanation": "Asian cities are mentioned only as places where temperatures were measured. The passage does not say where green roofs began.",
+          "explanationVi": "Các thành phố châu Á chỉ được nhắc đến là nơi đo nhiệt độ. Bài không nói mái xanh bắt nguồn từ đâu."
+        },
+        {
+          "number": 6,
+          "prompt": "Some cities require green roofs on certain new buildings.",
+          "accepted": ["TRUE"],
+          "explanation": "Some governments have made green roofs compulsory on large new commercial buildings.",
+          "explanationVi": "Một số chính quyền đã bắt buộc mái xanh với các tòa nhà thương mại lớn xây mới.",
+          "evidence": "others have made them compulsory on large new commercial buildings"
+        }
+      ]
+    },
+    {
+      "type": "sentence_completion",
+      "instructions": "Complete the sentences. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+      "questions": [
+        {
+          "number": 7,
+          "prompt": "Vegetation keeps a building cooler by providing shade and releasing ______ into the air.",
+          "accepted": ["moisture"],
+          "maxWords": 2,
+          "explanation": "The passage says vegetation releases moisture into the air.",
+          "explanationVi": "Bài đọc nói lớp cây thải hơi ẩm (moisture) vào không khí.",
+          "evidence": "releases moisture into the air"
+        },
+        {
+          "number": 8,
+          "prompt": "Before planting, older buildings may need ______.",
+          "accepted": ["structural reinforcement", "reinforcement"],
+          "maxWords": 2,
+          "explanation": "Older buildings may need structural reinforcement before any planting begins.",
+          "explanationVi": "Nhà cũ có thể cần gia cố kết cấu (structural reinforcement) trước khi trồng cây.",
+          "evidence": "older buildings may need structural reinforcement"
+        }
+      ]
+    },
+    {
+      "type": "multiple_choice_multi",
+      "instructions": "Choose TWO letters, A–E.",
+      "questions": [
+        {
+          "number": 9,
+          "prompt": "Which TWO ongoing costs of green roofs does the writer mention?",
+          "options": [
+            { "id": "A", "text": "insurance for the building" },
+            { "id": "B", "text": "regular weeding" },
+            { "id": "C", "text": "replacing all windows" },
+            { "id": "D", "text": "repairing waterproof layers" },
+            { "id": "E", "text": "training maintenance staff" }
+          ],
+          "accepted": ["B", "D"],
+          "explanation": "Maintenance includes weeding and the repair of waterproof layers. The other costs are not mentioned.",
+          "explanationVi": "Chi phí bảo trì gồm làm cỏ và sửa lớp chống thấm. Các chi phí khác không được nhắc đến.",
+          "evidence": "including weeding and the repair of waterproof layers"
+        }
+      ]
+    },
+    {
+      "type": "multiple_choice",
+      "instructions": "Choose the correct letter, A, B, C or D.",
+      "questions": [
+        {
+          "number": 10,
+          "prompt": "What do critics say about green roofs?",
+          "options": [
+            { "id": "A", "text": "They use too much water." },
+            { "id": "B", "text": "Their benefits are difficult to measure for single buildings." },
+            { "id": "C", "text": "They are too expensive for governments." },
+            { "id": "D", "text": "They make buildings too heavy." }
+          ],
+          "accepted": ["B"],
+          "explanation": "Critics point out that the benefits are hard to measure for individual buildings.",
+          "explanationVi": "Những người phản đối cho rằng lợi ích khó đo lường với từng tòa nhà riêng lẻ.",
+          "evidence": "the benefits are hard to measure for individual buildings"
+        }
+      ]
+    }
+  ]
+}

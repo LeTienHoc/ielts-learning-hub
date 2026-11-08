@@ -12,6 +12,9 @@ vi.mock("@/features/settings", () => ({
   ProfileSection: () => <p>Profile section</p>,
   DeleteAccountDialog: () => <button type="button">Delete account</button>,
 }))
+vi.mock("@/features/reading", () => ({
+  ReadingLibrary: () => <p>Reading library</p>,
+}))
 
 describe("route pages", () => {
   it("renders the dashboard with its title and an empty state, not fake data", () => {
@@ -26,6 +29,7 @@ describe("route pages", () => {
     expect(
       screen.getByText("Practise IELTS Reading passages and question types."),
     ).toBeInTheDocument()
+    expect(screen.getByText("Reading library")).toBeInTheDocument()
   })
 
   it("renders the settings sections", () => {

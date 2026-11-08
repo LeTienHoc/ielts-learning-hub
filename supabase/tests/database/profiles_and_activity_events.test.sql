@@ -52,7 +52,7 @@ select throws_ok(
 
 select lives_ok(
   $$ insert into public.activity_events (type, module, ref_type, ref_id)
-     values ('attempt.submitted', 'reading', 'practice_set', 'set-1') $$,
+     values ('passage.word_saved', 'reading', 'practice_set', 'set-1') $$,
   'learner can append their own event (user_id defaults to auth.uid())');
 select throws_ok(
   $$ insert into public.activity_events (user_id, type, module)

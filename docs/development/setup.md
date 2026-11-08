@@ -41,6 +41,16 @@ The app needs a Supabase project. For development, use the local stack from the 
 | `pnpm db:test`              | Run the pgTAP tests in `supabase/tests/database`                                                |
 | `pnpm db:types`             | Regenerate `src/server/database/database.types.ts`                                              |
 | `pnpm env:local`            | Write `.env.local` (URL, publishable key, Mailpit URL); never prints keys. `--force` overwrites |
+| `pnpm content:seed`         | Validate `content/practice-sets/*.json` and regenerate `supabase/seed.sql`                      |
+
+### Practice content
+
+Practice sets are JSON files in `content/practice-sets/`. Their format is
+`practiceSetSourceSchema` in `src/lib/content/practice-set-schema.ts`. After adding or editing a
+file, run `pnpm content:seed`, then `pnpm db:reset`. The script reports invalid fields per file.
+`evidence` must be an exact quote that appears once in the passage. Only sets with
+`"reviewStatus": "published"` are visible to learners. Real content must be reviewed by a person
+before it is published (decision D-04). `supabase/seed.sql` is generated; do not edit it by hand.
 
 Schema changes go in a new migration (`pnpm supabase migration new <name>`), with RLS
 policies and pgTAP tests. Then run `pnpm db:reset`, `pnpm db:test` and `pnpm db:types`.

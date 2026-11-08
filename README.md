@@ -4,10 +4,14 @@ A personalised English and IELTS learning SaaS for individual learners: structur
 grammar and vocabulary, practice for all four IELTS skills, an AI personal tutor and progress
 analytics.
 
-> **Status: P1 — platform (in progress).** Phase 0 (architecture, design system, app shell,
-> route placeholders, tooling, tests) is complete. P1 adds Supabase (profiles, activity events,
-> RLS), email sign-up / sign-in / password reset, protected routes, and profile and account
-> deletion in Settings. Google sign-in, learning features and AI are not implemented yet.
+> **Status: P2 — content & practice engine.**
+>
+> - **Phase 0** (architecture, design system, app shell, tooling, tests) is complete.
+> - **P1** added Supabase, email authentication and Settings.
+> - **P2** adds the content catalogue, a server-side practice engine (attempts, autosave,
+>   timer, scoring, explanations) and a first Reading practice flow with one local sample set.
+>
+> Google sign-in, Grammar, Vocabulary, Writing, Speaking and AI are not implemented yet.
 
 ## Technology stack
 
@@ -43,23 +47,24 @@ pnpm dev              # http://localhost:3000
 
 ## Commands
 
-| Command                                   | What it does                                                             |
-| ----------------------------------------- | ------------------------------------------------------------------------ |
-| `pnpm dev`                                | Start the development server                                             |
-| `pnpm build`                              | Production build                                                         |
-| `pnpm start`                              | Serve the production build                                               |
-| `pnpm lint`                               | ESLint (includes architecture import rules)                              |
-| `pnpm typecheck`                          | Generate Next.js route types, then `tsc --noEmit`                        |
-| `pnpm format`                             | Format all files with Prettier                                           |
-| `pnpm format:check`                       | Check formatting (CI)                                                    |
-| `pnpm test`                               | Unit and integration tests (Vitest, single run)                          |
-| `pnpm test:watch`                         | Vitest in watch mode                                                     |
-| `pnpm test:e2e`                           | Playwright end-to-end tests (builds and starts the app on :3100)         |
-| `pnpm db:start` / `db:stop` / `db:status` | Start, stop or inspect the local Supabase stack                          |
-| `pnpm db:reset`                           | Recreate the local database from `supabase/migrations`                   |
-| `pnpm db:test`                            | Database tests (pgTAP, `supabase/tests/database`)                        |
-| `pnpm db:types`                           | Regenerate `src/server/database/database.types.ts`                       |
-| `pnpm env:local`                          | Write `.env.local` from the running local stack (`--force` to overwrite) |
+| Command                                   | What it does                                                                                 |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `pnpm dev`                                | Start the development server                                                                 |
+| `pnpm build`                              | Production build                                                                             |
+| `pnpm start`                              | Serve the production build                                                                   |
+| `pnpm lint`                               | ESLint (includes architecture import rules)                                                  |
+| `pnpm typecheck`                          | Generate Next.js route types, then `tsc --noEmit`                                            |
+| `pnpm format`                             | Format all files with Prettier                                                               |
+| `pnpm format:check`                       | Check formatting (CI)                                                                        |
+| `pnpm test`                               | Unit and integration tests (Vitest, single run)                                              |
+| `pnpm test:watch`                         | Vitest in watch mode                                                                         |
+| `pnpm test:e2e`                           | Playwright end-to-end tests (builds and starts the app on :3100)                             |
+| `pnpm db:start` / `db:stop` / `db:status` | Start, stop or inspect the local Supabase stack                                              |
+| `pnpm db:reset`                           | Recreate the local database from `supabase/migrations`                                       |
+| `pnpm db:test`                            | Database tests (pgTAP, `supabase/tests/database`)                                            |
+| `pnpm db:types`                           | Regenerate `src/server/database/database.types.ts`                                           |
+| `pnpm env:local`                          | Write `.env.local` from the running local stack (`--force` to overwrite)                     |
+| `pnpm content:seed`                       | Validate `content/practice-sets/*.json` and write `supabase/seed.sql` (then `pnpm db:reset`) |
 
 First E2E run: `pnpm exec playwright install chromium`. E2E tests need the local Supabase stack
 and `.env.local`.

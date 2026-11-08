@@ -40,6 +40,182 @@ export type Database = {
         }
         Relationships: []
       }
+      attempt_answers: {
+        Row: {
+          attempt_id: string
+          is_correct: boolean | null
+          points: number | null
+          question_id: string
+          response: NonNullable<Json>
+          updated_at: string
+        }
+        ComputedFields: never
+        Insert: {
+          attempt_id: string
+          is_correct?: boolean | null
+          points?: number | null
+          question_id: string
+          response?: NonNullable<Json>
+          updated_at?: string
+        }
+        Update: {
+          attempt_id?: string
+          is_correct?: boolean | null
+          points?: number | null
+          question_id?: string
+          response?: NonNullable<Json>
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attempt_answers_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attempt_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attempts: {
+        Row: {
+          content_version: number
+          deadline_at: string | null
+          id: string
+          max_score: number | null
+          mode: string
+          practice_set_id: string
+          score: number | null
+          started_at: string
+          status: string
+          submit_reason: string | null
+          submitted_at: string | null
+          user_id: string
+        }
+        ComputedFields: never
+        Insert: {
+          content_version: number
+          deadline_at?: string | null
+          id?: string
+          max_score?: number | null
+          mode: string
+          practice_set_id: string
+          score?: number | null
+          started_at?: string
+          status?: string
+          submit_reason?: string | null
+          submitted_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content_version?: number
+          deadline_at?: string | null
+          id?: string
+          max_score?: number | null
+          mode?: string
+          practice_set_id?: string
+          score?: number | null
+          started_at?: string
+          status?: string
+          submit_reason?: string | null
+          submitted_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attempts_practice_set_id_fkey"
+            columns: ["practice_set_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_items: {
+        Row: {
+          created_at: string
+          id: string
+          level: string
+          review_status: string
+          slug: string
+          source: string
+          summary: string | null
+          title: string
+          topics: string[]
+          type: string
+          updated_at: string
+          version: number
+        }
+        ComputedFields: never
+        Insert: {
+          created_at?: string
+          id: string
+          level: string
+          review_status?: string
+          slug: string
+          source: string
+          summary?: string | null
+          title: string
+          topics?: string[]
+          type: string
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          level?: string
+          review_status?: string
+          slug?: string
+          source?: string
+          summary?: string | null
+          title?: string
+          topics?: string[]
+          type?: string
+          updated_at?: string
+          version?: number
+        }
+        Relationships: []
+      }
+      practice_sets: {
+        Row: {
+          id: string
+          module: string
+          passage_text: string | null
+          passage_title: string | null
+          test_time_limit_seconds: number | null
+        }
+        ComputedFields: never
+        Insert: {
+          id: string
+          module: string
+          passage_text?: string | null
+          passage_title?: string | null
+          test_time_limit_seconds?: number | null
+        }
+        Update: {
+          id?: string
+          module?: string
+          passage_text?: string | null
+          passage_title?: string | null
+          test_time_limit_seconds?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_sets_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -71,12 +247,159 @@ export type Database = {
         }
         Relationships: []
       }
+      question_groups: {
+        Row: {
+          id: string
+          instructions: string
+          options: Json | null
+          position: number
+          practice_set_id: string
+          question_type: string
+        }
+        ComputedFields: never
+        Insert: {
+          id: string
+          instructions: string
+          options?: Json | null
+          position: number
+          practice_set_id: string
+          question_type: string
+        }
+        Update: {
+          id?: string
+          instructions?: string
+          options?: Json | null
+          position?: number
+          practice_set_id?: string
+          question_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_groups_practice_set_id_fkey"
+            columns: ["practice_set_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      question_keys: {
+        Row: {
+          accepted: NonNullable<Json>
+          evidence_end: number | null
+          evidence_start: number | null
+          explanation: string
+          explanation_vi: string | null
+          question_id: string
+        }
+        ComputedFields: never
+        Insert: {
+          accepted: NonNullable<Json>
+          evidence_end?: number | null
+          evidence_start?: number | null
+          explanation: string
+          explanation_vi?: string | null
+          question_id: string
+        }
+        Update: {
+          accepted?: NonNullable<Json>
+          evidence_end?: number | null
+          evidence_start?: number | null
+          explanation?: string
+          explanation_vi?: string | null
+          question_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_keys_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: true
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      questions: {
+        Row: {
+          group_id: string
+          id: string
+          max_words: number | null
+          number: number
+          options: Json | null
+          position: number
+          practice_set_id: string
+          prompt: string
+          response_kind: string
+          select_count: number | null
+        }
+        ComputedFields: never
+        Insert: {
+          group_id: string
+          id: string
+          max_words?: number | null
+          number: number
+          options?: Json | null
+          position: number
+          practice_set_id: string
+          prompt: string
+          response_kind: string
+          select_count?: number | null
+        }
+        Update: {
+          group_id?: string
+          id?: string
+          max_words?: number | null
+          number?: number
+          options?: Json | null
+          position?: number
+          practice_set_id?: string
+          prompt?: string
+          response_kind?: string
+          select_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "question_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "questions_practice_set_id_fkey"
+            columns: ["practice_set_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       delete_current_user: { Args: Record<PropertyKey, never>; Returns: undefined }
+      finalize_attempt: { Args: { reason: string; target_attempt_id: string }; Returns: undefined }
+      get_attempt_review: {
+        Args: { target_attempt_id: string }
+        Returns: {
+          accepted: Json
+          evidence_end: number
+          evidence_start: number
+          explanation: string
+          explanation_vi: string
+          question_id: string
+        }[]
+      }
+      is_published_practice_set: { Args: { set_id: string }; Returns: boolean }
+      normalize_text_answer: { Args: { value: string }; Returns: string }
+      save_answer: {
+        Args: { answer: Json; target_attempt_id: string; target_question_id: string }
+        Returns: undefined
+      }
+      start_attempt: { Args: { attempt_mode: string; target_set_id: string }; Returns: string }
+      submit_attempt: { Args: { target_attempt_id: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never

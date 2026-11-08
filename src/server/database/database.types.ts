@@ -223,27 +223,101 @@ export type Database = {
           },
         ]
       }
+      practice_set_passages: {
+        Row: {
+          id: string
+          position: number
+          practice_set_id: string
+          text: string
+          title: string | null
+        }
+        ComputedFields: never
+        Insert: {
+          id?: string
+          position: number
+          practice_set_id: string
+          text: string
+          title?: string | null
+        }
+        Update: {
+          id?: string
+          position?: number
+          practice_set_id?: string
+          text?: string
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_set_passages_practice_set_id_fkey"
+            columns: ["practice_set_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      practice_set_words: {
+        Row: {
+          form: string
+          passage_id: string
+          practice_set_id: string
+          word_id: string
+        }
+        ComputedFields: never
+        Insert: {
+          form: string
+          passage_id: string
+          practice_set_id: string
+          word_id: string
+        }
+        Update: {
+          form?: string
+          passage_id?: string
+          practice_set_id?: string
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_set_words_passage_id_fkey"
+            columns: ["passage_id"]
+            isOneToOne: false
+            referencedRelation: "practice_set_passages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "practice_set_words_practice_set_id_fkey"
+            columns: ["practice_set_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "practice_set_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       practice_sets: {
         Row: {
           id: string
+          kind: string
           module: string
-          passage_text: string | null
-          passage_title: string | null
           test_time_limit_seconds: number | null
         }
         ComputedFields: never
         Insert: {
           id: string
+          kind?: string
           module: string
-          passage_text?: string | null
-          passage_title?: string | null
           test_time_limit_seconds?: number | null
         }
         Update: {
           id?: string
+          kind?: string
           module?: string
-          passage_text?: string | null
-          passage_title?: string | null
           test_time_limit_seconds?: number | null
         }
         Relationships: [
@@ -295,6 +369,7 @@ export type Database = {
           id: string
           instructions: string
           options: Json | null
+          passage_id: string | null
           position: number
           practice_set_id: string
           question_type: string
@@ -304,6 +379,7 @@ export type Database = {
           id: string
           instructions: string
           options?: Json | null
+          passage_id?: string | null
           position: number
           practice_set_id: string
           question_type: string
@@ -312,11 +388,19 @@ export type Database = {
           id?: string
           instructions?: string
           options?: Json | null
+          passage_id?: string | null
           position?: number
           practice_set_id?: string
           question_type?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "question_groups_passage_id_fkey"
+            columns: ["passage_id"]
+            isOneToOne: false
+            referencedRelation: "practice_set_passages"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "question_groups_practice_set_id_fkey"
             columns: ["practice_set_id"]

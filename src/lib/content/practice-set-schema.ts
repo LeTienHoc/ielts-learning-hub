@@ -2,29 +2,23 @@ import { z } from "zod"
 
 // Content authoring format for practice sets (content/practice-sets/*.json) and the shared
 // constants the app uses to render them. Mirrors the CHECK constraints in
-// supabase/migrations/20261108100000_content_and_practice_engine.sql.
-// This file must import only external packages: scripts/build-content-seed.mts runs it in Node.
+// supabase/migrations/20261108100000_content_and_practice_engine.sql and 20261110100000_reading_passages.sql.
+// Imported by Node scripts: external packages and sibling files with their `.ts` extension only.
+import {
+  CONTENT_LEVELS,
+  CONTENT_SOURCES,
+  CONTENT_TOPICS,
+  REVIEW_STATUSES,
+  type ContentLevel,
+  type ContentTopic,
+} from "./catalogue.ts"
+import { wordSourceSchema } from "./vocabulary-schema.ts"
 
-export const CONTENT_LEVELS = ["A2", "B1", "B2", "C1"] as const
-export const CONTENT_TOPICS = [
-  "education",
-  "environment",
-  "technology",
-  "health",
-  "work",
-  "society",
-  "culture",
-  "media",
-  "cities",
-  "science",
-] as const
-export const CONTENT_SOURCES = ["original", "licensed", "ai_assisted"] as const
-export const REVIEW_STATUSES = ["draft", "reviewed", "published"] as const
+export { CONTENT_LEVELS, CONTENT_SOURCES, CONTENT_TOPICS, REVIEW_STATUSES }
+export type { ContentLevel, ContentTopic }
 export const PRACTICE_MODULES = ["reading", "listening", "grammar"] as const
 export const RESPONSE_KINDS = ["single", "multiple", "text"] as const
 
-export type ContentLevel = (typeof CONTENT_LEVELS)[number]
-export type ContentTopic = (typeof CONTENT_TOPICS)[number]
 export type PracticeModule = (typeof PRACTICE_MODULES)[number]
 export type ResponseKind = (typeof RESPONSE_KINDS)[number]
 
@@ -133,8 +127,29 @@ const groupSchema = z.object({
   type: z.enum(QUESTION_TYPES),
   instructions: z.string().min(1).max(1000),
   options: optionsSchema.optional(),
+  /** 1-based passage this group belongs to (default 1 when the set has passages). */
+  passage: z.int().min(1).max(3).optional(),
   questions: z.array(questionSchema).min(1).max(40),
 })
+
+/** A word underlined in a passage; `form` is its exact text in the passage (first occurrence). */
+const keyWordSchema = z.object({ form: z.string().min(1).max(80), word: wordSourceSchema })
+
+const passageSchema = z.object({
+  title: z.string().min(1).max(200),
+  text: z.string().min(1).max(20000),
+  keyWords: z.array(keyWordSchema).max(12).default([]),
+})
+
+export const PRACTICE_SET_KINDS = ["practice", "full_test"] as const
+export type PracticeSetKind = (typeof PRACTICE_SET_KINDS)[number]
+/** A full IELTS Academic Reading test. */
+export const FULL_TEST = { passages: 3, marks: 40, minutes: 60 } as const
+
+/** Marks of a question: one per question, or one per accepted option for multi-answer. */
+export function questionMarks(type: QuestionType, accepted: readonly string[]): number {
+  return QUESTION_TYPE_RESPONSE_KIND[type] === "multiple" ? accepted.length : 1
+}
 
 export const practiceSetSourceSchema = z
   .object({
@@ -150,11 +165,10 @@ export const practiceSetSourceSchema = z
     reviewStatus: z.enum(REVIEW_STATUSES),
     version: z.int().min(1).default(1),
     module: z.enum(PRACTICE_MODULES),
+    kind: z.enum(PRACTICE_SET_KINDS).default("practice"),
     /** Offers test mode with this time limit; omit for learn-only sets. */
     testTimeLimitMinutes: z.int().min(1).max(120).optional(),
-    passage: z
-      .object({ title: z.string().min(1).max(200), text: z.string().min(1).max(20000) })
-      .optional(),
+    passages: z.array(passageSchema).max(3).default([]),
     groups: z.array(groupSchema).min(1).max(20),
   })
   .superRefine((set, context) => {
@@ -244,8 +258,49 @@ export const practiceSetSourceSchema = z
     })
 
     if (set.groups.some((group) => group.questions.some((question) => question.evidence))) {
-      if (!set.passage) {
+      if (set.passages.length === 0) {
         context.addIssue({ code: "custom", message: "Evidence quotes need a passage" })
+      }
+    }
+
+    set.groups.forEach((group, groupIndex) => {
+      if (group.passage !== undefined && group.passage > set.passages.length) {
+        context.addIssue({
+          code: "custom",
+          message: `Group ${groupIndex + 1} refers to passage ${group.passage}, which does not exist`,
+        })
+      }
+    })
+
+    set.passages.forEach((passage, passageIndex) => {
+      for (const keyWord of passage.keyWords) {
+        if (!passage.text.includes(keyWord.form)) {
+          context.addIssue({
+            code: "custom",
+            message: `Key word "${keyWord.form}" is not in passage ${passageIndex + 1}`,
+          })
+        }
+      }
+    })
+
+    if (set.kind === "full_test") {
+      if (set.passages.length !== FULL_TEST.passages) {
+        context.addIssue({ code: "custom", message: "A full test needs 3 passages" })
+      }
+      const marks = set.groups.reduce(
+        (total, group) =>
+          total +
+          group.questions.reduce(
+            (sum, question) => sum + questionMarks(group.type, question.accepted),
+            0,
+          ),
+        0,
+      )
+      if (marks !== FULL_TEST.marks) {
+        context.addIssue({ code: "custom", message: `A full test has 40 marks (found ${marks})` })
+      }
+      if (set.testTimeLimitMinutes !== FULL_TEST.minutes) {
+        context.addIssue({ code: "custom", message: "A full test takes 60 minutes in test mode" })
       }
     }
   })

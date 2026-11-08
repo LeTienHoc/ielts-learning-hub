@@ -69,14 +69,24 @@ values (${[
       sql(set.reviewStatus),
       sql(set.version),
     ].join(", ")});`,
-    `insert into public.practice_sets (id, module, test_time_limit_seconds, passage_title, passage_text)
+    `insert into public.practice_sets (id, module, kind, test_time_limit_seconds)
 values (${[
       sql(setId),
       sql(set.module),
+      sql(set.kind),
       sql(set.testTimeLimitMinutes === undefined ? null : set.testTimeLimitMinutes * 60),
-      sql(set.passage?.title),
-      sql(set.passage?.text),
     ].join(", ")});`,
+    ...set.passages.map(
+      (passage, index) =>
+        `insert into public.practice_set_passages (id, practice_set_id, position, title, text)
+values (${[
+          sql(passageId(set.slug, index + 1)),
+          sql(setId),
+          sql(index + 1),
+          sql(passage.title),
+          sql(passage.text),
+        ].join(", ")});`,
+    ),
   ]
 
   set.groups.forEach((group, groupIndex) => {
@@ -84,12 +94,16 @@ values (${[
     const kind = QUESTION_TYPE_RESPONSE_KIND[group.type]
     const groupOptions =
       group.options ?? (kind === "text" ? undefined : DEFAULT_TYPE_OPTIONS[group.type])
+    // Groups belong to passage 1 unless they say otherwise; evidence is located in that passage.
+    const passageNumber = group.passage ?? 1
+    const passage = set.passages[passageNumber - 1]
 
     statements.push(
-      `insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
+      `insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
 values (${[
         sql(groupId),
         sql(setId),
+        sql(passage ? passageId(set.slug, passageNumber) : null),
         sql(groupIndex + 1),
         sql(group.type),
         sql(group.instructions),
@@ -100,9 +114,7 @@ values (${[
     group.questions.forEach((question, questionIndex) => {
       const questionId = contentUuid(`practice-set:${set.slug}:question:${question.number}`)
       const evidence =
-        question.evidence && set.passage
-          ? locateEvidence(set.passage.text, question.evidence)
-          : undefined
+        question.evidence && passage ? locateEvidence(passage.text, question.evidence) : undefined
       // Spot the mistake: the words of the sentence are the options; the key is the wrong word.
       const tokens =
         group.type === "error_correction" ? tokenizeSentence(question.prompt) : undefined
@@ -142,6 +154,25 @@ values (${[
   })
 
   return statements.join("\n")
+}
+
+const passageId = (slug: string, position: number) =>
+  contentUuid(`practice-set:${slug}:passage:${position}`)
+
+/** Links a set's passage key words (inserted with the other words) to their passages. */
+export function buildPracticeSetKeyWordsSql(set: PracticeSetSource): string[] {
+  const setId = contentUuid(`practice-set:${set.slug}`)
+  return set.passages.flatMap((passage, index) =>
+    passage.keyWords.map(
+      (keyWord) =>
+        `insert into public.practice_set_words (practice_set_id, word_id, passage_id, form) values (${[
+          sql(setId),
+          sql(contentUuid(`word:${keyWord.word.slug}`)),
+          sql(passageId(set.slug, index + 1)),
+          sql(keyWord.form),
+        ].join(", ")});`,
+    ),
+  )
 }
 
 /** A catalogue row shared by every content type. */
@@ -241,14 +272,18 @@ export function buildSeedSql(input: {
 
   // A word may appear in several sets; it is inserted once and must be defined identically.
   const words = new Map<string, WordSource>()
-  for (const set of input.vocabularySets) {
-    for (const word of set.words) {
-      const existing = words.get(word.slug)
-      if (existing && !sameDefinition(existing, word)) {
-        throw new Error(`Conflicting definitions for word "${word.slug}"`)
-      }
-      words.set(word.slug, word)
+  const allWords = [
+    ...input.vocabularySets.flatMap((set) => set.words),
+    ...input.practiceSets.flatMap((set) =>
+      set.passages.flatMap((passage) => passage.keyWords.map((keyWord) => keyWord.word)),
+    ),
+  ]
+  for (const word of allWords) {
+    const existing = words.get(word.slug)
+    if (existing && !sameDefinition(existing, word)) {
+      throw new Error(`Conflicting definitions for word "${word.slug}"`)
     }
+    words.set(word.slug, word)
   }
 
   const bySlug = <T extends { slug: string }>(items: readonly T[]) =>
@@ -259,6 +294,8 @@ export function buildSeedSql(input: {
     ...bySlug([...words.values()]).map((word) => buildWordSql(word)),
     ...bySlug(input.vocabularySets).map((set) => buildVocabularySetSql(set)),
     ...bySlug(input.grammarTopics).map((topic) => buildGrammarTopicSql(topic)),
+    // Key word links need both the sets and the words above.
+    ...bySlug(input.practiceSets).flatMap((set) => buildPracticeSetKeyWordsSql(set)),
   ]
 
   const header = [

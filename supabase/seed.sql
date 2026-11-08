@@ -5,8 +5,10 @@ begin;
 -- reading-rooftop-gardens (published, v1)
 insert into public.content_items (id, type, slug, title, summary, level, topics, source, review_status, version)
 values ('f7452056-ef2c-57b1-8361-2b57400b350f', 'practice_set', 'reading-rooftop-gardens', 'Rooftop gardens in growing cities', 'A short Academic-style passage about green roofs, with five common Reading question types.', 'B1', array['environment', 'cities']::text[], 'ai_assisted', 'published', 1);
-insert into public.practice_sets (id, module, test_time_limit_seconds, passage_title, passage_text)
-values ('f7452056-ef2c-57b1-8361-2b57400b350f', 'reading', 1200, 'Rooftop gardens in growing cities', 'A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.
+insert into public.practice_sets (id, module, kind, test_time_limit_seconds)
+values ('f7452056-ef2c-57b1-8361-2b57400b350f', 'reading', 'practice', 1200);
+insert into public.practice_set_passages (id, practice_set_id, position, title, text)
+values ('4f37a364-066a-5480-9a48-506111468137', 'f7452056-ef2c-57b1-8361-2b57400b350f', 1, 'Rooftop gardens in growing cities', 'A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.
 
 B  The most frequently cited benefit is temperature control. A layer of vegetation shades the roof and releases moisture into the air, so the building beneath it stays cooler. Researchers in several Asian cities have measured roof surfaces that were more than twenty degrees cooler than nearby bare concrete on hot afternoons. Lower roof temperatures also reduce the energy needed for air conditioning on the top floors.
 
@@ -15,8 +17,8 @@ C  Green roofs also help with water. Instead of rushing straight into drains, ra
 D  Not every roof is suitable. Soil becomes extremely heavy when it is wet, and older buildings may need structural reinforcement before any planting begins. Installation costs are therefore higher than for a conventional roof, and owners must also budget for regular maintenance, including weeding and the repair of waterproof layers.
 
 E  City governments have tried different ways of encouraging the idea. Some offer tax reductions to owners who install green roofs, while others have made them compulsory on large new commercial buildings. Supporters argue that the long-term savings on energy and flood damage justify the public cost, although critics point out that the benefits are hard to measure for individual buildings.');
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('6492a480-3be8-5fe9-9504-755ac5a70330', 'f7452056-ef2c-57b1-8361-2b57400b350f', 1, 'matching_headings', 'The passage has five paragraphs, A–E. Choose the correct heading for paragraphs B–D from the list of headings.', '[{"id":"i","text":"The financial and physical limits of rooftop planting"},{"id":"ii","text":"Slowing the flow of rainwater"},{"id":"iii","text":"A cooler building in hot weather"},{"id":"iv","text":"Why residents prefer rooftop parks"},{"id":"v","text":"Choosing plants for a dry climate"}]'::jsonb);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('6492a480-3be8-5fe9-9504-755ac5a70330', 'f7452056-ef2c-57b1-8361-2b57400b350f', '4f37a364-066a-5480-9a48-506111468137', 1, 'matching_headings', 'The passage has five paragraphs, A–E. Choose the correct heading for paragraphs B–D from the list of headings.', '[{"id":"i","text":"The financial and physical limits of rooftop planting"},{"id":"ii","text":"Slowing the flow of rainwater"},{"id":"iii","text":"A cooler building in hot weather"},{"id":"iv","text":"Why residents prefer rooftop parks"},{"id":"v","text":"Choosing plants for a dry climate"}]'::jsonb);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('661ea383-2bc1-5584-b952-edb88bb80c0a', 'f7452056-ef2c-57b1-8361-2b57400b350f', '6492a480-3be8-5fe9-9504-755ac5a70330', 1, 1, 'Paragraph B', null, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -29,8 +31,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('3f1242bb-267c-51d5-91a9-81ba0900c676', 'f7452056-ef2c-57b1-8361-2b57400b350f', '6492a480-3be8-5fe9-9504-755ac5a70330', 3, 3, 'Paragraph D', null, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('3f1242bb-267c-51d5-91a9-81ba0900c676', '["i"]'::jsonb, 'Paragraph D lists the limits: heavy wet soil, reinforcement for older buildings and higher costs.', 'Đoạn D nêu các hạn chế: đất ướt rất nặng, nhà cũ cần gia cố và chi phí cao hơn.', 1134, 1161, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('6cbefb78-e910-5458-b1b1-f92716a55dda', 'f7452056-ef2c-57b1-8361-2b57400b350f', 2, 'true_false_not_given', 'Do the following statements agree with the information in the passage? Choose TRUE, FALSE or NOT GIVEN.', '[{"id":"TRUE","text":"TRUE"},{"id":"FALSE","text":"FALSE"},{"id":"NOT_GIVEN","text":"NOT GIVEN"}]'::jsonb);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('6cbefb78-e910-5458-b1b1-f92716a55dda', 'f7452056-ef2c-57b1-8361-2b57400b350f', '4f37a364-066a-5480-9a48-506111468137', 2, 'true_false_not_given', 'Do the following statements agree with the information in the passage? Choose TRUE, FALSE or NOT GIVEN.', '[{"id":"TRUE","text":"TRUE"},{"id":"FALSE","text":"FALSE"},{"id":"NOT_GIVEN","text":"NOT GIVEN"}]'::jsonb);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('4baa505b-335d-51fe-a9ff-731f5a497c8c', 'f7452056-ef2c-57b1-8361-2b57400b350f', '6cbefb78-e910-5458-b1b1-f92716a55dda', 1, 4, 'Flat roofs in growing cities are often visited by members of the public.', null, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -43,8 +45,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('e530b78e-bc30-57a2-9bd6-6aa06bab57ee', 'f7452056-ef2c-57b1-8361-2b57400b350f', '6cbefb78-e910-5458-b1b1-f92716a55dda', 3, 6, 'Some cities require green roofs on certain new buildings.', null, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('e530b78e-bc30-57a2-9bd6-6aa06bab57ee', '["TRUE"]'::jsonb, 'Some governments have made green roofs compulsory on large new commercial buildings.', 'Một số chính quyền đã bắt buộc mái xanh với các tòa nhà thương mại lớn xây mới.', 1606, 1672, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('2dc59e59-2363-5bbe-8bb7-44f76d33e420', 'f7452056-ef2c-57b1-8361-2b57400b350f', 3, 'sentence_completion', 'Complete the sentences. Write NO MORE THAN TWO WORDS from the passage for each answer.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('2dc59e59-2363-5bbe-8bb7-44f76d33e420', 'f7452056-ef2c-57b1-8361-2b57400b350f', '4f37a364-066a-5480-9a48-506111468137', 3, 'sentence_completion', 'Complete the sentences. Write NO MORE THAN TWO WORDS from the passage for each answer.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('6488eb93-8b94-5a88-9a85-25412174230d', 'f7452056-ef2c-57b1-8361-2b57400b350f', '2dc59e59-2363-5bbe-8bb7-44f76d33e420', 1, 7, 'Vegetation keeps a building cooler by providing shade and releasing ______ into the air.', null, 'text', null, 2);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -53,14 +55,14 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('d2290b3e-239f-5659-8cbe-671279a89c25', 'f7452056-ef2c-57b1-8361-2b57400b350f', '2dc59e59-2363-5bbe-8bb7-44f76d33e420', 2, 8, 'Before planting, older buildings may need ______.', null, 'text', null, 2);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('d2290b3e-239f-5659-8cbe-671279a89c25', '["structural reinforcement","reinforcement"]'::jsonb, 'Older buildings may need structural reinforcement before any planting begins.', 'Nhà cũ có thể cần gia cố kết cấu (structural reinforcement) trước khi trồng cây.', 1211, 1260, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('6500c6ec-e8e3-56ab-b3a5-d05c5ab70d8a', 'f7452056-ef2c-57b1-8361-2b57400b350f', 4, 'multiple_choice_multi', 'Choose TWO letters, A–E.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('6500c6ec-e8e3-56ab-b3a5-d05c5ab70d8a', 'f7452056-ef2c-57b1-8361-2b57400b350f', '4f37a364-066a-5480-9a48-506111468137', 4, 'multiple_choice_multi', 'Choose TWO letters, A–E.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('618f06c1-f1af-5f16-a73f-3f7ebfa063bb', 'f7452056-ef2c-57b1-8361-2b57400b350f', '6500c6ec-e8e3-56ab-b3a5-d05c5ab70d8a', 1, 9, 'Which TWO ongoing costs of green roofs does the writer mention?', '[{"id":"A","text":"insurance for the building"},{"id":"B","text":"regular weeding"},{"id":"C","text":"replacing all windows"},{"id":"D","text":"repairing waterproof layers"},{"id":"E","text":"training maintenance staff"}]'::jsonb, 'multiple', 2, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('618f06c1-f1af-5f16-a73f-3f7ebfa063bb', '["B","D"]'::jsonb, 'Maintenance includes weeding and the repair of waterproof layers. The other costs are not mentioned.', 'Chi phí bảo trì gồm làm cỏ và sửa lớp chống thấm. Các chi phí khác không được nhắc đến.', 1412, 1465, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('ebf0f8de-ce22-58fc-ae12-4d80e81dde97', 'f7452056-ef2c-57b1-8361-2b57400b350f', 5, 'multiple_choice', 'Choose the correct letter, A, B, C or D.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('ebf0f8de-ce22-58fc-ae12-4d80e81dde97', 'f7452056-ef2c-57b1-8361-2b57400b350f', '4f37a364-066a-5480-9a48-506111468137', 5, 'multiple_choice', 'Choose the correct letter, A, B, C or D.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('1a241d35-7e4b-5d64-83ba-43b2ecc280c2', 'f7452056-ef2c-57b1-8361-2b57400b350f', 'ebf0f8de-ce22-58fc-ae12-4d80e81dde97', 1, 10, 'What do critics say about green roofs?', '[{"id":"A","text":"They use too much water."},{"id":"B","text":"Their benefits are difficult to measure for single buildings."},{"id":"C","text":"They are too expensive for governments."},{"id":"D","text":"They make buildings too heavy."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -252,10 +254,10 @@ values ('1e3e7fe6-7a1d-574f-9e73-d881cef461f0', 'grammar_topic', 'articles', 'Ar
 -- articles-practice (published, v1)
 insert into public.content_items (id, type, slug, title, summary, level, topics, source, review_status, version)
 values ('8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'practice_set', 'articles-practice', 'Articles: a, an, the — practice', null, 'B1', array[]::text[], 'ai_assisted', 'published', 1);
-insert into public.practice_sets (id, module, test_time_limit_seconds, passage_title, passage_text)
-values ('8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'grammar', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('e70996aa-3e33-588b-86c5-34aa67d3260f', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 1, 'multiple_choice', 'Choose the correct option.', null);
+insert into public.practice_sets (id, module, kind, test_time_limit_seconds)
+values ('8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'grammar', 'practice', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('e70996aa-3e33-588b-86c5-34aa67d3260f', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', null, 1, 'multiple_choice', 'Choose the correct option.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('30ec0263-b403-5451-90d2-10ba752d8024', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'e70996aa-3e33-588b-86c5-34aa67d3260f', 1, 1, 'She wants to become ___ engineer.', '[{"id":"A","text":"a"},{"id":"B","text":"an"},{"id":"C","text":"the"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -268,8 +270,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('464ea3be-4f23-529c-9a88-c5e3533282f6', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'e70996aa-3e33-588b-86c5-34aa67d3260f', 3, 3, '___ smoking is banned in most restaurants.', '[{"id":"A","text":"The"},{"id":"B","text":"A"},{"id":"C","text":"No article"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('464ea3be-4f23-529c-9a88-c5e3533282f6', '["C"]'::jsonb, 'Smoking here is an activity in general, so no article.', 'Smoking ở đây là hoạt động nói chung, nên không dùng mạo từ.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('26585356-e955-5d1f-858b-cee42f16d7a9', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 2, 'gap_fill', 'Write the missing article: a, an or the.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('26585356-e955-5d1f-858b-cee42f16d7a9', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', null, 2, 'gap_fill', 'Write the missing article: a, an or the.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('2a8daf60-f6be-5a72-a655-93174216e057', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', '26585356-e955-5d1f-858b-cee42f16d7a9', 1, 4, 'I read ___ interesting article about climate change.', null, 'text', null, 1);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -278,8 +280,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('4a4b460e-8ea5-5011-9a97-311b82a7c86d', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', '26585356-e955-5d1f-858b-cee42f16d7a9', 2, 5, 'Can you pass me ___ salt, please?', null, 'text', null, 1);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('4a4b460e-8ea5-5011-9a97-311b82a7c86d', '["the"]'::jsonb, 'We both know which salt: the one on the table.', 'Cả hai đều biết là lọ muối nào: lọ trên bàn. Nên dùng the.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('c23c7dde-c980-547a-afde-9d73c73e0a0c', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('c23c7dde-c980-547a-afde-9d73c73e0a0c', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', null, 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('b6ed2302-a7c6-5822-917e-5f946ae67f1c', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'c23c7dde-c980-547a-afde-9d73c73e0a0c', 1, 6, 'He is a honest man.', '[{"id":"t1","text":"He"},{"id":"t2","text":"is"},{"id":"t3","text":"a"},{"id":"t4","text":"honest"},{"id":"t5","text":"man."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -288,8 +290,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('8c468aad-c31c-5918-a2bd-993b64546b35', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'c23c7dde-c980-547a-afde-9d73c73e0a0c', 2, 7, 'The pollution is a serious problem in big cities.', '[{"id":"t1","text":"The"},{"id":"t2","text":"pollution"},{"id":"t3","text":"is"},{"id":"t4","text":"a"},{"id":"t5","text":"serious"},{"id":"t6","text":"problem"},{"id":"t7","text":"in"},{"id":"t8","text":"big"},{"id":"t9","text":"cities."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('8c468aad-c31c-5918-a2bd-993b64546b35', '["t1"]'::jsonb, 'Pollution in general takes no article.', 'Ô nhiễm nói chung thì không dùng mạo từ.', null, null, 'Pollution is a serious problem in big cities.');
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('af0e99f1-54de-5901-b28f-96d185fe8040', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 4, 'sentence_transformation', 'Rewrite the sentence correctly.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('af0e99f1-54de-5901-b28f-96d185fe8040', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', null, 4, 'sentence_transformation', 'Rewrite the sentence correctly.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('d4aca0bf-adb2-59b7-a1a5-7b3af103d561', '8a7ebd58-11ca-50d0-9d81-f525a459a9f1', 'af0e99f1-54de-5901-b28f-96d185fe8040', 1, 8, 'My sister is doctor in a big hospital.', null, 'text', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -303,10 +305,10 @@ values ('ad1fc239-a491-5856-b1b8-536ea95333d4', 'grammar_topic', 'conditionals',
 -- conditionals-practice (published, v1)
 insert into public.content_items (id, type, slug, title, summary, level, topics, source, review_status, version)
 values ('793edb7a-981f-56c1-aaae-643a5cbaedac', 'practice_set', 'conditionals-practice', 'Conditionals: first and second — practice', null, 'B1', array[]::text[], 'ai_assisted', 'published', 1);
-insert into public.practice_sets (id, module, test_time_limit_seconds, passage_title, passage_text)
-values ('793edb7a-981f-56c1-aaae-643a5cbaedac', 'grammar', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('d1a6c4a8-7545-5266-b13b-7dcd169971f1', '793edb7a-981f-56c1-aaae-643a5cbaedac', 1, 'multiple_choice', 'Choose the correct option.', null);
+insert into public.practice_sets (id, module, kind, test_time_limit_seconds)
+values ('793edb7a-981f-56c1-aaae-643a5cbaedac', 'grammar', 'practice', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('d1a6c4a8-7545-5266-b13b-7dcd169971f1', '793edb7a-981f-56c1-aaae-643a5cbaedac', null, 1, 'multiple_choice', 'Choose the correct option.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('62b07ea0-a646-5ef3-8523-36a39804c285', '793edb7a-981f-56c1-aaae-643a5cbaedac', 'd1a6c4a8-7545-5266-b13b-7dcd169971f1', 1, 1, 'If it ___ tomorrow, we''ll cancel the picnic.', '[{"id":"A","text":"rains"},{"id":"B","text":"will rain"},{"id":"C","text":"rained"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -319,8 +321,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('86acfde9-ae38-5032-91a0-492cb7e769b9', '793edb7a-981f-56c1-aaae-643a5cbaedac', 'd1a6c4a8-7545-5266-b13b-7dcd169971f1', 3, 3, 'If more people used public transport, there ___ less traffic.', '[{"id":"A","text":"will be"},{"id":"B","text":"would be"},{"id":"C","text":"is"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('86acfde9-ae38-5032-91a0-492cb7e769b9', '["B"]'::jsonb, 'Used (past) in the if-clause pairs with would.', 'Vế if dùng used (quá khứ) thì vế kết quả dùng would.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('ecedfd9b-27e0-550e-9425-f3d2260d380d', '793edb7a-981f-56c1-aaae-643a5cbaedac', 2, 'gap_fill', 'Write the correct form of the verb in brackets.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('ecedfd9b-27e0-550e-9425-f3d2260d380d', '793edb7a-981f-56c1-aaae-643a5cbaedac', null, 2, 'gap_fill', 'Write the correct form of the verb in brackets.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('3ecfdd16-3fa3-56a1-b69b-fc2c67b26cb7', '793edb7a-981f-56c1-aaae-643a5cbaedac', 'ecedfd9b-27e0-550e-9425-f3d2260d380d', 1, 4, 'If she studies hard, she ___ (pass) the exam.', null, 'text', null, 2);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -329,8 +331,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('58a165a5-18ee-54af-9a74-f7a8db3e9fde', '793edb7a-981f-56c1-aaae-643a5cbaedac', 'ecedfd9b-27e0-550e-9425-f3d2260d380d', 2, 5, 'If I ___ (have) more free time, I would learn the guitar.', null, 'text', null, 1);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('58a165a5-18ee-54af-9a74-f7a8db3e9fde', '["had"]'::jsonb, 'Would in the result means the if-clause takes the past simple.', 'Vế kết quả có would thì vế if dùng quá khứ đơn.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('68931ed4-77d3-5d30-9694-9f06bcbec5c5', '793edb7a-981f-56c1-aaae-643a5cbaedac', 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('68931ed4-77d3-5d30-9694-9f06bcbec5c5', '793edb7a-981f-56c1-aaae-643a5cbaedac', null, 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('3d5b30c7-e2ae-52b4-ae5b-bec07e3b29c1', '793edb7a-981f-56c1-aaae-643a5cbaedac', '68931ed4-77d3-5d30-9694-9f06bcbec5c5', 1, 6, 'If it will snow, the flight may be delayed.', '[{"id":"t1","text":"If"},{"id":"t2","text":"it"},{"id":"t3","text":"will"},{"id":"t4","text":"snow,"},{"id":"t5","text":"the"},{"id":"t6","text":"flight"},{"id":"t7","text":"may"},{"id":"t8","text":"be"},{"id":"t9","text":"delayed."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -339,8 +341,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('d1e91eb4-03e7-515c-bed0-548f265d2923', '793edb7a-981f-56c1-aaae-643a5cbaedac', '68931ed4-77d3-5d30-9694-9f06bcbec5c5', 2, 7, 'If I have a car, I would drive to work.', '[{"id":"t1","text":"If"},{"id":"t2","text":"I"},{"id":"t3","text":"have"},{"id":"t4","text":"a"},{"id":"t5","text":"car,"},{"id":"t6","text":"I"},{"id":"t7","text":"would"},{"id":"t8","text":"drive"},{"id":"t9","text":"to"},{"id":"t10","text":"work."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('d1e91eb4-03e7-515c-bed0-548f265d2923', '["t3"]'::jsonb, 'Would needs a past verb in the if-clause: had.', 'Có would thì vế if cần động từ quá khứ: had.', null, null, 'If I had a car, I would drive to work.');
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('7a82d74a-0c9d-5ef8-b08f-396fd8960886', '793edb7a-981f-56c1-aaae-643a5cbaedac', 4, 'sentence_transformation', 'Rewrite the sentence starting with If.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('7a82d74a-0c9d-5ef8-b08f-396fd8960886', '793edb7a-981f-56c1-aaae-643a5cbaedac', null, 4, 'sentence_transformation', 'Rewrite the sentence starting with If.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('99c8587b-7dd7-5f90-b148-2aa8e15ef9a5', '793edb7a-981f-56c1-aaae-643a5cbaedac', '7a82d74a-0c9d-5ef8-b08f-396fd8960886', 1, 8, 'I don''t have enough time, so I can''t exercise. (If…)', null, 'text', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -354,10 +356,10 @@ values ('d5cc9b6d-b272-5029-a6f0-21702e2c02a7', 'grammar_topic', 'present-perfec
 -- present-perfect-vs-past-simple-practice (published, v1)
 insert into public.content_items (id, type, slug, title, summary, level, topics, source, review_status, version)
 values ('28021070-9997-5d20-a09d-95c6a0706792', 'practice_set', 'present-perfect-vs-past-simple-practice', 'Present perfect vs past simple — practice', null, 'B1', array[]::text[], 'ai_assisted', 'published', 1);
-insert into public.practice_sets (id, module, test_time_limit_seconds, passage_title, passage_text)
-values ('28021070-9997-5d20-a09d-95c6a0706792', 'grammar', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('9f035a10-7ad5-5a5f-8135-57fc64df1aea', '28021070-9997-5d20-a09d-95c6a0706792', 1, 'multiple_choice', 'Choose the correct option.', null);
+insert into public.practice_sets (id, module, kind, test_time_limit_seconds)
+values ('28021070-9997-5d20-a09d-95c6a0706792', 'grammar', 'practice', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('9f035a10-7ad5-5a5f-8135-57fc64df1aea', '28021070-9997-5d20-a09d-95c6a0706792', null, 1, 'multiple_choice', 'Choose the correct option.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('fe65f1a8-b063-5912-92f5-14e41e6ab30a', '28021070-9997-5d20-a09d-95c6a0706792', '9f035a10-7ad5-5a5f-8135-57fc64df1aea', 1, 1, 'I ___ my keys. I can''t open the door!', '[{"id":"A","text":"lost"},{"id":"B","text":"have lost"},{"id":"C","text":"was losing"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -370,8 +372,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('cd70a6d8-462c-5721-9ef3-1542e3acbf9c', '28021070-9997-5d20-a09d-95c6a0706792', '9f035a10-7ad5-5a5f-8135-57fc64df1aea', 3, 3, 'How long ___ English?', '[{"id":"A","text":"do you study"},{"id":"B","text":"did you study"},{"id":"C","text":"have you studied"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('cd70a6d8-462c-5721-9ef3-1542e3acbf9c', '["C"]'::jsonb, 'How long asks about time up to now, so use the present perfect.', 'How long hỏi khoảng thời gian tới bây giờ, nên dùng hiện tại hoàn thành.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('2eb937b8-7a2c-5faa-9602-a64a01029791', '28021070-9997-5d20-a09d-95c6a0706792', 2, 'gap_fill', 'Write the correct form of the verb in brackets.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('2eb937b8-7a2c-5faa-9602-a64a01029791', '28021070-9997-5d20-a09d-95c6a0706792', null, 2, 'gap_fill', 'Write the correct form of the verb in brackets.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('ef7857fa-3766-5ebb-9c31-f438c013f292', '28021070-9997-5d20-a09d-95c6a0706792', '2eb937b8-7a2c-5faa-9602-a64a01029791', 1, 4, 'She ___ (not finish) her essay yet.', null, 'text', null, 3);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -380,8 +382,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('bc314a8d-113a-5861-bcf1-9613aedce417', '28021070-9997-5d20-a09d-95c6a0706792', '2eb937b8-7a2c-5faa-9602-a64a01029791', 2, 5, 'Two years ago, my family ___ (move) to Hanoi.', null, 'text', null, 1);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('bc314a8d-113a-5861-bcf1-9613aedce417', '["moved"]'::jsonb, 'Ago marks a finished time, so use the past simple.', 'Ago chỉ thời điểm đã qua, nên dùng quá khứ đơn.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('394d1713-749c-5849-a906-7b0b20e8f1e8', '28021070-9997-5d20-a09d-95c6a0706792', 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('394d1713-749c-5849-a906-7b0b20e8f1e8', '28021070-9997-5d20-a09d-95c6a0706792', null, 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('4b32ae51-5c0e-5b3a-bedf-2ee9bd138e98', '28021070-9997-5d20-a09d-95c6a0706792', '394d1713-749c-5849-a906-7b0b20e8f1e8', 1, 6, 'I have seen that film last week.', '[{"id":"t1","text":"I"},{"id":"t2","text":"have"},{"id":"t3","text":"seen"},{"id":"t4","text":"that"},{"id":"t5","text":"film"},{"id":"t6","text":"last"},{"id":"t7","text":"week."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -390,8 +392,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('91d21eed-d2d4-5e39-bbf6-62a39177ea4b', '28021070-9997-5d20-a09d-95c6a0706792', '394d1713-749c-5849-a906-7b0b20e8f1e8', 2, 7, 'She works here since 2020.', '[{"id":"t1","text":"She"},{"id":"t2","text":"works"},{"id":"t3","text":"here"},{"id":"t4","text":"since"},{"id":"t5","text":"2020."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('91d21eed-d2d4-5e39-bbf6-62a39177ea4b', '["t2"]'::jsonb, 'Since 2020 connects the past to now: has worked.', 'Since 2020 nối quá khứ với hiện tại: has worked.', null, null, 'She has worked here since 2020.');
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('dc4da5ee-39fd-5dfc-9777-40e048f419d6', '28021070-9997-5d20-a09d-95c6a0706792', 4, 'sentence_transformation', 'Rewrite the sentence using the word in brackets.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('dc4da5ee-39fd-5dfc-9777-40e048f419d6', '28021070-9997-5d20-a09d-95c6a0706792', null, 4, 'sentence_transformation', 'Rewrite the sentence using the word in brackets.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('0e43bc3c-a209-50a8-8d1a-ebf88b7c5939', '28021070-9997-5d20-a09d-95c6a0706792', 'dc4da5ee-39fd-5dfc-9777-40e048f419d6', 1, 8, 'I started learning English five years ago. (for)', null, 'text', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -405,10 +407,10 @@ values ('c755ce0e-34f8-548a-8355-ef5825b71bc1', 'grammar_topic', 'relative-claus
 -- relative-clauses-practice (published, v1)
 insert into public.content_items (id, type, slug, title, summary, level, topics, source, review_status, version)
 values ('75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 'practice_set', 'relative-clauses-practice', 'Relative clauses: who, which, that, whose, where — practice', null, 'B2', array[]::text[], 'ai_assisted', 'published', 1);
-insert into public.practice_sets (id, module, test_time_limit_seconds, passage_title, passage_text)
-values ('75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 'grammar', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('5862863f-7868-5aa9-9676-681ed772a357', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 1, 'multiple_choice', 'Choose the correct option.', null);
+insert into public.practice_sets (id, module, kind, test_time_limit_seconds)
+values ('75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 'grammar', 'practice', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('5862863f-7868-5aa9-9676-681ed772a357', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', null, 1, 'multiple_choice', 'Choose the correct option.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('2fbf6c45-3b7e-5748-b45f-e73bb9959cb4', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', '5862863f-7868-5aa9-9676-681ed772a357', 1, 1, 'The teacher ___ helped me most was Ms Lan.', '[{"id":"A","text":"which"},{"id":"B","text":"who"},{"id":"C","text":"whose"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -421,8 +423,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('26d464d3-45d9-5a6d-a8f8-f962c9893113', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', '5862863f-7868-5aa9-9676-681ed772a357', 3, 3, 'Children ___ parents read to them often enjoy books.', '[{"id":"A","text":"who"},{"id":"B","text":"whose"},{"id":"C","text":"which"}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('26d464d3-45d9-5a6d-a8f8-f962c9893113', '["B"]'::jsonb, 'The parents belong to the children: whose.', 'Bố mẹ "của" các em nhỏ: dùng whose.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('aeff1bcb-a56d-56de-8eb6-09a63d975149', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 2, 'gap_fill', 'Write who, which, whose or where.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('aeff1bcb-a56d-56de-8eb6-09a63d975149', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', null, 2, 'gap_fill', 'Write who, which, whose or where.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('e99c703e-028c-5611-9213-432e0b6943cd', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 'aeff1bcb-a56d-56de-8eb6-09a63d975149', 1, 4, 'Smartphones, ___ were rare twenty years ago, are now everywhere.', null, 'text', null, 1);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -431,8 +433,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('f466bfc0-8c29-59ca-9e03-1c404b3e003d', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 'aeff1bcb-a56d-56de-8eb6-09a63d975149', 2, 5, 'Da Nang is a city ___ many tourists go for the beaches.', null, 'text', null, 1);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('f466bfc0-8c29-59ca-9e03-1c404b3e003d', '["where"]'::jsonb, 'A place, followed by a subject and verb (many tourists go): where.', 'Nơi chốn, theo sau là chủ ngữ và động từ (many tourists go): where.', null, null, null);
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('0c2e2c34-bca6-587c-a1d2-e4b2eb71f91d', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('0c2e2c34-bca6-587c-a1d2-e4b2eb71f91d', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', null, 3, 'error_correction', 'Spot the mistake: tap the word that is wrong.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('ead2a957-ffa3-5c2f-a113-6c719d94d60a', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', '0c2e2c34-bca6-587c-a1d2-e4b2eb71f91d', 1, 6, 'The girl which won the prize is my cousin.', '[{"id":"t1","text":"The"},{"id":"t2","text":"girl"},{"id":"t3","text":"which"},{"id":"t4","text":"won"},{"id":"t5","text":"the"},{"id":"t6","text":"prize"},{"id":"t7","text":"is"},{"id":"t8","text":"my"},{"id":"t9","text":"cousin."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
@@ -441,8 +443,8 @@ insert into public.questions (id, practice_set_id, group_id, position, number, p
 values ('4c289d7b-5e10-59c3-9a4d-bb38acda4072', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', '0c2e2c34-bca6-587c-a1d2-e4b2eb71f91d', 2, 7, 'My laptop, that I bought last year, is already slow.', '[{"id":"t1","text":"My"},{"id":"t2","text":"laptop,"},{"id":"t3","text":"that"},{"id":"t4","text":"I"},{"id":"t5","text":"bought"},{"id":"t6","text":"last"},{"id":"t7","text":"year,"},{"id":"t8","text":"is"},{"id":"t9","text":"already"},{"id":"t10","text":"slow."}]'::jsonb, 'single', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values ('4c289d7b-5e10-59c3-9a4d-bb38acda4072', '["t3"]'::jsonb, 'Between commas, use which, not that.', 'Giữa hai dấu phẩy thì dùng which, không dùng that.', null, null, 'My laptop, which I bought last year, is already slow.');
-insert into public.question_groups (id, practice_set_id, position, question_type, instructions, options)
-values ('94b0258c-73aa-54ba-9c00-c619dfb0c7a9', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', 4, 'sentence_transformation', 'Join the sentences using the word in brackets.', null);
+insert into public.question_groups (id, practice_set_id, passage_id, position, question_type, instructions, options)
+values ('94b0258c-73aa-54ba-9c00-c619dfb0c7a9', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', null, 4, 'sentence_transformation', 'Join the sentences using the word in brackets.', null);
 insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
 values ('69eece6c-5703-5e7e-8f39-e5b20e1b8289', '75b89bf5-2369-5823-94a1-0ecb3d59f8f5', '94b0258c-73aa-54ba-9c00-c619dfb0c7a9', 1, 8, 'I have a friend. Her brother is a famous singer. (whose)', null, 'text', null, null);
 insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)

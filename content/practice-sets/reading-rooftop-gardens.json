@@ -9,20 +9,38 @@
   "version": 1,
   "module": "reading",
   "testTimeLimitMinutes": 20,
-  "passage": {
-    "title": "Rooftop gardens in growing cities",
-    "text": "A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.\n\nB  The most frequently cited benefit is temperature control. A layer of vegetation shades the roof and releases moisture into the air, so the building beneath it stays cooler. Researchers in several Asian cities have measured roof surfaces that were more than twenty degrees cooler than nearby bare concrete on hot afternoons. Lower roof temperatures also reduce the energy needed for air conditioning on the top floors.\n\nC  Green roofs also help with water. Instead of rushing straight into drains, rain is absorbed by the soil and released slowly over several hours. In neighbourhoods where old drainage systems flood after heavy storms, this delay can make a noticeable difference. Some of the water evaporates, while the rest reaches the drains after the peak of the storm has passed.\n\nD  Not every roof is suitable. Soil becomes extremely heavy when it is wet, and older buildings may need structural reinforcement before any planting begins. Installation costs are therefore higher than for a conventional roof, and owners must also budget for regular maintenance, including weeding and the repair of waterproof layers.\n\nE  City governments have tried different ways of encouraging the idea. Some offer tax reductions to owners who install green roofs, while others have made them compulsory on large new commercial buildings. Supporters argue that the long-term savings on energy and flood damage justify the public cost, although critics point out that the benefits are hard to measure for individual buildings."
-  },
+  "kind": "practice",
+  "passages": [
+    {
+      "title": "Rooftop gardens in growing cities",
+      "text": "A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.\n\nB  The most frequently cited benefit is temperature control. A layer of vegetation shades the roof and releases moisture into the air, so the building beneath it stays cooler. Researchers in several Asian cities have measured roof surfaces that were more than twenty degrees cooler than nearby bare concrete on hot afternoons. Lower roof temperatures also reduce the energy needed for air conditioning on the top floors.\n\nC  Green roofs also help with water. Instead of rushing straight into drains, rain is absorbed by the soil and released slowly over several hours. In neighbourhoods where old drainage systems flood after heavy storms, this delay can make a noticeable difference. Some of the water evaporates, while the rest reaches the drains after the peak of the storm has passed.\n\nD  Not every roof is suitable. Soil becomes extremely heavy when it is wet, and older buildings may need structural reinforcement before any planting begins. Installation costs are therefore higher than for a conventional roof, and owners must also budget for regular maintenance, including weeding and the repair of waterproof layers.\n\nE  City governments have tried different ways of encouraging the idea. Some offer tax reductions to owners who install green roofs, while others have made them compulsory on large new commercial buildings. Supporters argue that the long-term savings on energy and flood damage justify the public cost, although critics point out that the benefits are hard to measure for individual buildings."
+    }
+  ],
   "groups": [
     {
       "type": "matching_headings",
       "instructions": "The passage has five paragraphs, A–E. Choose the correct heading for paragraphs B–D from the list of headings.",
       "options": [
-        { "id": "i", "text": "The financial and physical limits of rooftop planting" },
-        { "id": "ii", "text": "Slowing the flow of rainwater" },
-        { "id": "iii", "text": "A cooler building in hot weather" },
-        { "id": "iv", "text": "Why residents prefer rooftop parks" },
-        { "id": "v", "text": "Choosing plants for a dry climate" }
+        {
+          "id": "i",
+          "text": "The financial and physical limits of rooftop planting"
+        },
+        {
+          "id": "ii",
+          "text": "Slowing the flow of rainwater"
+        },
+        {
+          "id": "iii",
+          "text": "A cooler building in hot weather"
+        },
+        {
+          "id": "iv",
+          "text": "Why residents prefer rooftop parks"
+        },
+        {
+          "id": "v",
+          "text": "Choosing plants for a dry climate"
+        }
       ],
       "questions": [
         {
@@ -112,11 +130,26 @@
           "number": 9,
           "prompt": "Which TWO ongoing costs of green roofs does the writer mention?",
           "options": [
-            { "id": "A", "text": "insurance for the building" },
-            { "id": "B", "text": "regular weeding" },
-            { "id": "C", "text": "replacing all windows" },
-            { "id": "D", "text": "repairing waterproof layers" },
-            { "id": "E", "text": "training maintenance staff" }
+            {
+              "id": "A",
+              "text": "insurance for the building"
+            },
+            {
+              "id": "B",
+              "text": "regular weeding"
+            },
+            {
+              "id": "C",
+              "text": "replacing all windows"
+            },
+            {
+              "id": "D",
+              "text": "repairing waterproof layers"
+            },
+            {
+              "id": "E",
+              "text": "training maintenance staff"
+            }
           ],
           "accepted": ["B", "D"],
           "explanation": "Maintenance includes weeding and the repair of waterproof layers. The other costs are not mentioned.",
@@ -133,10 +166,22 @@
           "number": 10,
           "prompt": "What do critics say about green roofs?",
           "options": [
-            { "id": "A", "text": "They use too much water." },
-            { "id": "B", "text": "Their benefits are difficult to measure for single buildings." },
-            { "id": "C", "text": "They are too expensive for governments." },
-            { "id": "D", "text": "They make buildings too heavy." }
+            {
+              "id": "A",
+              "text": "They use too much water."
+            },
+            {
+              "id": "B",
+              "text": "Their benefits are difficult to measure for single buildings."
+            },
+            {
+              "id": "C",
+              "text": "They are too expensive for governments."
+            },
+            {
+              "id": "D",
+              "text": "They make buildings too heavy."
+            }
           ],
           "accepted": ["B"],
           "explanation": "Critics point out that the benefits are hard to measure for individual buildings.",

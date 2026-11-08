@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest"
 
 import { practiceSetSourceSchema, type PracticeSetSource } from "@/lib/content/practice-set-schema"
 
+import { sampleWord } from "../fixtures/content"
+
 function validSet(): PracticeSetSource {
   return {
     slug: "sample-set",
@@ -15,7 +17,7 @@ function validSet(): PracticeSetSource {
     reviewStatus: "draft",
     version: 1,
     module: "reading",
-    passage: { title: "Passage", text: "Plants cool roofs. Rain drains slowly." },
+    passages: [{ title: "Passage", text: "Plants cool roofs. Rain drains slowly.", keyWords: [] }],
     groups: [
       {
         type: "true_false_not_given",
@@ -121,12 +123,77 @@ describe("practiceSetSourceSchema", () => {
   })
 
   it("rejects evidence without a passage", () => {
-    const { passage: _passage, ...withoutPassage } = validSet()
-    expect(issues(withoutPassage)).toContain("Evidence quotes need a passage")
+    expect(issues({ ...validSet(), passages: [] })).toContain("Evidence quotes need a passage")
   })
 
   it("rejects unknown topics and invalid slugs", () => {
     expect(issues({ ...validSet(), topics: ["sport"] }).length).toBeGreaterThan(0)
     expect(issues({ ...validSet(), slug: "Not A Slug" }).length).toBeGreaterThan(0)
+  })
+})
+
+describe("practiceSetSourceSchema for passages and full tests", () => {
+  const question = (number: number) => ({
+    number,
+    prompt: `Statement ${number}.`,
+    accepted: ["TRUE"],
+    explanation: "Stated.",
+  })
+  const fullTest = (overrides: Record<string, unknown> = {}) => ({
+    ...validSet(),
+    kind: "full_test",
+    testTimeLimitMinutes: 60,
+    passages: [1, 2, 3].map((n) => ({ title: `Passage ${n}`, text: `Text of passage ${n}.` })),
+    groups: [1, 2, 3].map((n) => ({
+      type: "true_false_not_given",
+      instructions: "Choose.",
+      passage: n,
+      // 13 + 13 + 14 = 40 marks
+      questions: Array.from({ length: n === 3 ? 14 : 13 }, (_, i) =>
+        question((n - 1) * 13 + i + 1),
+      ),
+    })),
+    ...overrides,
+  })
+
+  it("accepts a full test with 3 passages, 40 marks and 60 minutes", () => {
+    expect(issues(fullTest())).toEqual([])
+  })
+
+  it("enforces the full test shape", () => {
+    expect(issues(fullTest({ passages: fullTest().passages.slice(0, 2) }))).toContain(
+      "A full test needs 3 passages",
+    )
+    expect(issues(fullTest({ groups: fullTest().groups.slice(0, 2) }))).toContain(
+      "A full test has 40 marks (found 26)",
+    )
+    expect(issues(fullTest({ testTimeLimitMinutes: 20 }))).toContain(
+      "A full test takes 60 minutes in test mode",
+    )
+  })
+
+  it("rejects a group that points to a missing passage", () => {
+    const set = validSet()
+    const [first, ...rest] = set.groups
+    if (!first) throw new Error("fixture has groups")
+    expect(issues({ ...set, groups: [{ ...first, passage: 2 }, ...rest] })).toContain(
+      "Group 1 refers to passage 2, which does not exist",
+    )
+  })
+
+  it("requires key words to appear in their passage", () => {
+    const keyWord = (form: string) => ({ form, word: sampleWord("vegetation") })
+    expect(
+      issues({
+        ...validSet(),
+        passages: [{ title: "P", text: "Plants cool roofs.", keyWords: [keyWord("Plants")] }],
+      }),
+    ).toEqual([])
+    expect(
+      issues({
+        ...validSet(),
+        passages: [{ title: "P", text: "Plants cool roofs.", keyWords: [keyWord("Trees")] }],
+      }),
+    ).toContain('Key word "Trees" is not in passage 1')
   })
 })

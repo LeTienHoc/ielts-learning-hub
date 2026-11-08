@@ -3,12 +3,7 @@ import { z } from "zod"
 // Authoring format for vocabulary sets (content/vocabulary-sets/*.json). Mirrors
 // supabase/migrations/20261109110000_vocabulary_srs.sql. Imported by Node scripts, so it may
 // only import external packages and sibling files with their `.ts` extension.
-import {
-  CONTENT_LEVELS,
-  CONTENT_SOURCES,
-  CONTENT_TOPICS,
-  REVIEW_STATUSES,
-} from "./practice-set-schema.ts"
+import { CONTENT_LEVELS, CONTENT_SOURCES, CONTENT_TOPICS, REVIEW_STATUSES } from "./catalogue.ts"
 
 const slugSchema = z
   .string()

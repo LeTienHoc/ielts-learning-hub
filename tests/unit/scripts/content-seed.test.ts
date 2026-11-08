@@ -24,7 +24,7 @@ const set = practiceSetSourceSchema.parse({
   reviewStatus: "published",
   module: "reading",
   testTimeLimitMinutes: 20,
-  passage: { title: "Passage", text: "Roofs are hot. Plants cool roofs." },
+  passages: [{ title: "Passage", text: "Roofs are hot. Plants cool roofs." }],
   groups: [
     {
       type: "true_false_not_given",
@@ -89,6 +89,7 @@ describe("buildPracticeSetSql", () => {
     expect(output.match(/^insert into public\.\w+/gm)).toEqual([
       "insert into public.content_items",
       "insert into public.practice_sets",
+      "insert into public.practice_set_passages",
       "insert into public.question_groups",
       "insert into public.questions",
       "insert into public.question_keys",
@@ -97,7 +98,7 @@ describe("buildPracticeSetSql", () => {
 
   it("escapes text, converts minutes to seconds and fills default options", () => {
     expect(output).toContain("'It''s a sample'")
-    expect(output).toContain("'reading', 1200,")
+    expect(output).toContain("'reading', 'practice', 1200)")
     expect(output).toContain('[{"id":"TRUE","text":"TRUE"}')
   })
 
@@ -134,7 +135,9 @@ describe("buildGrammarTopicSql", () => {
 
   it("inserts the topic, its grammar practice set and the lesson", () => {
     expect(output).toContain("'grammar_topic'")
-    expect(output).toContain(`'${contentUuid("practice-set:articles-practice")}', 'grammar', null`)
+    expect(output).toContain(
+      `'${contentUuid("practice-set:articles-practice")}', 'grammar', 'practice', null`,
+    )
     expect(output).toContain("insert into public.grammar_topics")
     expect(output).toContain('"introVi":"Mạo từ là những từ nhỏ nhưng việc to."')
   })
@@ -187,5 +190,54 @@ describe("buildSeedSql", () => {
         ],
       }),
     ).toThrow('Conflicting definitions for word "sustainable"')
+  })
+})
+
+describe("passages and key words", () => {
+  const withKeyWord = practiceSetSourceSchema.parse({
+    slug: "seed-passages",
+    title: "Passages",
+    level: "B2",
+    source: "original",
+    reviewStatus: "published",
+    module: "reading",
+    passages: [
+      {
+        title: "One",
+        text: "Cities need sustainable transport.",
+        keyWords: [{ form: "sustainable", word: sampleWord("sustainable") }],
+      },
+    ],
+    groups: [
+      {
+        type: "short_answer",
+        instructions: "Answer.",
+        questions: [
+          { number: 1, prompt: "What?", accepted: ["transport"], explanation: "Stated." },
+        ],
+      },
+    ],
+  })
+
+  it("writes passages with stable ids and links groups to them", () => {
+    const output = buildPracticeSetSql(withKeyWord)
+    const passageId = contentUuid("practice-set:seed-passages:passage:1")
+    expect(output).toContain(
+      `'${passageId}', '${contentUuid("practice-set:seed-passages")}', 1, 'One'`,
+    )
+    expect(output).toMatch(new RegExp(`question_groups .*\n.*'${passageId}'`))
+  })
+
+  it("shares a key word with a vocabulary set and links it to its passage", () => {
+    const output = buildSeedSql({
+      practiceSets: [withKeyWord],
+      vocabularySets: [vocabularySet("environment", [sampleWord("sustainable")])],
+      grammarTopics: [],
+    })
+    expect(output.match(/insert into public\.words /g)).toHaveLength(1)
+    expect(output).toContain("insert into public.practice_set_words")
+    expect(output).toContain(
+      `'${contentUuid("word:sustainable")}', '${contentUuid("practice-set:seed-passages:passage:1")}', 'sustainable'`,
+    )
   })
 })

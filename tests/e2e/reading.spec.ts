@@ -16,6 +16,12 @@ async function openSet(page: Page) {
   await expect(page.getByRole("heading", { level: 1, name: SET_TITLE })).toBeVisible()
 }
 
+/** Small screens show one panel at a time; open the questions (no-op on desktop). */
+async function showQuestions(page: Page) {
+  const tab = page.getByRole("tab", { name: "Questions", exact: true })
+  if (await tab.isVisible()) await tab.click()
+}
+
 test.describe("reading practice", () => {
   test("learn mode: answer, resume after reload, submit and review", async ({ page }) => {
     await openSet(page)
@@ -29,6 +35,7 @@ test.describe("reading practice", () => {
     await expect(page.getByRole("article", { name: "Reading passage" })).toContainText(
       "flat roofs are among the least used spaces",
     )
+    await showQuestions(page)
 
     await page.getByRole("combobox", { name: "Answer for Question 1" }).click()
     await page.getByRole("option", { name: /A cooler building in hot weather/ }).click()
@@ -45,6 +52,7 @@ test.describe("reading practice", () => {
     // Answers are on the server: a reload resumes the same attempt with them.
     await page.reload()
     await expect(page.getByText("4 of 10 answered")).toBeVisible()
+    await showQuestions(page)
     // Saved answers are trimmed on the server.
     await expect(page.getByRole("textbox", { name: "Answer for question 7" })).toHaveValue(
       "Moisture",
@@ -80,6 +88,7 @@ test.describe("reading practice", () => {
 
     await expect(page.getByText("Time remaining:")).toBeAttached()
     await expect(page.getByText(/^(20:00|19:5\d)$/)).toBeVisible()
+    await showQuestions(page)
     await page.getByRole("textbox", { name: "Answer for question 8" }).fill("reinforcement")
     await expect(page.getByText("All answers saved")).toBeVisible()
 

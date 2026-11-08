@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+import { z } from "zod"
 
 import type { SaveAnswerInput } from "../schemas/practice-schemas"
 import type { Answers } from "../utils/answers"
@@ -19,6 +20,33 @@ type UseAttemptAnswersOptions = {
   saveAnswer: (input: SaveAnswerInput) => Promise<SaveResult>
   /** The server closed the attempt (deadline passed or already submitted). */
   onClosed: (reason: "expired" | "submitted") => void
+  /**
+   * Storage key for answers not yet saved. They are kept on the device, restored and sent on
+   * the next visit (e.g. after the tab was closed while offline), and removed once saved.
+   */
+  persistKey?: string
+}
+
+const storedAnswersSchema = z.record(z.string(), z.array(z.string()))
+
+function readStored(key: string): Record<string, string[]> {
+  try {
+    const raw = window.localStorage.getItem(key)
+    const parsed = raw ? storedAnswersSchema.safeParse(JSON.parse(raw)) : null
+    return parsed?.success ? parsed.data : {}
+  } catch {
+    // Blocked storage or unreadable JSON: nothing to restore.
+    return {}
+  }
+}
+
+function writeStored(key: string, answers: ReadonlyMap<string, string[]>) {
+  try {
+    if (answers.size === 0) window.localStorage.removeItem(key)
+    else window.localStorage.setItem(key, JSON.stringify(Object.fromEntries(answers)))
+  } catch {
+    // Blocked or full storage: answers are still saved to the server as usual.
+  }
 }
 
 /** Delay before retrying a failed save; grows with each consecutive failure. */
@@ -34,6 +62,7 @@ export function useAttemptAnswers({
   initialAnswers,
   saveAnswer,
   onClosed,
+  persistKey,
 }: UseAttemptAnswersOptions) {
   const [answers, setAnswers] = useState<Answers>(initialAnswers)
   const [status, setStatus] = useState<SaveStatus>("idle")
@@ -44,6 +73,18 @@ export function useAttemptAnswers({
   const failures = useRef(0)
   const running = useRef<Promise<FlushResult> | null>(null)
   const closed = useRef(false)
+  // Answers not yet confirmed by the server (mirrored to storage when persistKey is set).
+  const unsaved = useRef(new Map<string, string[]>())
+
+  const markSaved = useCallback(
+    (questionId: string, response: string[]) => {
+      // Only if the learner has not changed it since.
+      if (unsaved.current.get(questionId) !== response) return
+      unsaved.current.delete(questionId)
+      if (persistKey) writeStored(persistKey, unsaved.current)
+    },
+    [persistKey],
+  )
 
   // Kept in refs so the save loop always calls the latest callbacks.
   const saveRef = useRef(saveAnswer)
@@ -77,6 +118,7 @@ export function useAttemptAnswers({
 
       if (result.ok) {
         failures.current = 0
+        markSaved(questionId, response)
         continue
       }
       if (result.reason === "retry") {
@@ -91,6 +133,7 @@ export function useAttemptAnswers({
       if (result.reason === "rejected") {
         // Not retryable (invalid answer or ended session); report it and save the rest.
         hasRejected = true
+        markSaved(questionId, response)
         continue
       }
       closed.current = true
@@ -98,7 +141,7 @@ export function useAttemptAnswers({
       return "closed"
     }
     return "closed"
-  }, [attemptId])
+  }, [attemptId, markSaved])
 
   /** Saves everything pending now and reports the outcome. */
   const flush = useCallback((): Promise<FlushResult> => {
@@ -121,20 +164,33 @@ export function useAttemptAnswers({
   }, [flush])
 
   /** Records an answer and schedules its save (immediately for choices, after typing pauses for text). */
-  const setAnswer = useCallback((questionId: string, response: string[], debounceMs = 0) => {
-    if (closed.current) return
-    setAnswers((current) => ({ ...current, [questionId]: response }))
-    pending.current.set(questionId, response)
-    const existing = debounceTimers.current.get(questionId)
-    if (existing) clearTimeout(existing)
-    debounceTimers.current.set(
-      questionId,
-      setTimeout(() => {
-        debounceTimers.current.delete(questionId)
-        void flushRef.current()
-      }, debounceMs),
-    )
-  }, [])
+  const setAnswer = useCallback(
+    (questionId: string, response: string[], debounceMs = 0) => {
+      if (closed.current) return
+      setAnswers((current) => ({ ...current, [questionId]: response }))
+      pending.current.set(questionId, response)
+      unsaved.current.set(questionId, response)
+      if (persistKey) writeStored(persistKey, unsaved.current)
+      const existing = debounceTimers.current.get(questionId)
+      if (existing) clearTimeout(existing)
+      debounceTimers.current.set(
+        questionId,
+        setTimeout(() => {
+          debounceTimers.current.delete(questionId)
+          void flushRef.current()
+        }, debounceMs),
+      )
+    },
+    [persistKey],
+  )
+
+  // Answers left unsaved on this device last time win over the server copy and are sent now.
+  useEffect(() => {
+    if (!persistKey) return
+    for (const [questionId, response] of Object.entries(readStored(persistKey))) {
+      setAnswer(questionId, response)
+    }
+  }, [persistKey, setAnswer])
 
   useEffect(() => {
     const onOnline = () => {

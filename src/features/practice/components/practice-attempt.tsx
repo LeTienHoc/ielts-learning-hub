@@ -1,6 +1,8 @@
 import { notFound, redirect } from "next/navigation"
 
+import { AddToMyWordsButton } from "@/features/vocabulary"
 import type { PracticeModule } from "@/lib/content/practice-set-schema"
+import { requireUser } from "@/server/auth/session"
 import { getAttempt, getPracticeSetBySlug, submitAttempt } from "@/server/practice/practice-service"
 
 import { checkAnswerAction } from "../actions"
@@ -29,7 +31,8 @@ export async function PracticeAttempt({
   reviewHref,
   withInstantCheck = false,
 }: PracticeAttemptProps) {
-  const [set, attempt] = await Promise.all([
+  const [user, set, attempt] = await Promise.all([
+    requireUser(),
     getPracticeSetBySlug(module, setSlug),
     getAttempt(attemptId),
   ])
@@ -43,6 +46,20 @@ export async function PracticeAttempt({
     redirect(reviewHref)
   }
 
+  const keyWordActions = Object.fromEntries(
+    set.passages.flatMap((passage) =>
+      passage.keyWords.map((keyWord) => [
+        keyWord.wordId,
+        <AddToMyWordsButton
+          key={keyWord.wordId}
+          kind="word"
+          id={keyWord.wordId}
+          isAdded={keyWord.inMyWords}
+        />,
+      ]),
+    ),
+  )
+
   return (
     <AttemptRunner
       set={set}
@@ -52,6 +69,8 @@ export async function PracticeAttempt({
       reviewHref={reviewHref}
       instantCheck={withInstantCheck ? checkAnswerAction : undefined}
       initialChecked={withInstantCheck ? attempt.results : undefined}
+      language={user.explanationLanguage}
+      keyWordActions={keyWordActions}
     />
   )
 }

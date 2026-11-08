@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useCallback, useRef, useState, useTransition } from "react"
+import { useCallback, useRef, useState, useTransition, type ReactNode } from "react"
 
 import { FocusShell } from "@/components/layout/focus-shell"
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils"
 
 import { saveAnswerAction, submitAttemptAction, type CheckAnswerResult } from "../actions"
 import { useAttemptAnswers } from "../hooks/use-attempt-answers"
@@ -24,7 +25,7 @@ import type { AttemptMode, PracticeSetDetail } from "../types"
 import { countAnswered, isAnswered, type Answers } from "../utils/answers"
 import { AttemptTimer } from "./attempt-timer"
 import { InstantFeedback, type CheckedView } from "./instant-feedback"
-import { PassageView } from "./passage-view"
+import { PassagePanel } from "./passage-panel"
 import { QuestionInput } from "./question-input"
 import { SaveStatus } from "./save-status"
 
@@ -46,7 +47,13 @@ type AttemptRunnerProps = {
   }) => Promise<CheckAnswerResult>
   /** Questions already checked before this page load (resume). */
   initialChecked?: Readonly<Record<string, { isCorrect: boolean }>>
+  /** The learner's explanation language: key word meanings show this language first. */
+  language?: "en" | "vi"
+  /** "Add to My words" buttons for passage key words, by word id (rendered on the server). */
+  keyWordActions?: Readonly<Record<string, ReactNode>>
 }
+
+type MobileView = "passage" | "questions"
 
 /** Runs a practice attempt in focus mode: passage, questions, autosave, timer and submit. */
 export function AttemptRunner({
@@ -57,7 +64,10 @@ export function AttemptRunner({
   reviewHref,
   instantCheck,
   initialChecked = {},
+  language = "en",
+  keyWordActions,
 }: AttemptRunnerProps) {
+  const [mobileView, setMobileView] = useState<MobileView>("passage")
   const router = useRouter()
   const [checked, setChecked] = useState<Record<string, CheckedView>>(initialChecked)
   const [checkingId, setCheckingId] = useState<string | null>(null)
@@ -84,6 +94,7 @@ export function AttemptRunner({
     saveAnswer: saveAnswerAction,
     // Closed on the server (time is up or submitted elsewhere): show the results.
     onClosed: () => startSubmitting(finish),
+    persistKey: `ielts-hub:pending-answers:${attempt.id}`,
   })
 
   const submit = () =>
@@ -135,7 +146,13 @@ export function AttemptRunner({
     }))
   }
 
-  const firstPassage = set.passages[0]
+  const hasPassage = set.passages.length > 0
+  const passagePosition = new Map(set.passages.map((passage) => [passage.id, passage.position]))
+  const sectionLabel = (group: PracticeSetDetail["groups"][number]) => {
+    const questions = `Questions ${group.questions[0]?.number ?? ""}–${group.questions.at(-1)?.number ?? ""}`
+    const position = group.passageId ? passagePosition.get(group.passageId) : undefined
+    return set.passages.length > 1 && position ? `Passage ${position} · ${questions}` : questions
+  }
   const questionIds = set.groups.flatMap((group) => group.questions.map((question) => question.id))
   const answeredCount = countAnswered(questionIds, answers)
   const unansweredCount = questionIds.length - answeredCount
@@ -190,21 +207,59 @@ export function AttemptRunner({
         </>
       }
     >
-      <div className={firstPassage ? "grid gap-8 lg:grid-cols-2" : "mx-auto max-w-3xl"}>
-        {firstPassage && (
+      {hasPassage && (
+        // Small screens: one panel at a time. Both stay mounted so typed answers survive.
+        <div role="tablist" aria-label="View" className="mb-4 grid grid-cols-2 gap-2 lg:hidden">
+          {(["passage", "questions"] as const).map((view) => (
+            <Button
+              key={view}
+              role="tab"
+              id={`attempt-tab-${view}`}
+              aria-controls={`attempt-panel-${view}`}
+              aria-selected={mobileView === view}
+              variant={mobileView === view ? "default" : "outline"}
+              onClick={() => setMobileView(view)}
+            >
+              {view === "passage" ? "Passage" : "Questions"}
+            </Button>
+          ))}
+        </div>
+      )}
+      <div className={hasPassage ? "grid gap-8 lg:grid-cols-2" : "mx-auto max-w-3xl"}>
+        {hasPassage && (
           // Desktop: the passage stays in view while the questions scroll (below header,
           // above the sticky footer). No token covers this viewport-relative height.
-          <div className="rounded-card border border-border bg-background p-5 lg:sticky lg:top-20 lg:max-h-[calc(100svh-11rem)] lg:overflow-y-auto">
-            <PassageView title={firstPassage.title} text={firstPassage.text} />
+          <div
+            id="attempt-panel-passage"
+            className={cn(
+              "rounded-card border border-border bg-background p-5 lg:sticky lg:top-20 lg:block lg:max-h-[calc(100svh-11rem)] lg:overflow-y-auto",
+              mobileView !== "passage" && "hidden",
+            )}
+          >
+            <PassagePanel
+              passages={set.passages}
+              attemptId={attempt.id}
+              language={language}
+              keyWordActions={keyWordActions}
+            />
           </div>
         )}
-        <div className="flex flex-col gap-8">
+        <div
+          id="attempt-panel-questions"
+          className={cn(
+            "flex flex-col gap-8",
+            hasPassage && mobileView !== "questions" && "hidden lg:flex",
+          )}
+        >
           {set.groups.map((group) => (
             <section
               key={group.id}
-              aria-label={`Questions ${group.questions[0]?.number ?? ""}–${group.questions.at(-1)?.number ?? ""}`}
+              aria-label={sectionLabel(group)}
               className="flex flex-col gap-5 rounded-card border border-border bg-background p-5"
             >
+              {set.passages.length > 1 && (
+                <h2 className="text-label text-foreground">{sectionLabel(group)}</h2>
+              )}
               <p className="text-body-sm text-muted-foreground">{group.instructions}</p>
               {group.type.startsWith("matching_") && group.sharedOptions.length > 0 && (
                 <ul aria-label="Options" className="flex flex-col gap-1 rounded-md bg-muted p-3">

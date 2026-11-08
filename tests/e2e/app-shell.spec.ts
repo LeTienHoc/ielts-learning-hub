@@ -124,6 +124,24 @@ test.describe("mobile navigation", () => {
     await page.keyboard.press("Escape")
     await expect(page.getByRole("dialog")).toBeHidden()
   })
+
+  // Regression: at 360px the "Dashboard" crumb overflowed its shrunken box and overlapped
+  // the current page. Only the current page is shown on small screens.
+  test("breadcrumb shows only the current page and never overflows at 360px", async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 780 })
+    await page.goto("/settings")
+    const breadcrumb = page.getByRole("navigation", { name: "breadcrumb" })
+    await expect(breadcrumb.getByText("Settings")).toBeVisible()
+    await expect(breadcrumb.getByRole("link", { name: "Dashboard" })).toBeHidden()
+
+    const overflowing = await breadcrumb.locator("li").evaluateAll((items) =>
+      items
+        .filter((item) => item.getClientRects().length > 0)
+        .filter((item) => item.scrollWidth > item.clientWidth + 1)
+        .map((item) => item.textContent),
+    )
+    expect(overflowing).toEqual([])
+  })
 })
 
 test.describe("theme", () => {

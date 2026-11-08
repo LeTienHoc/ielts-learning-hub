@@ -6,11 +6,13 @@ import { UserMenu } from "@/components/layout/user-menu"
 import { signInAction, signUpAction } from "@/features/auth/actions"
 import { SignInForm } from "@/features/auth/components/sign-in-form"
 import { SignUpForm } from "@/features/auth/components/sign-up-form"
+import { navigateWithFullReload } from "@/lib/helpers/full-page-navigation"
 
 vi.mock("@/features/auth/actions", () => ({
   signInAction: vi.fn(),
   signUpAction: vi.fn(),
 }))
+vi.mock("@/lib/helpers/full-page-navigation", () => ({ navigateWithFullReload: vi.fn() }))
 
 const searchParams = new URLSearchParams()
 vi.mock("next/navigation", () => ({ useSearchParams: () => searchParams }))
@@ -71,7 +73,21 @@ describe("SignUpForm", () => {
 describe("SignInForm", () => {
   beforeEach(() => {
     vi.mocked(signInAction).mockReset()
+    vi.mocked(navigateWithFullReload).mockReset()
     for (const key of [...searchParams.keys()]) searchParams.delete(key)
+  })
+
+  it("leaves with a full page load to the path the server returns", async () => {
+    vi.mocked(signInAction).mockResolvedValue({ ok: true, redirectTo: "/writing" })
+    const user = userEvent.setup()
+    render(<SignInForm />)
+
+    await user.type(screen.getByLabelText("Email"), "linh@example.com")
+    await user.type(screen.getByLabelText("Password"), "whatever")
+    await user.click(screen.getByRole("button", { name: "Sign in" }))
+
+    await vi.waitFor(() => expect(navigateWithFullReload).toHaveBeenCalledWith("/writing"))
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument()
   })
 
   it("passes the return path to the server action", async () => {
@@ -113,6 +129,19 @@ describe("UserMenu", () => {
     expect(await screen.findByText("Linh Tran")).toBeInTheDocument()
     expect(screen.getByText("linh@example.com")).toBeInTheDocument()
     expect(screen.getByRole("menuitem", { name: "Sign out" })).toBeInTheDocument()
+  })
+
+  it("signs out, then leaves with a full page load", async () => {
+    vi.mocked(navigateWithFullReload).mockReset()
+    const signOutAction = vi.fn().mockResolvedValue({ redirectTo: "/sign-in" })
+    const user = userEvent.setup()
+    render(<UserMenu name="Linh Tran" email="linh@example.com" signOutAction={signOutAction} />)
+
+    await user.click(screen.getByRole("button", { name: "Account menu" }))
+    await user.click(await screen.findByRole("menuitem", { name: "Sign out" }))
+
+    await vi.waitFor(() => expect(navigateWithFullReload).toHaveBeenCalledWith("/sign-in"))
+    expect(signOutAction).toHaveBeenCalledOnce()
   })
 
   it("falls back to the email when there is no display name", () => {

@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { FormField } from "@/components/shared/form-field"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { navigateWithFullReload } from "@/lib/helpers/full-page-navigation"
 
 import { signInAction } from "../actions"
 import { signInSchema } from "../schemas/auth-schemas"
@@ -34,7 +35,8 @@ export function SignInForm() {
     setServerError(null)
     startTransition(async () => {
       const result = await signInAction(values, next)
-      if (!result.ok) setServerError(result.error)
+      if (result.ok) navigateWithFullReload(result.redirectTo)
+      else setServerError(result.error)
     })
   })
 

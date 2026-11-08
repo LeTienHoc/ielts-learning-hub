@@ -4,10 +4,10 @@ A personalised English and IELTS learning SaaS for individual learners: structur
 grammar and vocabulary, practice for all four IELTS skills, an AI personal tutor and progress
 analytics.
 
-> **Status: Phase 0 — foundation.** This repository currently contains the application
-> foundation only: architecture, design system, responsive app shell, route placeholders,
-> environment validation, tooling and tests. No learning features, AI, database or
-> authentication are implemented yet.
+> **Status: P1 — platform (in progress).** Phase 0 (architecture, design system, app shell,
+> route placeholders, tooling, tests) is complete. P1 adds Supabase (profiles, activity events,
+> RLS), email sign-up / sign-in / password reset, protected routes, and profile and account
+> deletion in Settings. Google sign-in, learning features and AI are not implemented yet.
 
 ## Technology stack
 
@@ -28,47 +28,62 @@ analytics.
 - **pnpm 10** — version pinned via `packageManager` in `package.json` (`corepack enable` or
   `npm i -g pnpm@10`)
 - Git
+- Docker and the [Supabase CLI](https://supabase.com/docs/guides/local-development) for the
+  local database (on Windows: inside WSL, see the [setup guide](docs/development/setup.md#local-supabase))
 
 ## Installation
 
 ```bash
 nvm use 24            # or any Node >= 22.12
 pnpm install          # also installs the Husky git hooks
-cp .env.example .env.local   # optional: no variables are required to run Phase 0
+pnpm db:start         # start the local Supabase stack (Docker)
+pnpm env:local        # write .env.local from the running stack
 pnpm dev              # http://localhost:3000
 ```
 
 ## Commands
 
-| Command             | What it does                                                     |
-| ------------------- | ---------------------------------------------------------------- |
-| `pnpm dev`          | Start the development server                                     |
-| `pnpm build`        | Production build                                                 |
-| `pnpm start`        | Serve the production build                                       |
-| `pnpm lint`         | ESLint (includes architecture import rules)                      |
-| `pnpm typecheck`    | Generate Next.js route types, then `tsc --noEmit`                |
-| `pnpm format`       | Format all files with Prettier                                   |
-| `pnpm format:check` | Check formatting (CI)                                            |
-| `pnpm test`         | Unit and integration tests (Vitest, single run)                  |
-| `pnpm test:watch`   | Vitest in watch mode                                             |
-| `pnpm test:e2e`     | Playwright end-to-end tests (builds and starts the app on :3100) |
+| Command                                   | What it does                                                             |
+| ----------------------------------------- | ------------------------------------------------------------------------ |
+| `pnpm dev`                                | Start the development server                                             |
+| `pnpm build`                              | Production build                                                         |
+| `pnpm start`                              | Serve the production build                                               |
+| `pnpm lint`                               | ESLint (includes architecture import rules)                              |
+| `pnpm typecheck`                          | Generate Next.js route types, then `tsc --noEmit`                        |
+| `pnpm format`                             | Format all files with Prettier                                           |
+| `pnpm format:check`                       | Check formatting (CI)                                                    |
+| `pnpm test`                               | Unit and integration tests (Vitest, single run)                          |
+| `pnpm test:watch`                         | Vitest in watch mode                                                     |
+| `pnpm test:e2e`                           | Playwright end-to-end tests (builds and starts the app on :3100)         |
+| `pnpm db:start` / `db:stop` / `db:status` | Start, stop or inspect the local Supabase stack                          |
+| `pnpm db:reset`                           | Recreate the local database from `supabase/migrations`                   |
+| `pnpm db:test`                            | Database tests (pgTAP, `supabase/tests/database`)                        |
+| `pnpm db:types`                           | Regenerate `src/server/database/database.types.ts`                       |
+| `pnpm env:local`                          | Write `.env.local` from the running local stack (`--force` to overwrite) |
 
-First E2E run: `pnpm exec playwright install chromium`.
+First E2E run: `pnpm exec playwright install chromium`. E2E tests need the local Supabase stack
+and `.env.local`.
 
 ## Environment configuration
 
 Variables are validated with Zod in `src/config/env/` and documented in `.env.example`.
-None are required for Phase 0; integrations are optional until implemented.
+The Supabase URL and publishable key are required. Other integrations stay optional until
+implemented. For local development, start Supabase with `pnpm db:start` and then run
+`pnpm env:local` to create `.env.local` (see [setup](docs/development/setup.md#local-supabase)).
 
-| Variable                        | Scope           | Purpose                                             |
-| ------------------------------- | --------------- | --------------------------------------------------- |
-| `NEXT_PUBLIC_APP_URL`           | public          | Canonical app URL (default `http://localhost:3000`) |
-| `NEXT_PUBLIC_SUPABASE_URL`      | public          | Supabase project URL (future)                       |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | public          | Supabase anonymous key (future)                     |
-| `SUPABASE_SERVICE_ROLE_KEY`     | **server only** | Supabase admin access (future)                      |
-| `ANTHROPIC_API_KEY`             | **server only** | Claude API (future)                                 |
-| `SPEECH_TO_TEXT_API_KEY`        | **server only** | Speech recognition provider (future)                |
-| `TEXT_TO_SPEECH_API_KEY`        | **server only** | Speech synthesis provider (future)                  |
+| Variable                               | Scope           | Purpose                                                        |
+| -------------------------------------- | --------------- | -------------------------------------------------------------- |
+| `NEXT_PUBLIC_APP_URL`                  | public          | Canonical app URL (default `http://localhost:3000`)            |
+| `NEXT_PUBLIC_SUPABASE_URL`             | public          | Supabase project URL (**required**)                            |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | public          | Supabase publishable key `sb_publishable_…` (**required**)     |
+| `SUPABASE_SECRET_KEY`                  | **server only** | Supabase secret key `sb_secret_…`, bypasses RLS (not used yet) |
+| `ANTHROPIC_API_KEY`                    | **server only** | Claude API (future)                                            |
+| `SPEECH_TO_TEXT_API_KEY`               | **server only** | Speech recognition provider (future)                           |
+| `TEXT_TO_SPEECH_API_KEY`               | **server only** | Speech synthesis provider (future)                             |
+| `MAILPIT_URL`                          | tests only      | Local email inbox read by E2E tests (written by `env:local`)   |
+
+The legacy names `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` are not
+supported ([ADR 0006](docs/decisions/0006-supabase-auth-platform.md)).
 
 Server-only variables are read through `src/config/env/server.ts`, which imports
 `server-only` so it can never be bundled for the browser. Never commit `.env*` files other than

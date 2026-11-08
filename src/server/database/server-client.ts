@@ -1,6 +1,7 @@
 import "server-only"
 
 import { createServerClient } from "@supabase/ssr"
+import { io } from "next/cache"
 import { cookies } from "next/headers"
 
 import { clientEnv } from "@/config/env/client"
@@ -13,6 +14,10 @@ import type { Database } from "./database.types"
  */
 export async function createSupabaseServerClient() {
   const cookieStore = await cookies()
+  // The session-aware App Shell prerender can read cookies, but the auth client then calls
+  // Date.now() to check token expiry, which Cache Components rejects while prerendering.
+  // io() keeps Supabase work out of the prerender; in actions and requests it resolves at once.
+  await io()
 
   return createServerClient<Database>(
     clientEnv.NEXT_PUBLIC_SUPABASE_URL,

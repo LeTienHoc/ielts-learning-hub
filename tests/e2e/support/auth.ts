@@ -4,6 +4,14 @@ const MAILPIT_URL = process.env.MAILPIT_URL ?? "http://127.0.0.1:54324"
 
 export const TEST_PASSWORD = "correct horse battery staple"
 
+/**
+ * The form's alert message. Next.js also renders an empty `role="alert"` route announcer,
+ * so the role alone is ambiguous; keep the role check and narrow to the Alert component.
+ */
+export function formAlert(page: Page) {
+  return page.getByRole("alert").and(page.locator('[data-slot="alert"]'))
+}
+
 /** A unique address per test so runs never collide. Mail goes to the local Mailpit inbox. */
 export function uniqueEmail(label: string) {
   return `${label}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.test`

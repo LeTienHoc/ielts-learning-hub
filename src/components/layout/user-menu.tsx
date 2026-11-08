@@ -14,12 +14,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Skeleton } from "@/components/ui/skeleton"
+import { navigateWithFullReload } from "@/lib/helpers/full-page-navigation"
 
 type UserMenuProps = {
   name: string | null
   email: string
-  /** Server Action that signs the user out (provided by the auth feature). */
-  signOutAction: () => Promise<void>
+  /** Server Action that signs the user out and returns where to go next (auth feature). */
+  signOutAction: () => Promise<{ redirectTo: string }>
 }
 
 function initials(name: string | null, email: string) {
@@ -30,6 +31,11 @@ function initials(name: string | null, email: string) {
 
 /** Account menu in the app header. */
 export function UserMenu({ name, email, signOutAction }: UserMenuProps) {
+  const signOut = async () => {
+    const { redirectTo } = await signOutAction()
+    navigateWithFullReload(redirectTo)
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -53,7 +59,7 @@ export function UserMenu({ name, email, signOutAction }: UserMenuProps) {
             Settings
           </Link>
         </DropdownMenuItem>
-        <form action={signOutAction}>
+        <form action={signOut}>
           <DropdownMenuItem asChild>
             <button type="submit" className="w-full">
               <LogOut aria-hidden="true" />

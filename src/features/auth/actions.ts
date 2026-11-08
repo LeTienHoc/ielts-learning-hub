@@ -1,13 +1,11 @@
 "use server"
 
-import { redirect } from "next/navigation"
-
 import { clientEnv } from "@/config/env/client"
 import { HOME_ROUTE, SIGN_IN_ROUTE } from "@/config/routes"
 import { safeRedirectPath } from "@/lib/helpers/safe-redirect"
 import { createSupabaseServerClient } from "@/server/database/server-client"
 
-import { GENERIC_ERROR, type ActionResult } from "./action-result"
+import { GENERIC_ERROR, type ActionResult, type RedirectActionResult } from "./action-result"
 import {
   forgotPasswordSchema,
   resetPasswordSchema,
@@ -51,7 +49,10 @@ export async function signUpAction(input: SignUpInput): Promise<ActionResult> {
   return { ok: true }
 }
 
-export async function signInAction(input: SignInInput, next?: string): Promise<ActionResult> {
+export async function signInAction(
+  input: SignInInput,
+  next?: string,
+): Promise<RedirectActionResult> {
   const parsed = signInSchema.safeParse(input)
   if (!parsed.success) return { ok: false, error: "Please check the highlighted fields." }
 
@@ -68,7 +69,7 @@ export async function signInAction(input: SignInInput, next?: string): Promise<A
     return { ok: false, error: "Email or password is incorrect." }
   }
 
-  redirect(safeRedirectPath(next, HOME_ROUTE))
+  return { ok: true, redirectTo: safeRedirectPath(next, HOME_ROUTE) }
 }
 
 export async function requestPasswordResetAction(
@@ -88,7 +89,9 @@ export async function requestPasswordResetAction(
   return { ok: true }
 }
 
-export async function resetPasswordAction(input: ResetPasswordInput): Promise<ActionResult> {
+export async function resetPasswordAction(
+  input: ResetPasswordInput,
+): Promise<RedirectActionResult> {
   const parsed = resetPasswordSchema.safeParse(input)
   if (!parsed.success) return { ok: false, error: "Please check the highlighted fields." }
 
@@ -109,11 +112,12 @@ export async function resetPasswordAction(input: ResetPasswordInput): Promise<Ac
     return { ok: false, error: GENERIC_ERROR }
   }
 
-  redirect(HOME_ROUTE)
+  return { ok: true, redirectTo: HOME_ROUTE }
 }
 
-export async function signOutAction(): Promise<void> {
+/** Ends the session. The caller then opens `redirectTo` with a full page load. */
+export async function signOutAction(): Promise<{ redirectTo: string }> {
   const supabase = await createSupabaseServerClient()
   await supabase.auth.signOut()
-  redirect(SIGN_IN_ROUTE)
+  return { redirectTo: SIGN_IN_ROUTE }
 }

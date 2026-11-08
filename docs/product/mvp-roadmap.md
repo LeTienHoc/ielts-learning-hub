@@ -71,6 +71,14 @@ Vietnamese learners preparing for IELTS Academic, with the two skills where self
 Phases are ordered by dependency. Each phase ends with lint, typecheck, unit + E2E tests, build,
 updated docs, and a demo on staging. Phase 0 is complete.
 
+**P1 status (2026-11-08): in progress.**
+
+- Done locally: AUTH-01, 02, 04, 05, 06; SET-01 without avatar; SET-05 account deletion only.
+  This includes migrations with RLS and pgTAP tests, the `ActivityEvent` table and emitter, the
+  `(auth)` route group, and settings.
+- Open: AUTH-03 Google OAuth (needs a Google OAuth client), the `(onboarding)` route group, and
+  a staging demo.
+
 ```
 P0 Foundation ✔
  └─ P1 Platform: Supabase, Auth, Profile, events

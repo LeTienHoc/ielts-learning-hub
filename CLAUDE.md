@@ -13,10 +13,19 @@ personalised roadmap. Vision: a calm, premium, distraction-free study experience
 
 Phase 0 (foundation) is **complete**: design tokens, shadcn/ui foundation, theme (light/dark/
 system), responsive app shell, 11 placeholder routes + landing page, env validation, tooling,
-unit + E2E tests and docs. `src/features`, `src/server`, `src/stores`, `src/types`,
-`tests/integration` and `supabase/migrations` do not exist yet — create them with the first
-change that needs them. No IELTS features, AI, Supabase or authentication are implemented.
-Do not start them unasked.
+unit + E2E tests and docs.
+
+P1 (platform) is **in progress** on `feat/p1-supabase-auth`. Done:
+
+- Supabase local stack (`pnpm db:*`); `profiles` + `activity_events` tables with RLS and pgTAP
+  tests.
+- Email sign-up / sign-in / password reset (`src/app/(auth)`, `src/features/auth`), proxy route
+  protection, DAL in `src/server/auth`.
+- Settings: profile and account deletion (`src/features/settings`).
+
+Google OAuth (AUTH-03) is deferred. See ADR 0006. `src/stores`, `src/types` and
+`tests/integration` do not exist yet; create them with the first change that needs them.
+No IELTS features or AI are implemented. Do not start them unasked.
 
 ## Tech stack (fixed — do not change without an ADR)
 
@@ -73,6 +82,12 @@ Use **pnpm only** (`npm`/`yarn`/`bun` installs are blocked by a hook). Never edi
 | Format                 | `pnpm format` / `pnpm format:check`                         |
 | Unit/integration tests | `pnpm test` (Vitest run) / `pnpm test:watch`                |
 | E2E tests              | `pnpm test:e2e` (builds + serves on :3100; Chromium needed) |
+| Local Supabase         | `pnpm db:start` / `db:status` / `db:reset` / `db:types`     |
+| DB tests (pgTAP)       | `pnpm db:test`                                              |
+
+App, E2E and DB tests need the local Supabase stack and `.env.local`. The user creates
+`.env.local` with `pnpm env:local`; Claude never writes `.env*` files. Setup, including WSL:
+`docs/development/setup.md`.
 
 Run them with Node 24 on PATH (e.g. prepend the nvm v24 folder). Never report a check as passed
 unless it ran in this session; report unavailable scripts as such.

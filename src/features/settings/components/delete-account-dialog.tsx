@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { navigateWithFullReload } from "@/lib/helpers/full-page-navigation"
 
 import { deleteAccountAction } from "../actions"
 import { DELETE_CONFIRMATION } from "../schemas/settings-schemas"
@@ -31,7 +32,8 @@ export function DeleteAccountDialog() {
     setError(null)
     startTransition(async () => {
       const result = await deleteAccountAction({ confirmation: DELETE_CONFIRMATION })
-      if (!result.ok) setError(result.error)
+      if (result.ok) navigateWithFullReload("/")
+      else setError(result.error)
     })
   }
 

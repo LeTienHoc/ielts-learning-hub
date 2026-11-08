@@ -5,8 +5,9 @@
 - Never print, log, commit, echo or paste secrets (API keys, service-role keys, tokens, passwords).
 - Never read or edit `.env`, `.env.local` or other real env files. Only `.env.example` (placeholder
   values, no real credentials) may be edited.
-- Only variables safe for browsers may use the `NEXT_PUBLIC_` prefix. `SUPABASE_SERVICE_ROLE_KEY`,
+- Only variables safe for browsers may use the `NEXT_PUBLIC_` prefix. `SUPABASE_SECRET_KEY`,
   `ANTHROPIC_API_KEY`, `SPEECH_TO_TEXT_API_KEY`, `TEXT_TO_SPEECH_API_KEY` are **server-only**.
+  The Supabase publishable key (`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`) is public by design.
 - Access env vars through the validated env module (Zod), not scattered `process.env` reads.
   Server env lives in a module that imports `server-only`.
 
@@ -23,8 +24,14 @@
 - Every protected Server Action / route handler checks authentication **and** authorization on
   the server for the specific resource (ownership), not just "is logged in".
 - Never rely on hidden UI, client state or route groups for access control.
-- When Supabase is added: Row Level Security on every table; the service-role key is used only in
-  `src/server/**` for operations that genuinely need to bypass RLS.
+- Supabase: Row Level Security on every table, covered by pgTAP tests. The secret key
+  (`SUPABASE_SECRET_KEY`) is used only in `src/server/**` for operations that genuinely need to
+  bypass RLS.
+- The proxy (`src/proxy.ts`) only redirects optimistically. Authorise in the data access layer
+  (`src/server/auth/session.ts`) and through RLS.
+- After any auth state change (sign-in, sign-out, password reset, account deletion), leave with
+  `navigateWithFullReload`, not a client-side redirect. Cache Components keeps earlier routes
+  mounted in the tab. See ADR 0006.
 
 ## Output and rendering
 

@@ -1,7 +1,6 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 import { createSupabaseServerClient } from "@/server/database/server-client"
 
@@ -57,5 +56,6 @@ export async function deleteAccountAction(input: DeleteAccountInput): Promise<Ac
 
   // The user no longer exists; clear this browser's session cookies only.
   await supabase.auth.signOut({ scope: "local" })
-  redirect("/")
+  // The client leaves with a full page load so no signed-in UI stays mounted in the tab.
+  return { ok: true }
 }

@@ -259,6 +259,7 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          daily_new_words: number
           display_name: string | null
           explanation_language: string
           id: string
@@ -269,6 +270,7 @@ export type Database = {
         ComputedFields: never
         Insert: {
           created_at?: string
+          daily_new_words?: number
           display_name?: string | null
           explanation_language?: string
           id: string
@@ -278,6 +280,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          daily_new_words?: number
           display_name?: string | null
           explanation_language?: string
           id?: string
@@ -417,11 +420,210 @@ export type Database = {
           },
         ]
       }
+      review_logs: {
+        Row: {
+          exercise: string
+          grade: string
+          id: number
+          interval_after: number
+          interval_before: number
+          reviewed_at: string
+          user_id: string
+          word_id: string
+        }
+        ComputedFields: never
+        Insert: {
+          exercise: string
+          grade: string
+          id?: never
+          interval_after: number
+          interval_before: number
+          reviewed_at?: string
+          user_id: string
+          word_id: string
+        }
+        Update: {
+          exercise?: string
+          grade?: string
+          id?: never
+          interval_after?: number
+          interval_before?: number
+          reviewed_at?: string
+          user_id?: string
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_logs_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_words: {
+        Row: {
+          added_at: string
+          due_at: string | null
+          ease: number
+          interval_days: number
+          introduced_at: string | null
+          lapses: number
+          queue_order: number
+          repetitions: number
+          review_count: number
+          status: string
+          user_id: string
+          word_id: string
+        }
+        ComputedFields: never
+        Insert: {
+          added_at?: string
+          due_at?: string | null
+          ease?: number
+          interval_days?: number
+          introduced_at?: string | null
+          lapses?: number
+          queue_order?: never
+          repetitions?: number
+          review_count?: number
+          status?: string
+          user_id: string
+          word_id: string
+        }
+        Update: {
+          added_at?: string
+          due_at?: string | null
+          ease?: number
+          interval_days?: number
+          introduced_at?: string | null
+          lapses?: number
+          queue_order?: never
+          repetitions?: number
+          review_count?: number
+          status?: string
+          user_id?: string
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocabulary_set_words: {
+        Row: {
+          position: number
+          set_id: string
+          word_id: string
+        }
+        ComputedFields: never
+        Insert: {
+          position: number
+          set_id: string
+          word_id: string
+        }
+        Update: {
+          position?: number
+          set_id?: string
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocabulary_set_words_set_id_fkey"
+            columns: ["set_id"]
+            isOneToOne: false
+            referencedRelation: "vocabulary_sets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vocabulary_set_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vocabulary_sets: {
+        Row: {
+          id: string
+        }
+        ComputedFields: never
+        Insert: {
+          id: string
+        }
+        Update: {
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocabulary_sets_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      words: {
+        Row: {
+          collocations: NonNullable<Json>
+          common_mistakes: NonNullable<Json>
+          examples: NonNullable<Json>
+          id: string
+          ipa: string | null
+          lemma: string
+          level: string
+          meaning_en: string
+          meaning_vi: string
+          part_of_speech: string
+          slug: string
+          topics: string[]
+        }
+        ComputedFields: never
+        Insert: {
+          collocations?: NonNullable<Json>
+          common_mistakes?: NonNullable<Json>
+          examples?: NonNullable<Json>
+          id: string
+          ipa?: string | null
+          lemma: string
+          level: string
+          meaning_en: string
+          meaning_vi: string
+          part_of_speech: string
+          slug: string
+          topics?: string[]
+        }
+        Update: {
+          collocations?: NonNullable<Json>
+          common_mistakes?: NonNullable<Json>
+          examples?: NonNullable<Json>
+          id?: string
+          ipa?: string | null
+          lemma?: string
+          level?: string
+          meaning_en?: string
+          meaning_vi?: string
+          part_of_speech?: string
+          slug?: string
+          topics?: string[]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      add_set_to_my_words: { Args: { target_set_id: string }; Returns: number }
+      add_word_to_my_words: { Args: { target_word_id: string }; Returns: boolean }
       check_answer: {
         Args: { answer: Json; target_attempt_id: string; target_question_id: string }
         Returns: {
@@ -435,6 +637,7 @@ export type Database = {
       }
       delete_current_user: { Args: Record<PropertyKey, never>; Returns: undefined }
       finalize_attempt: { Args: { reason: string; target_attempt_id: string }; Returns: undefined }
+      finish_review_session: { Args: { session_started_at: string }; Returns: undefined }
       get_attempt_review: {
         Args: { target_attempt_id: string }
         Returns: {
@@ -447,9 +650,22 @@ export type Database = {
           question_id: string
         }[]
       }
+      introduce_new_words: { Args: Record<PropertyKey, never>; Returns: string[] }
       is_published_content: { Args: { item_id: string }; Returns: boolean }
       is_published_practice_set: { Args: { set_id: string }; Returns: boolean }
+      is_published_word: { Args: { target_word_id: string }; Returns: boolean }
+      new_word_allowance: { Args: { at: string; target_user_id: string }; Returns: number }
       normalize_text_answer: { Args: { value: string }; Returns: string }
+      review_days_in_week: { Args: { at: string; target_user_id: string }; Returns: number }
+      review_word: {
+        Args: {
+          exercise: string
+          expected_review_count: number
+          grade: string
+          target_word_id: string
+        }
+        Returns: string
+      }
       save_answer: {
         Args: { answer: Json; target_attempt_id: string; target_question_id: string }
         Returns: undefined
@@ -457,6 +673,7 @@ export type Database = {
       score_answer: { Args: { answer: Json; target_question_id: string }; Returns: number }
       start_attempt: { Args: { attempt_mode: string; target_set_id: string }; Returns: string }
       submit_attempt: { Args: { target_attempt_id: string }; Returns: undefined }
+      weekly_review_days: { Args: Record<PropertyKey, never>; Returns: number }
     }
     Enums: {
       [_ in never]: never

@@ -1,0 +1,322 @@
+{
+  "slug": "technology",
+  "title": "Technology",
+  "summary": "Words for gadgets, the internet and how technology changes our lives.",
+  "level": "B1",
+  "topics": ["technology"],
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "words": [
+    {
+      "slug": "innovation",
+      "lemma": "innovation",
+      "partOfSpeech": "noun",
+      "ipa": "/ˌɪnəˈveɪʃn/",
+      "meaningEn": "a new idea, method or product, or the act of creating one",
+      "meaningVi": "sự đổi mới; ý tưởng, sản phẩm mới",
+      "examples": [
+        {
+          "en": "Small start-ups are often the source of innovation.",
+          "vi": "Các công ty khởi nghiệp nhỏ thường là nguồn của sự đổi mới.",
+          "cloze": "innovation"
+        },
+        {
+          "en": "Mobile banking was a major innovation in Vietnam.",
+          "vi": "Ngân hàng di động là một bước đổi mới lớn ở Việt Nam.",
+          "cloze": "innovation"
+        }
+      ],
+      "collocations": ["technological innovation", "encourage innovation", "a major innovation"],
+      "commonMistakes": [
+        {
+          "wrong": "The government should innovation the system.",
+          "right": "The government should innovate the system.",
+          "whyEn": "Innovation is a noun; the verb is innovate.",
+          "whyVi": "Innovation là danh từ; động từ là innovate."
+        }
+      ],
+      "level": "B2",
+      "topics": ["technology"]
+    },
+    {
+      "slug": "device",
+      "lemma": "device",
+      "partOfSpeech": "noun",
+      "ipa": "/dɪˈvaɪs/",
+      "meaningEn": "a machine or tool made for a special purpose, such as a phone",
+      "meaningVi": "thiết bị",
+      "examples": [
+        {
+          "en": "Children now spend hours a day on electronic devices.",
+          "vi": "Trẻ em giờ dành hàng giờ mỗi ngày cho thiết bị điện tử.",
+          "cloze": "devices"
+        },
+        {
+          "en": "This small device tracks your heart rate.",
+          "vi": "Thiết bị nhỏ này theo dõi nhịp tim của bạn.",
+          "cloze": "device"
+        }
+      ],
+      "collocations": ["electronic devices", "mobile device", "smart device"],
+      "commonMistakes": [
+        {
+          "wrong": "Can you device a plan?",
+          "right": "Can you devise a plan?",
+          "whyEn": "Device (with c) is the noun. Devise (with s) is the verb meaning to plan.",
+          "whyVi": "Device (chữ c) là danh từ \"thiết bị\"; devise (chữ s) là động từ \"nghĩ ra\". Một chữ cái, hai thế giới!"
+        }
+      ],
+      "level": "B1",
+      "topics": ["technology"]
+    },
+    {
+      "slug": "automate",
+      "lemma": "automate",
+      "partOfSpeech": "verb",
+      "ipa": "/ˈɔːtəmeɪt/",
+      "meaningEn": "to make a process work by machines instead of people",
+      "meaningVi": "tự động hoá",
+      "examples": [
+        {
+          "en": "Many factories automate simple, repetitive tasks.",
+          "vi": "Nhiều nhà máy tự động hoá những việc đơn giản, lặp đi lặp lại.",
+          "cloze": "automate"
+        },
+        {
+          "en": "If we automate checkout, what happens to cashiers?",
+          "vi": "Nếu tự động hoá quầy thanh toán, những người thu ngân sẽ ra sao?",
+          "cloze": "automate"
+        }
+      ],
+      "collocations": ["automate a process", "automate tasks", "fully automated"],
+      "commonMistakes": [
+        {
+          "wrong": "Robots will automatic many jobs.",
+          "right": "Robots will automate many jobs.",
+          "whyEn": "Automatic is an adjective; the verb is automate.",
+          "whyVi": "Automatic là tính từ; động từ là automate."
+        }
+      ],
+      "level": "B2",
+      "topics": ["technology", "work"]
+    },
+    {
+      "slug": "digital",
+      "lemma": "digital",
+      "partOfSpeech": "adjective",
+      "ipa": "/ˈdɪdʒɪtl/",
+      "meaningEn": "using computers and the internet; stored as numbers",
+      "meaningVi": "kỹ thuật số",
+      "examples": [
+        {
+          "en": "Older people may struggle with digital services.",
+          "vi": "Người lớn tuổi có thể gặp khó với các dịch vụ kỹ thuật số.",
+          "cloze": "digital"
+        },
+        {
+          "en": "Libraries now lend digital books as well as paper ones.",
+          "vi": "Thư viện giờ cho mượn cả sách điện tử lẫn sách giấy.",
+          "cloze": "digital"
+        }
+      ],
+      "collocations": ["digital technology", "digital age", "digital skills"],
+      "commonMistakes": [
+        {
+          "wrong": "We live in a digitals world.",
+          "right": "We live in a digital world.",
+          "whyEn": "Adjectives never take a plural -s in English.",
+          "whyVi": "Tính từ tiếng Anh không bao giờ thêm -s số nhiều."
+        }
+      ],
+      "level": "B1",
+      "topics": ["technology"]
+    },
+    {
+      "slug": "obsolete",
+      "lemma": "obsolete",
+      "partOfSpeech": "adjective",
+      "ipa": "/ˈɒbsəliːt/",
+      "meaningEn": "no longer used because something newer exists",
+      "meaningVi": "lỗi thời, không còn được dùng",
+      "examples": [
+        {
+          "en": "Fax machines are almost obsolete.",
+          "vi": "Máy fax gần như đã lỗi thời.",
+          "cloze": "obsolete"
+        },
+        {
+          "en": "Phones become obsolete in just a few years.",
+          "vi": "Điện thoại trở nên lỗi thời chỉ sau vài năm.",
+          "cloze": "obsolete"
+        }
+      ],
+      "collocations": ["become obsolete", "obsolete technology", "almost obsolete"],
+      "commonMistakes": [
+        {
+          "wrong": "This phone is very old-fashion and obsolete.",
+          "right": "This phone is obsolete.",
+          "whyEn": "Obsolete already means out of date; and the adjective is old-fashioned, with -ed.",
+          "whyVi": "Obsolete đã có nghĩa \"lỗi thời\" rồi; còn nếu dùng thì phải là old-fashioned (có -ed)."
+        }
+      ],
+      "level": "B2",
+      "topics": ["technology"]
+    },
+    {
+      "slug": "breakthrough",
+      "lemma": "breakthrough",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈbreɪkθruː/",
+      "meaningEn": "an important new discovery or success after a long effort",
+      "meaningVi": "bước đột phá",
+      "examples": [
+        {
+          "en": "Scientists have made a breakthrough in battery technology.",
+          "vi": "Các nhà khoa học đã tạo ra bước đột phá trong công nghệ pin.",
+          "cloze": "breakthrough"
+        },
+        {
+          "en": "The internet was a breakthrough for distance learning.",
+          "vi": "Internet là bước đột phá cho việc học từ xa.",
+          "cloze": "breakthrough"
+        }
+      ],
+      "collocations": ["make a breakthrough", "a major breakthrough", "scientific breakthrough"],
+      "commonMistakes": [
+        {
+          "wrong": "Scientists did a breakthrough.",
+          "right": "Scientists made a breakthrough.",
+          "whyEn": "The natural verb is make (or achieve) a breakthrough.",
+          "whyVi": "Đi với breakthrough là make (hoặc achieve), không dùng do."
+        }
+      ],
+      "level": "B2",
+      "topics": ["technology", "science"]
+    },
+    {
+      "slug": "privacy",
+      "lemma": "privacy",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈprɪvəsi/",
+      "meaningEn": "the right to keep your personal life and information to yourself",
+      "meaningVi": "quyền riêng tư; sự riêng tư",
+      "examples": [
+        {
+          "en": "Social media apps collect data that can threaten our privacy.",
+          "vi": "Ứng dụng mạng xã hội thu thập dữ liệu có thể đe doạ quyền riêng tư của chúng ta.",
+          "cloze": "privacy"
+        },
+        {
+          "en": "Many users never read the privacy settings.",
+          "vi": "Nhiều người dùng chẳng bao giờ đọc phần cài đặt quyền riêng tư.",
+          "cloze": "privacy"
+        }
+      ],
+      "collocations": ["protect privacy", "invasion of privacy", "privacy settings"],
+      "commonMistakes": [
+        {
+          "wrong": "Please respect my private.",
+          "right": "Please respect my privacy.",
+          "whyEn": "Private is an adjective; privacy is the noun.",
+          "whyVi": "Private là tính từ; danh từ \"sự riêng tư\" là privacy."
+        }
+      ],
+      "level": "B1",
+      "topics": ["technology", "society"]
+    },
+    {
+      "slug": "rely",
+      "lemma": "rely",
+      "partOfSpeech": "verb",
+      "ipa": "/rɪˈlaɪ/",
+      "meaningEn": "to need something or trust it to work",
+      "meaningVi": "phụ thuộc vào; tin cậy vào",
+      "examples": [
+        {
+          "en": "Students rely on the internet for research.",
+          "vi": "Sinh viên phụ thuộc vào internet để tìm tài liệu.",
+          "cloze": "rely"
+        },
+        {
+          "en": "We should not rely too much on GPS.",
+          "vi": "Chúng ta không nên quá phụ thuộc vào GPS.",
+          "cloze": "rely"
+        }
+      ],
+      "collocations": ["rely on", "rely heavily on", "can rely on"],
+      "commonMistakes": [
+        {
+          "wrong": "People rely technology.",
+          "right": "People rely on technology.",
+          "whyEn": "Rely always needs on (or upon).",
+          "whyVi": "Rely luôn đi với on. Không có on là câu \"mất chỗ dựa\" đấy!"
+        }
+      ],
+      "level": "B1",
+      "topics": ["technology"]
+    },
+    {
+      "slug": "gadget",
+      "lemma": "gadget",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈɡædʒɪt/",
+      "meaningEn": "a small, clever machine or tool",
+      "meaningVi": "đồ công nghệ nhỏ, món đồ tiện ích",
+      "examples": [
+        {
+          "en": "My uncle buys every new kitchen gadget he sees.",
+          "vi": "Chú tôi thấy món đồ bếp công nghệ nào mới cũng mua.",
+          "cloze": "gadget"
+        },
+        {
+          "en": "Smartwatches are popular gadgets among teenagers.",
+          "vi": "Đồng hồ thông minh là món đồ công nghệ được thiếu niên ưa chuộng.",
+          "cloze": "gadgets"
+        }
+      ],
+      "collocations": ["the latest gadget", "electronic gadgets", "kitchen gadget"],
+      "commonMistakes": [
+        {
+          "wrong": "A fridge is a gadget.",
+          "right": "A phone charger is a handy gadget.",
+          "whyEn": "Gadgets are small; a fridge is an appliance.",
+          "whyVi": "Gadget là đồ nhỏ gọn; tủ lạnh to thế thì gọi là appliance."
+        }
+      ],
+      "level": "B1",
+      "topics": ["technology"]
+    },
+    {
+      "slug": "access",
+      "lemma": "access",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈækses/",
+      "meaningEn": "the right or chance to use or reach something",
+      "meaningVi": "quyền hoặc khả năng tiếp cận, sử dụng",
+      "examples": [
+        {
+          "en": "Rural schools often have poor internet access.",
+          "vi": "Trường ở nông thôn thường có kết nối internet kém.",
+          "cloze": "access"
+        },
+        {
+          "en": "Everyone should have equal access to education.",
+          "vi": "Ai cũng nên có cơ hội tiếp cận giáo dục như nhau.",
+          "cloze": "access"
+        }
+      ],
+      "collocations": ["access to", "internet access", "equal access"],
+      "commonMistakes": [
+        {
+          "wrong": "Students have access the internet.",
+          "right": "Students have access to the internet.",
+          "whyEn": "The noun access needs to: access to something.",
+          "whyVi": "Danh từ access cần \"to\": have access to something."
+        }
+      ],
+      "level": "B1",
+      "topics": ["technology", "education"]
+    }
+  ]
+}

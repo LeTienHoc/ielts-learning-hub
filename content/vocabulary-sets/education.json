@@ -1,0 +1,322 @@
+{
+  "slug": "education",
+  "title": "Education",
+  "summary": "Words for talking about schools, universities and learning, the IELTS topic that never goes away.",
+  "level": "B1",
+  "topics": ["education"],
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "words": [
+    {
+      "slug": "curriculum",
+      "lemma": "curriculum",
+      "partOfSpeech": "noun",
+      "ipa": "/kəˈrɪkjələm/",
+      "meaningEn": "all the subjects a school or course teaches",
+      "meaningVi": "chương trình học: toàn bộ các môn mà trường hoặc khoá học dạy",
+      "examples": [
+        {
+          "en": "Many people think coding should be part of the school curriculum.",
+          "vi": "Nhiều người cho rằng lập trình nên có trong chương trình học ở trường.",
+          "cloze": "curriculum"
+        },
+        {
+          "en": "The new curriculum gives students more time for practical projects.",
+          "vi": "Chương trình mới cho học sinh nhiều thời gian hơn cho các dự án thực hành.",
+          "cloze": "curriculum"
+        }
+      ],
+      "collocations": ["school curriculum", "national curriculum", "on the curriculum"],
+      "commonMistakes": [
+        {
+          "wrong": "The school has many curriculums.",
+          "right": "The school has a broad curriculum.",
+          "whyEn": "Curriculum usually means the whole programme, so we rarely count it.",
+          "whyVi": "Curriculum thường chỉ cả chương trình, nên hiếm khi đếm \"nhiều curriculum\"."
+        }
+      ],
+      "level": "B1",
+      "topics": ["education"]
+    },
+    {
+      "slug": "tuition",
+      "lemma": "tuition",
+      "partOfSpeech": "noun",
+      "ipa": "/tjuˈɪʃn/",
+      "meaningEn": "teaching, or the money you pay for it at a college or university",
+      "meaningVi": "việc giảng dạy, hoặc học phí phải trả cho trường",
+      "examples": [
+        {
+          "en": "Rising tuition fees stop some students from going to university.",
+          "vi": "Học phí tăng khiến một số học sinh không thể vào đại học.",
+          "cloze": "tuition"
+        },
+        {
+          "en": "She pays for extra tuition in maths before the exam.",
+          "vi": "Cô ấy trả tiền học thêm môn toán trước kỳ thi.",
+          "cloze": "tuition"
+        }
+      ],
+      "collocations": ["tuition fees", "free tuition", "private tuition"],
+      "commonMistakes": [
+        {
+          "wrong": "The tuition is very expensive money.",
+          "right": "Tuition fees are very high.",
+          "whyEn": "Fees are high or low; we do not say \"expensive money\".",
+          "whyVi": "Học phí thì \"high/low\", không nói \"expensive money\" (dịch thẳng từ \"tiền đắt\")."
+        }
+      ],
+      "level": "B1",
+      "topics": ["education"]
+    },
+    {
+      "slug": "literacy",
+      "lemma": "literacy",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈlɪtərəsi/",
+      "meaningEn": "the ability to read and write",
+      "meaningVi": "khả năng đọc và viết (biết chữ)",
+      "examples": [
+        {
+          "en": "Adult literacy has improved a lot in rural areas.",
+          "vi": "Tỉ lệ người lớn biết chữ ở nông thôn đã cải thiện nhiều.",
+          "cloze": "literacy"
+        },
+        {
+          "en": "Digital literacy is now as important as maths.",
+          "vi": "Kỹ năng sử dụng công nghệ số giờ quan trọng không kém môn toán.",
+          "cloze": "literacy"
+        }
+      ],
+      "collocations": ["literacy rate", "digital literacy", "improve literacy"],
+      "commonMistakes": [
+        {
+          "wrong": "Literacy is about literature.",
+          "right": "Literacy means being able to read and write.",
+          "whyEn": "Literacy is a basic skill, not the study of novels and poems.",
+          "whyVi": "Literacy là kỹ năng đọc viết cơ bản, không phải môn văn học (literature)."
+        }
+      ],
+      "level": "B2",
+      "topics": ["education"]
+    },
+    {
+      "slug": "compulsory",
+      "lemma": "compulsory",
+      "partOfSpeech": "adjective",
+      "ipa": "/kəmˈpʌlsəri/",
+      "meaningEn": "required by a rule or law; you must do it",
+      "meaningVi": "bắt buộc (theo quy định hoặc luật)",
+      "examples": [
+        {
+          "en": "In many countries, school is compulsory until the age of sixteen.",
+          "vi": "Ở nhiều nước, đi học là bắt buộc đến 16 tuổi.",
+          "cloze": "compulsory"
+        },
+        {
+          "en": "Should sport be a compulsory subject at university?",
+          "vi": "Thể thao có nên là môn bắt buộc ở đại học không?",
+          "cloze": "compulsory"
+        }
+      ],
+      "collocations": ["compulsory education", "compulsory subject", "make something compulsory"],
+      "commonMistakes": [
+        {
+          "wrong": "It is compulsory for students wear uniforms.",
+          "right": "It is compulsory for students to wear uniforms.",
+          "whyEn": "The pattern is \"compulsory for someone to do something\".",
+          "whyVi": "Cấu trúc là \"compulsory for sb to do sth\", đừng quên \"to\"."
+        }
+      ],
+      "level": "B2",
+      "topics": ["education"]
+    },
+    {
+      "slug": "vocational",
+      "lemma": "vocational",
+      "partOfSpeech": "adjective",
+      "ipa": "/vəʊˈkeɪʃənl/",
+      "meaningEn": "teaching the skills you need for a particular job",
+      "meaningVi": "(thuộc) dạy nghề, đào tạo kỹ năng cho một nghề cụ thể",
+      "examples": [
+        {
+          "en": "Vocational courses can lead straight to a well-paid job.",
+          "vi": "Các khoá học nghề có thể dẫn thẳng tới một công việc lương tốt.",
+          "cloze": "Vocational"
+        },
+        {
+          "en": "Not every teenager wants to go to university; some prefer vocational training.",
+          "vi": "Không phải thiếu niên nào cũng muốn vào đại học; có bạn thích học nghề hơn.",
+          "cloze": "vocational"
+        }
+      ],
+      "collocations": ["vocational training", "vocational school", "vocational skills"],
+      "commonMistakes": [
+        {
+          "wrong": "He went to a vacation school.",
+          "right": "He went to a vocational school.",
+          "whyEn": "Vacation means a holiday. Vocational is about job skills.",
+          "whyVi": "Vacation là kỳ nghỉ, còn vocational là học nghề. Học nghề không phải đi nghỉ đâu nhé!"
+        }
+      ],
+      "level": "B2",
+      "topics": ["education", "work"]
+    },
+    {
+      "slug": "assess",
+      "lemma": "assess",
+      "partOfSpeech": "verb",
+      "ipa": "/əˈses/",
+      "meaningEn": "to judge how good, big or important something is",
+      "meaningVi": "đánh giá (mức độ, chất lượng, năng lực)",
+      "examples": [
+        {
+          "en": "Teachers assess students through projects as well as exams.",
+          "vi": "Giáo viên đánh giá học sinh qua cả dự án lẫn bài thi.",
+          "cloze": "assess"
+        },
+        {
+          "en": "It is hard to assess creativity with a written test.",
+          "vi": "Rất khó đánh giá sự sáng tạo bằng một bài kiểm tra viết.",
+          "cloze": "assess"
+        }
+      ],
+      "collocations": ["assess students", "assess the impact", "carefully assess"],
+      "commonMistakes": [
+        {
+          "wrong": "Teachers assess about students' work.",
+          "right": "Teachers assess students' work.",
+          "whyEn": "Assess takes a direct object, with no preposition.",
+          "whyVi": "Assess đi thẳng với tân ngữ, không cần \"about\"."
+        }
+      ],
+      "level": "B2",
+      "topics": ["education"]
+    },
+    {
+      "slug": "scholarship",
+      "lemma": "scholarship",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈskɒləʃɪp/",
+      "meaningEn": "money given to a student to help pay for their studies",
+      "meaningVi": "học bổng",
+      "examples": [
+        {
+          "en": "She won a scholarship to study engineering abroad.",
+          "vi": "Cô ấy giành được học bổng du học ngành kỹ thuật.",
+          "cloze": "scholarship"
+        },
+        {
+          "en": "A full scholarship covers tuition and living costs.",
+          "vi": "Học bổng toàn phần chi trả cả học phí lẫn chi phí sinh hoạt.",
+          "cloze": "scholarship"
+        }
+      ],
+      "collocations": ["win a scholarship", "full scholarship", "apply for a scholarship"],
+      "commonMistakes": [
+        {
+          "wrong": "He got a scholarship of Oxford.",
+          "right": "He got a scholarship to Oxford.",
+          "whyEn": "A scholarship is to a university, or to study something.",
+          "whyVi": "Học bổng \"to\" một trường hoặc \"to study\" một ngành, không dùng \"of\"."
+        }
+      ],
+      "level": "B1",
+      "topics": ["education"]
+    },
+    {
+      "slug": "graduate-verb",
+      "lemma": "graduate",
+      "partOfSpeech": "verb",
+      "ipa": "/ˈɡrædʒueɪt/",
+      "meaningEn": "to finish a university degree (or school, in American English)",
+      "meaningVi": "tốt nghiệp",
+      "examples": [
+        {
+          "en": "Many students graduate with large debts.",
+          "vi": "Nhiều sinh viên tốt nghiệp với khoản nợ lớn.",
+          "cloze": "graduate"
+        },
+        {
+          "en": "After they graduate, some go straight into work.",
+          "vi": "Sau khi tốt nghiệp, một số người đi làm ngay.",
+          "cloze": "graduate"
+        }
+      ],
+      "collocations": ["graduate from university", "graduate with a degree", "graduate in law"],
+      "commonMistakes": [
+        {
+          "wrong": "I graduated Hanoi University.",
+          "right": "I graduated from Hanoi University.",
+          "whyEn": "In British English we graduate from a place.",
+          "whyVi": "Tốt nghiệp \"từ\" trường nào thì nhớ thêm \"from\" nhé."
+        }
+      ],
+      "level": "B1",
+      "topics": ["education"]
+    },
+    {
+      "slug": "academic",
+      "lemma": "academic",
+      "partOfSpeech": "adjective",
+      "ipa": "/ˌækəˈdemɪk/",
+      "meaningEn": "connected with studying and thinking, rather than practical skills",
+      "meaningVi": "(thuộc) học thuật",
+      "examples": [
+        {
+          "en": "Academic success is not the only goal of education.",
+          "vi": "Thành tích học tập không phải mục tiêu duy nhất của giáo dục.",
+          "cloze": "Academic"
+        },
+        {
+          "en": "Some children are less academic but very good with their hands.",
+          "vi": "Có những bạn nhỏ không giỏi học thuật lắm nhưng rất khéo tay.",
+          "cloze": "academic"
+        }
+      ],
+      "collocations": ["academic performance", "academic year", "academic writing"],
+      "commonMistakes": [
+        {
+          "wrong": "He is very academy.",
+          "right": "He is very academic.",
+          "whyEn": "Academy is a noun (a school). Academic is the adjective.",
+          "whyVi": "Academy là danh từ (học viện); tính từ là academic."
+        }
+      ],
+      "level": "B2",
+      "topics": ["education"]
+    },
+    {
+      "slug": "discipline",
+      "lemma": "discipline",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈdɪsəplɪn/",
+      "meaningEn": "control of behaviour, often through rules; the ability to keep working",
+      "meaningVi": "kỷ luật; tính tự giác",
+      "examples": [
+        {
+          "en": "Online learning needs a lot of self-discipline.",
+          "vi": "Học trực tuyến đòi hỏi rất nhiều tính tự giác.",
+          "cloze": "discipline"
+        },
+        {
+          "en": "Strict discipline in schools does not always improve results.",
+          "vi": "Kỷ luật nghiêm khắc ở trường không phải lúc nào cũng cải thiện kết quả.",
+          "cloze": "discipline"
+        }
+      ],
+      "collocations": ["self-discipline", "strict discipline", "maintain discipline"],
+      "commonMistakes": [
+        {
+          "wrong": "Students need a discipline.",
+          "right": "Students need discipline.",
+          "whyEn": "In this meaning discipline is uncountable: no \"a\".",
+          "whyVi": "Với nghĩa \"kỷ luật\", discipline không đếm được nên không dùng \"a\"."
+        }
+      ],
+      "level": "B2",
+      "topics": ["education"]
+    }
+  ]
+}

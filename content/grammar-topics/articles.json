@@ -1,0 +1,201 @@
+{
+  "slug": "articles",
+  "title": "Articles: a, an, the",
+  "summary": "Tiny words with big jobs: choose a, an, the or nothing at all.",
+  "level": "B1",
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "position": 1,
+  "lesson": {
+    "introEn": "A, an and the are tiny words with big jobs. Examiners see them in almost every sentence you write, so a few clear rules can quickly lift your grammar score.",
+    "introVi": "A, an và the nhỏ xíu nhưng gánh việc to. Giám khảo gặp chúng trong gần như mọi câu bạn viết, nên chỉ cần nắm vài quy tắc rõ ràng là điểm ngữ pháp \"lên tay\" ngay.",
+    "sections": [
+      {
+        "heading": "A or an? Listen, don't look",
+        "bodyEn": "Choose by the first sound, not the first letter. Use an before a vowel sound and a before a consonant sound.",
+        "bodyVi": "Chọn theo âm đầu, đừng nhìn chữ cái đầu. Trước nguyên âm dùng an, trước phụ âm dùng a. Tai quan trọng hơn mắt ở đây!",
+        "examples": [
+          {
+            "en": "an hour",
+            "vi": "một giờ",
+            "note": "The h is silent, so the first sound is a vowel."
+          },
+          {
+            "en": "a university",
+            "vi": "một trường đại học",
+            "note": "U sounds like \"you\", a consonant sound."
+          },
+          {
+            "en": "an MBA",
+            "vi": "một bằng MBA",
+            "note": "M is said \"em\", which starts with a vowel sound."
+          }
+        ]
+      },
+      {
+        "heading": "The: we both know which one",
+        "bodyEn": "Use the when your listener knows exactly which thing you mean: you mentioned it before, it is the only one, or the rest of the sentence makes it clear.",
+        "bodyVi": "Dùng the khi người nghe biết chính xác bạn nói cái nào: đã nhắc trước đó, là cái duy nhất, hoặc phần còn lại của câu đã chỉ rõ.",
+        "examples": [
+          {
+            "en": "I bought a laptop. The laptop was surprisingly cheap.",
+            "vi": "Tôi mua một chiếc laptop. Chiếc laptop đó rẻ bất ngờ."
+          },
+          {
+            "en": "The sun rises in the east.",
+            "vi": "Mặt trời mọc ở hướng đông.",
+            "note": "There is only one sun."
+          },
+          {
+            "en": "The students in my class are friendly.",
+            "vi": "Các bạn trong lớp tôi rất thân thiện.",
+            "note": "\"In my class\" tells us which students."
+          }
+        ]
+      },
+      {
+        "heading": "No article for things in general",
+        "bodyEn": "When you talk about things in general, use a plural or uncountable noun with no article at all.",
+        "bodyVi": "Khi nói về sự vật nói chung, dùng danh từ số nhiều hoặc không đếm được và bỏ hẳn mạo từ.",
+        "examples": [
+          {
+            "en": "Children need plenty of sleep.",
+            "vi": "Trẻ em cần ngủ đủ.",
+            "note": "All children, in general."
+          },
+          {
+            "en": "Technology changes how we learn.",
+            "vi": "Công nghệ thay đổi cách chúng ta học."
+          },
+          { "en": "Pollution is a serious problem.", "vi": "Ô nhiễm là vấn đề nghiêm trọng." }
+        ]
+      }
+    ],
+    "commonMistakes": [
+      {
+        "wrong": "The technology changes our lives.",
+        "right": "Technology changes our lives.",
+        "whyEn": "This is a general statement, so no article.",
+        "whyVi": "Đây là ý nói chung nên bỏ the. Khi dịch từ tiếng Việt, ta hay thêm \"the\" như thêm chữ \"cái\" vậy."
+      },
+      {
+        "wrong": "She is a honest teacher.",
+        "right": "She is an honest teacher.",
+        "whyEn": "Honest starts with a vowel sound because the h is silent.",
+        "whyVi": "Chữ h trong honest câm, âm đầu là nguyên âm nên dùng an."
+      },
+      {
+        "wrong": "I am student.",
+        "right": "I am a student.",
+        "whyEn": "A singular countable noun, such as a job, needs a or an.",
+        "whyVi": "Tiếng Việt không có mạo từ nên ta hay quên; danh từ đếm được số ít (như nghề nghiệp) cần a/an."
+      }
+    ],
+    "ieltsTipEn": "Writing Task 2 is full of general statements. Before you finish, check every \"the\" in front of a general idea: \"The education is important\" should be \"Education is important\".",
+    "ieltsTipVi": "Writing Task 2 toàn câu nói chung. Trước khi nộp, soát từng chữ \"the\" đứng trước một ý chung: \"The education is important\" phải là \"Education is important\"."
+  },
+  "practice": {
+    "groups": [
+      {
+        "type": "multiple_choice",
+        "instructions": "Choose the correct option.",
+        "questions": [
+          {
+            "number": 1,
+            "prompt": "She wants to become ___ engineer.",
+            "options": [
+              { "id": "A", "text": "a" },
+              { "id": "B", "text": "an" },
+              { "id": "C", "text": "the" }
+            ],
+            "accepted": ["B"],
+            "explanation": "Engineer starts with a vowel sound, so we use an. It is one engineer among many, so not the.",
+            "explanationVi": "Engineer bắt đầu bằng nguyên âm nên dùng an. Đây là một kỹ sư bất kỳ, nên không dùng the."
+          },
+          {
+            "number": 2,
+            "prompt": "___ moon looks huge tonight!",
+            "options": [
+              { "id": "A", "text": "A" },
+              { "id": "B", "text": "The" },
+              { "id": "C", "text": "No article" }
+            ],
+            "accepted": ["B"],
+            "explanation": "There is only one moon, so we use the.",
+            "explanationVi": "Chỉ có một mặt trăng, nên dùng the. Trừ khi bạn đang ở hành tinh khác!"
+          },
+          {
+            "number": 3,
+            "prompt": "___ smoking is banned in most restaurants.",
+            "options": [
+              { "id": "A", "text": "The" },
+              { "id": "B", "text": "A" },
+              { "id": "C", "text": "No article" }
+            ],
+            "accepted": ["C"],
+            "explanation": "Smoking here is an activity in general, so no article.",
+            "explanationVi": "Smoking ở đây là hoạt động nói chung, nên không dùng mạo từ."
+          }
+        ]
+      },
+      {
+        "type": "gap_fill",
+        "instructions": "Write the missing article: a, an or the.",
+        "questions": [
+          {
+            "number": 4,
+            "prompt": "I read ___ interesting article about climate change.",
+            "accepted": ["an"],
+            "maxWords": 1,
+            "explanation": "Interesting starts with a vowel sound, and it is the first time we mention the article.",
+            "explanationVi": "Interesting bắt đầu bằng nguyên âm, và đây là lần đầu nhắc tới bài báo nên dùng an."
+          },
+          {
+            "number": 5,
+            "prompt": "Can you pass me ___ salt, please?",
+            "accepted": ["the"],
+            "maxWords": 1,
+            "explanation": "We both know which salt: the one on the table.",
+            "explanationVi": "Cả hai đều biết là lọ muối nào: lọ trên bàn. Nên dùng the."
+          }
+        ]
+      },
+      {
+        "type": "error_correction",
+        "instructions": "Spot the mistake: tap the word that is wrong.",
+        "questions": [
+          {
+            "number": 6,
+            "prompt": "He is a honest man.",
+            "accepted": ["a"],
+            "correction": "He is an honest man.",
+            "explanation": "The h in honest is silent, so it starts with a vowel sound: an honest man.",
+            "explanationVi": "Chữ h trong honest câm, âm đầu là nguyên âm: an honest man. Chữ h này \"im lặng là vàng\"."
+          },
+          {
+            "number": 7,
+            "prompt": "The pollution is a serious problem in big cities.",
+            "accepted": ["The"],
+            "correction": "Pollution is a serious problem in big cities.",
+            "explanation": "Pollution in general takes no article.",
+            "explanationVi": "Ô nhiễm nói chung thì không dùng mạo từ."
+          }
+        ]
+      },
+      {
+        "type": "sentence_transformation",
+        "instructions": "Rewrite the sentence correctly.",
+        "questions": [
+          {
+            "number": 8,
+            "prompt": "My sister is doctor in a big hospital.",
+            "accepted": ["My sister is a doctor in a big hospital."],
+            "explanation": "A job with a singular noun needs a: a doctor.",
+            "explanationVi": "Nghề nghiệp với danh từ số ít cần a: a doctor."
+          }
+        ]
+      }
+    ]
+  }
+}

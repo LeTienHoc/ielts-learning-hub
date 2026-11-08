@@ -1,0 +1,189 @@
+{
+  "slug": "conditionals",
+  "title": "Conditionals: first and second",
+  "summary": "Real possibilities vs imaginary situations: if + will, or if + would.",
+  "level": "B1",
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "position": 3,
+  "lesson": {
+    "introEn": "Conditionals let you talk about results: what will happen, or what would happen. The question to ask yourself is how real the situation feels.",
+    "introVi": "Câu điều kiện giúp bạn nói về kết quả: điều gì sẽ xảy ra, hoặc điều gì sẽ xảy ra nếu như... Câu cần tự hỏi là: tình huống này thật đến mức nào?",
+    "sections": [
+      {
+        "heading": "First conditional: it could really happen",
+        "bodyEn": "For real possibilities in the future: if + present simple, will + verb. No will after if!",
+        "bodyVi": "Cho khả năng có thật trong tương lai: if + hiện tại đơn, will + động từ. Sau if không dùng will nhé!",
+        "examples": [
+          {
+            "en": "If it rains tomorrow, we will stay at home.",
+            "vi": "Nếu mai trời mưa, chúng tôi sẽ ở nhà."
+          },
+          {
+            "en": "If you practise every day, your speaking will improve.",
+            "vi": "Nếu bạn luyện mỗi ngày, kỹ năng nói sẽ tiến bộ."
+          }
+        ]
+      },
+      {
+        "heading": "Second conditional: only in your imagination",
+        "bodyEn": "For imaginary or unlikely situations, now or in the future: if + past simple, would + verb. The past tense here does not mean past time; it means \"not real\".",
+        "bodyVi": "Cho tình huống tưởng tượng hoặc khó xảy ra, ở hiện tại hay tương lai: if + quá khứ đơn, would + động từ. Thì quá khứ ở đây không phải chuyện đã qua, mà nghĩa là \"không có thật\".",
+        "examples": [
+          {
+            "en": "If I won the lottery, I would travel the world.",
+            "vi": "Nếu trúng xổ số, tôi sẽ đi du lịch khắp thế giới.",
+            "note": "Nice dream, unlikely reality."
+          },
+          {
+            "en": "If I were you, I would talk to the teacher.",
+            "vi": "Nếu tôi là bạn, tôi sẽ nói chuyện với giáo viên.",
+            "note": "In careful English, use were for all persons."
+          }
+        ]
+      },
+      {
+        "heading": "Choosing between them",
+        "bodyEn": "The same idea can use either form. It depends on how likely you think it is. \"If I get the job\" sounds hopeful; \"If I got the job\" sounds like a dream.",
+        "bodyVi": "Cùng một ý có thể dùng cả hai, tuỳ bạn thấy nó có khả năng đến đâu. \"If I get the job\" nghe đầy hy vọng; \"If I got the job\" nghe như đang mơ.",
+        "examples": [
+          {
+            "en": "If I pass IELTS, I will apply for a scholarship.",
+            "vi": "Nếu đỗ IELTS, tôi sẽ nộp đơn xin học bổng.",
+            "note": "A real plan."
+          },
+          {
+            "en": "If I spoke ten languages, I would work for the UN.",
+            "vi": "Nếu nói được mười thứ tiếng, tôi sẽ làm cho Liên Hợp Quốc.",
+            "note": "Pure imagination."
+          }
+        ]
+      }
+    ],
+    "commonMistakes": [
+      {
+        "wrong": "If it will rain, we will stay at home.",
+        "right": "If it rains, we will stay at home.",
+        "whyEn": "In the if-clause, use the present simple, not will.",
+        "whyVi": "Trong mệnh đề if dùng hiện tại đơn, không dùng will. Will chỉ ở vế kết quả."
+      },
+      {
+        "wrong": "If I have more money, I would buy a car.",
+        "right": "If I had more money, I would buy a car.",
+        "whyEn": "Would goes with a past verb in the if-clause.",
+        "whyVi": "Would đi cặp với động từ quá khứ ở vế if. Đừng \"ghép đôi\" lộn xộn."
+      }
+    ],
+    "ieltsTipEn": "In Writing Task 2, the second conditional is great for proposals: \"If governments taxed sugary drinks, fewer people would buy them.\" It shows range and sounds balanced.",
+    "ieltsTipVi": "Trong Writing Task 2, câu điều kiện loại 2 rất hợp để đề xuất giải pháp: \"If governments taxed sugary drinks, fewer people would buy them.\" Vừa thể hiện sự đa dạng ngữ pháp, vừa nghe khách quan."
+  },
+  "practice": {
+    "groups": [
+      {
+        "type": "multiple_choice",
+        "instructions": "Choose the correct option.",
+        "questions": [
+          {
+            "number": 1,
+            "prompt": "If it ___ tomorrow, we'll cancel the picnic.",
+            "options": [
+              { "id": "A", "text": "rains" },
+              { "id": "B", "text": "will rain" },
+              { "id": "C", "text": "rained" }
+            ],
+            "accepted": ["A"],
+            "explanation": "A real future possibility: if + present simple.",
+            "explanationVi": "Khả năng có thật trong tương lai: if + hiện tại đơn."
+          },
+          {
+            "number": 2,
+            "prompt": "If I ___ you, I would talk to the teacher.",
+            "options": [
+              { "id": "A", "text": "am" },
+              { "id": "B", "text": "were" },
+              { "id": "C", "text": "will be" }
+            ],
+            "accepted": ["B"],
+            "explanation": "I am not you, so it is imaginary: if I were you.",
+            "explanationVi": "Tôi đâu phải bạn, nên đây là tưởng tượng: if I were you."
+          },
+          {
+            "number": 3,
+            "prompt": "If more people used public transport, there ___ less traffic.",
+            "options": [
+              { "id": "A", "text": "will be" },
+              { "id": "B", "text": "would be" },
+              { "id": "C", "text": "is" }
+            ],
+            "accepted": ["B"],
+            "explanation": "Used (past) in the if-clause pairs with would.",
+            "explanationVi": "Vế if dùng used (quá khứ) thì vế kết quả dùng would."
+          }
+        ]
+      },
+      {
+        "type": "gap_fill",
+        "instructions": "Write the correct form of the verb in brackets.",
+        "questions": [
+          {
+            "number": 4,
+            "prompt": "If she studies hard, she ___ (pass) the exam.",
+            "accepted": ["will pass"],
+            "maxWords": 2,
+            "explanation": "A real possibility: present simple after if, will in the result.",
+            "explanationVi": "Khả năng có thật: hiện tại đơn sau if, will ở vế kết quả."
+          },
+          {
+            "number": 5,
+            "prompt": "If I ___ (have) more free time, I would learn the guitar.",
+            "accepted": ["had"],
+            "maxWords": 1,
+            "explanation": "Would in the result means the if-clause takes the past simple.",
+            "explanationVi": "Vế kết quả có would thì vế if dùng quá khứ đơn."
+          }
+        ]
+      },
+      {
+        "type": "error_correction",
+        "instructions": "Spot the mistake: tap the word that is wrong.",
+        "questions": [
+          {
+            "number": 6,
+            "prompt": "If it will snow, the flight may be delayed.",
+            "accepted": ["will"],
+            "correction": "If it snows, the flight may be delayed.",
+            "explanation": "No will after if for a future condition.",
+            "explanationVi": "Sau if không dùng will cho điều kiện tương lai."
+          },
+          {
+            "number": 7,
+            "prompt": "If I have a car, I would drive to work.",
+            "accepted": ["have"],
+            "correction": "If I had a car, I would drive to work.",
+            "explanation": "Would needs a past verb in the if-clause: had.",
+            "explanationVi": "Có would thì vế if cần động từ quá khứ: had."
+          }
+        ]
+      },
+      {
+        "type": "sentence_transformation",
+        "instructions": "Rewrite the sentence starting with If.",
+        "questions": [
+          {
+            "number": 8,
+            "prompt": "I don't have enough time, so I can't exercise. (If…)",
+            "accepted": [
+              "If I had enough time, I could exercise.",
+              "If I had enough time, I would exercise.",
+              "If I had enough time I could exercise.",
+              "If I had enough time I would exercise."
+            ],
+            "explanation": "The real situation is the opposite, so use the second conditional: if + past, could/would.",
+            "explanationVi": "Thực tế là ngược lại, nên dùng câu điều kiện loại 2: if + quá khứ, could/would."
+          }
+        ]
+      }
+    ]
+  }
+}

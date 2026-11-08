@@ -1,0 +1,330 @@
+{
+  "slug": "environment",
+  "title": "Environment",
+  "summary": "Words for pollution, climate and nature, ready for Writing Task 2 and Speaking Part 3.",
+  "level": "B2",
+  "topics": ["environment"],
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "words": [
+    {
+      "slug": "sustainable",
+      "lemma": "sustainable",
+      "partOfSpeech": "adjective",
+      "ipa": "/səˈsteɪnəbl/",
+      "meaningEn": "able to continue for a long time without damaging the environment",
+      "meaningVi": "bền vững: duy trì lâu dài mà không hại môi trường",
+      "examples": [
+        {
+          "en": "Cities need sustainable transport, such as trams and cycle lanes.",
+          "vi": "Các thành phố cần giao thông bền vững như tàu điện và làn xe đạp.",
+          "cloze": "sustainable"
+        },
+        {
+          "en": "Is cheap fast fashion really sustainable?",
+          "vi": "Thời trang nhanh giá rẻ có thật sự bền vững không?",
+          "cloze": "sustainable"
+        }
+      ],
+      "collocations": [
+        "sustainable development",
+        "sustainable energy",
+        "environmentally sustainable"
+      ],
+      "commonMistakes": [
+        {
+          "wrong": "We need more sustainability transport.",
+          "right": "We need more sustainable transport.",
+          "whyEn": "Before a noun, use the adjective sustainable, not the noun sustainability.",
+          "whyVi": "Đứng trước danh từ thì dùng tính từ sustainable, không dùng danh từ sustainability."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "emission",
+      "lemma": "emission",
+      "partOfSpeech": "noun",
+      "ipa": "/iˈmɪʃn/",
+      "meaningEn": "gas or other substance sent into the air",
+      "meaningVi": "khí thải, sự phát thải",
+      "examples": [
+        {
+          "en": "Electric buses can cut carbon emissions in big cities.",
+          "vi": "Xe buýt điện có thể cắt giảm khí thải carbon ở các thành phố lớn.",
+          "cloze": "emissions"
+        },
+        {
+          "en": "The factory was fined for its high emission of toxic gas.",
+          "vi": "Nhà máy bị phạt vì thải ra quá nhiều khí độc.",
+          "cloze": "emission"
+        }
+      ],
+      "collocations": ["carbon emissions", "reduce emissions", "greenhouse gas emissions"],
+      "commonMistakes": [
+        {
+          "wrong": "Cars release a lot of emission.",
+          "right": "Cars produce a lot of emissions.",
+          "whyEn": "When we talk about gases from cars and factories, emissions is usually plural.",
+          "whyVi": "Nói về khí thải từ xe, nhà máy thì thường dùng số nhiều: emissions."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "renewable",
+      "lemma": "renewable",
+      "partOfSpeech": "adjective",
+      "ipa": "/rɪˈnjuːəbl/",
+      "meaningEn": "(of energy) coming from a source that does not run out, like sun or wind",
+      "meaningVi": "tái tạo được (năng lượng từ nguồn không cạn kiệt như mặt trời, gió)",
+      "examples": [
+        {
+          "en": "Governments should invest more in renewable energy.",
+          "vi": "Chính phủ nên đầu tư nhiều hơn vào năng lượng tái tạo.",
+          "cloze": "renewable"
+        },
+        {
+          "en": "Solar power is cheap and renewable.",
+          "vi": "Điện mặt trời vừa rẻ vừa tái tạo được.",
+          "cloze": "renewable"
+        }
+      ],
+      "collocations": ["renewable energy", "renewable sources", "renewable resources"],
+      "commonMistakes": [
+        {
+          "wrong": "Coal is a renewable energy.",
+          "right": "Coal is a non-renewable energy source.",
+          "whyEn": "Coal, oil and gas run out, so they are non-renewable.",
+          "whyVi": "Than, dầu, khí sẽ cạn nên là non-renewable. Đừng để than đá \"đội lốt\" năng lượng xanh!"
+        }
+      ],
+      "level": "B1",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "deforestation",
+      "lemma": "deforestation",
+      "partOfSpeech": "noun",
+      "ipa": "/ˌdiːˌfɒrɪˈsteɪʃn/",
+      "meaningEn": "cutting down large areas of forest",
+      "meaningVi": "nạn phá rừng",
+      "examples": [
+        {
+          "en": "Deforestation destroys the homes of many animals.",
+          "vi": "Nạn phá rừng phá huỷ nơi ở của nhiều loài động vật.",
+          "cloze": "Deforestation"
+        },
+        {
+          "en": "Farming is one of the main causes of deforestation.",
+          "vi": "Trồng trọt là một trong những nguyên nhân chính của nạn phá rừng.",
+          "cloze": "deforestation"
+        }
+      ],
+      "collocations": [
+        "tackle deforestation",
+        "large-scale deforestation",
+        "the causes of deforestation"
+      ],
+      "commonMistakes": [
+        {
+          "wrong": "The deforestations are increasing.",
+          "right": "Deforestation is increasing.",
+          "whyEn": "Deforestation is uncountable.",
+          "whyVi": "Deforestation không đếm được, không thêm -s."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "biodiversity",
+      "lemma": "biodiversity",
+      "partOfSpeech": "noun",
+      "ipa": "/ˌbaɪəʊdaɪˈvɜːsəti/",
+      "meaningEn": "the number and variety of plants and animals in an area",
+      "meaningVi": "đa dạng sinh học",
+      "examples": [
+        {
+          "en": "Coral reefs have very high biodiversity.",
+          "vi": "Rạn san hô có mức đa dạng sinh học rất cao.",
+          "cloze": "biodiversity"
+        },
+        {
+          "en": "Pesticides are a serious threat to biodiversity.",
+          "vi": "Thuốc trừ sâu là mối đe doạ nghiêm trọng với đa dạng sinh học.",
+          "cloze": "biodiversity"
+        }
+      ],
+      "collocations": ["loss of biodiversity", "protect biodiversity", "rich biodiversity"],
+      "commonMistakes": [
+        {
+          "wrong": "There are many biodiversities here.",
+          "right": "This area has rich biodiversity.",
+          "whyEn": "Biodiversity is uncountable; describe it as rich or high.",
+          "whyVi": "Biodiversity không đếm được; hãy nói \"rich/high biodiversity\"."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment", "science"]
+    },
+    {
+      "slug": "habitat",
+      "lemma": "habitat",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈhæbɪtæt/",
+      "meaningEn": "the natural home of a plant or animal",
+      "meaningVi": "môi trường sống tự nhiên (của động, thực vật)",
+      "examples": [
+        {
+          "en": "Pandas are losing their habitat as forests disappear.",
+          "vi": "Gấu trúc đang mất dần môi trường sống khi rừng biến mất.",
+          "cloze": "habitat"
+        },
+        {
+          "en": "Wetlands are an important habitat for birds.",
+          "vi": "Đất ngập nước là môi trường sống quan trọng của các loài chim.",
+          "cloze": "habitat"
+        }
+      ],
+      "collocations": ["natural habitat", "habitat loss", "destroy a habitat"],
+      "commonMistakes": [
+        {
+          "wrong": "People's habitat is the city.",
+          "right": "Wild animals' habitat is the forest.",
+          "whyEn": "Habitat is normally used for plants and animals, not for people.",
+          "whyVi": "Habitat thường dùng cho động thực vật; với người thì dùng home hoặc living environment."
+        }
+      ],
+      "level": "B1",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "conserve",
+      "lemma": "conserve",
+      "partOfSpeech": "verb",
+      "ipa": "/kənˈsɜːv/",
+      "meaningEn": "to protect something or use less of it so it lasts",
+      "meaningVi": "bảo tồn; tiết kiệm (để dùng được lâu)",
+      "examples": [
+        {
+          "en": "We can conserve water by taking shorter showers.",
+          "vi": "Chúng ta có thể tiết kiệm nước bằng cách tắm nhanh hơn.",
+          "cloze": "conserve"
+        },
+        {
+          "en": "National parks help conserve wildlife.",
+          "vi": "Vườn quốc gia giúp bảo tồn động vật hoang dã.",
+          "cloze": "conserve"
+        }
+      ],
+      "collocations": ["conserve energy", "conserve water", "conserve natural resources"],
+      "commonMistakes": [
+        {
+          "wrong": "We should conservate energy.",
+          "right": "We should conserve energy.",
+          "whyEn": "The verb is conserve. Conservation is the noun.",
+          "whyVi": "Động từ là conserve; \"conservate\" không tồn tại. Danh từ là conservation."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "pollutant",
+      "lemma": "pollutant",
+      "partOfSpeech": "noun",
+      "ipa": "/pəˈluːtənt/",
+      "meaningEn": "a substance that makes air, water or soil dirty",
+      "meaningVi": "chất gây ô nhiễm",
+      "examples": [
+        {
+          "en": "Plastic is a major pollutant in the ocean.",
+          "vi": "Nhựa là một chất gây ô nhiễm lớn trong đại dương.",
+          "cloze": "pollutant"
+        },
+        {
+          "en": "Traffic releases harmful pollutants into the air.",
+          "vi": "Giao thông thải ra các chất gây ô nhiễm có hại vào không khí.",
+          "cloze": "pollutants"
+        }
+      ],
+      "collocations": ["air pollutants", "harmful pollutants", "release pollutants"],
+      "commonMistakes": [
+        {
+          "wrong": "Factories release pollutions.",
+          "right": "Factories release pollutants.",
+          "whyEn": "Pollution is uncountable; the substances are pollutants.",
+          "whyVi": "Pollution (sự ô nhiễm) không đếm được; còn từng chất gây ô nhiễm là pollutants."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "landfill",
+      "lemma": "landfill",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈlændfɪl/",
+      "meaningEn": "a place where waste is buried in the ground",
+      "meaningVi": "bãi chôn lấp rác",
+      "examples": [
+        {
+          "en": "Most of our plastic waste still ends up in landfill.",
+          "vi": "Phần lớn rác nhựa của chúng ta vẫn kết thúc ở bãi chôn lấp.",
+          "cloze": "landfill"
+        },
+        {
+          "en": "Recycling reduces the amount of rubbish sent to landfill sites.",
+          "vi": "Tái chế giúp giảm lượng rác đưa tới các bãi chôn lấp.",
+          "cloze": "landfill"
+        }
+      ],
+      "collocations": ["landfill site", "send to landfill", "end up in landfill"],
+      "commonMistakes": [
+        {
+          "wrong": "The rubbish goes to the land fill.",
+          "right": "The rubbish goes to landfill.",
+          "whyEn": "Landfill is one word.",
+          "whyVi": "Landfill viết liền một từ."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    },
+    {
+      "slug": "drought",
+      "lemma": "drought",
+      "partOfSpeech": "noun",
+      "ipa": "/draʊt/",
+      "meaningEn": "a long period with little or no rain",
+      "meaningVi": "hạn hán",
+      "examples": [
+        {
+          "en": "The drought destroyed most of the rice harvest.",
+          "vi": "Đợt hạn hán đã phá huỷ phần lớn vụ lúa.",
+          "cloze": "drought"
+        },
+        {
+          "en": "Climate change makes severe droughts more common.",
+          "vi": "Biến đổi khí hậu khiến hạn hán nghiêm trọng xảy ra thường xuyên hơn.",
+          "cloze": "droughts"
+        }
+      ],
+      "collocations": ["severe drought", "suffer from drought", "a long drought"],
+      "commonMistakes": [
+        {
+          "wrong": "The weather is very drought.",
+          "right": "The weather is very dry.",
+          "whyEn": "Drought is a noun. To describe weather, use the adjective dry.",
+          "whyVi": "Drought là danh từ; muốn tả thời tiết khô hạn thì dùng tính từ dry."
+        }
+      ],
+      "level": "B2",
+      "topics": ["environment"]
+    }
+  ]
+}

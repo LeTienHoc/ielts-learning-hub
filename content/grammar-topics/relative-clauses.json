@@ -1,0 +1,188 @@
+{
+  "slug": "relative-clauses",
+  "title": "Relative clauses: who, which, that, whose, where",
+  "summary": "Join short sentences into smooth, longer ones without losing the reader.",
+  "level": "B2",
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "position": 4,
+  "lesson": {
+    "introEn": "Relative clauses join two ideas into one sentence. Examiners love them because they show range, as long as you pick the right little word.",
+    "introVi": "Mệnh đề quan hệ ghép hai ý thành một câu. Giám khảo rất thích vì chúng thể hiện sự đa dạng ngữ pháp, miễn là bạn chọn đúng \"từ nối\" nhỏ xíu.",
+    "sections": [
+      {
+        "heading": "Who for people, which for things, that for both",
+        "bodyEn": "Use who for people and which for things. In defining clauses, that can replace both.",
+        "bodyVi": "Who cho người, which cho vật. Trong mệnh đề xác định, that thay được cả hai.",
+        "examples": [
+          {
+            "en": "The teacher who helped me most was Ms Lan.",
+            "vi": "Giáo viên giúp tôi nhiều nhất là cô Lan."
+          },
+          {
+            "en": "The phone that I bought last month is already broken.",
+            "vi": "Chiếc điện thoại tôi mua tháng trước đã hỏng rồi."
+          }
+        ]
+      },
+      {
+        "heading": "Commas or no commas?",
+        "bodyEn": "If the clause tells us which one, use no commas. If it only adds extra information, put it between commas and never use that.",
+        "bodyVi": "Nếu mệnh đề cho biết \"cái nào\" thì không có dấu phẩy. Nếu chỉ thêm thông tin phụ thì đặt giữa hai dấu phẩy, và không bao giờ dùng that.",
+        "examples": [
+          {
+            "en": "Students who skip breakfast find it hard to concentrate.",
+            "vi": "Học sinh bỏ bữa sáng thì khó tập trung.",
+            "note": "Which students? Those who skip breakfast."
+          },
+          {
+            "en": "Hanoi, which is the capital, has terrible traffic.",
+            "vi": "Hà Nội, thủ đô, có giao thông rất tệ.",
+            "note": "Extra information: we already know which city."
+          }
+        ]
+      },
+      {
+        "heading": "Whose and where",
+        "bodyEn": "Whose shows that something belongs to someone. Where is for places, followed by a subject and a verb.",
+        "bodyVi": "Whose chỉ sự sở hữu. Where dùng cho nơi chốn, theo sau là chủ ngữ và động từ.",
+        "examples": [
+          {
+            "en": "I have a friend whose father is a pilot.",
+            "vi": "Tôi có một người bạn có bố là phi công."
+          },
+          {
+            "en": "This is the café where we first met.",
+            "vi": "Đây là quán cà phê nơi chúng tôi gặp nhau lần đầu."
+          }
+        ]
+      }
+    ],
+    "commonMistakes": [
+      {
+        "wrong": "The man which lives next door is a doctor.",
+        "right": "The man who lives next door is a doctor.",
+        "whyEn": "Use who for people.",
+        "whyVi": "Người thì dùng who. Hàng xóm của bạn không phải đồ vật đâu!"
+      },
+      {
+        "wrong": "Hanoi, that is the capital, is very busy.",
+        "right": "Hanoi, which is the capital, is very busy.",
+        "whyEn": "That cannot be used in a clause between commas.",
+        "whyVi": "Mệnh đề nằm giữa hai dấu phẩy không dùng that."
+      },
+      {
+        "wrong": "The city where I visited was beautiful.",
+        "right": "The city that I visited was beautiful.",
+        "whyEn": "Visit needs an object, so use that or which, not where.",
+        "whyVi": "Visit cần tân ngữ (visit somewhere), nên dùng that/which chứ không dùng where."
+      }
+    ],
+    "ieltsTipEn": "In Writing Task 2, combine two short sentences with a relative clause to improve flow: \"Many students work part-time. This affects their studies.\" becomes \"Many students work part-time, which affects their studies.\"",
+    "ieltsTipVi": "Trong Writing Task 2, hãy gộp hai câu ngắn bằng mệnh đề quan hệ để bài mượt hơn: \"Many students work part-time. This affects their studies.\" thành \"Many students work part-time, which affects their studies.\""
+  },
+  "practice": {
+    "groups": [
+      {
+        "type": "multiple_choice",
+        "instructions": "Choose the correct option.",
+        "questions": [
+          {
+            "number": 1,
+            "prompt": "The teacher ___ helped me most was Ms Lan.",
+            "options": [
+              { "id": "A", "text": "which" },
+              { "id": "B", "text": "who" },
+              { "id": "C", "text": "whose" }
+            ],
+            "accepted": ["B"],
+            "explanation": "A teacher is a person, so use who.",
+            "explanationVi": "Giáo viên là người nên dùng who."
+          },
+          {
+            "number": 2,
+            "prompt": "This is the village ___ my grandparents grew up.",
+            "options": [
+              { "id": "A", "text": "which" },
+              { "id": "B", "text": "where" },
+              { "id": "C", "text": "who" }
+            ],
+            "accepted": ["B"],
+            "explanation": "A place, followed by a full clause (my grandparents grew up): where.",
+            "explanationVi": "Nơi chốn, theo sau là một mệnh đề đầy đủ (my grandparents grew up): dùng where."
+          },
+          {
+            "number": 3,
+            "prompt": "Children ___ parents read to them often enjoy books.",
+            "options": [
+              { "id": "A", "text": "who" },
+              { "id": "B", "text": "whose" },
+              { "id": "C", "text": "which" }
+            ],
+            "accepted": ["B"],
+            "explanation": "The parents belong to the children: whose.",
+            "explanationVi": "Bố mẹ \"của\" các em nhỏ: dùng whose."
+          }
+        ]
+      },
+      {
+        "type": "gap_fill",
+        "instructions": "Write who, which, whose or where.",
+        "questions": [
+          {
+            "number": 4,
+            "prompt": "Smartphones, ___ were rare twenty years ago, are now everywhere.",
+            "accepted": ["which"],
+            "maxWords": 1,
+            "explanation": "Extra information about things, between commas: which (never that).",
+            "explanationVi": "Thông tin phụ về đồ vật, nằm giữa hai dấu phẩy: which (không dùng that)."
+          },
+          {
+            "number": 5,
+            "prompt": "Da Nang is a city ___ many tourists go for the beaches.",
+            "accepted": ["where"],
+            "maxWords": 1,
+            "explanation": "A place, followed by a subject and verb (many tourists go): where.",
+            "explanationVi": "Nơi chốn, theo sau là chủ ngữ và động từ (many tourists go): where."
+          }
+        ]
+      },
+      {
+        "type": "error_correction",
+        "instructions": "Spot the mistake: tap the word that is wrong.",
+        "questions": [
+          {
+            "number": 6,
+            "prompt": "The girl which won the prize is my cousin.",
+            "accepted": ["which"],
+            "correction": "The girl who won the prize is my cousin.",
+            "explanation": "The girl is a person: who.",
+            "explanationVi": "Cô bé là người: dùng who."
+          },
+          {
+            "number": 7,
+            "prompt": "My laptop, that I bought last year, is already slow.",
+            "accepted": ["that"],
+            "correction": "My laptop, which I bought last year, is already slow.",
+            "explanation": "Between commas, use which, not that.",
+            "explanationVi": "Giữa hai dấu phẩy thì dùng which, không dùng that."
+          }
+        ]
+      },
+      {
+        "type": "sentence_transformation",
+        "instructions": "Join the sentences using the word in brackets.",
+        "questions": [
+          {
+            "number": 8,
+            "prompt": "I have a friend. Her brother is a famous singer. (whose)",
+            "accepted": ["I have a friend whose brother is a famous singer."],
+            "explanation": "Her brother belongs to my friend, so whose replaces her.",
+            "explanationVi": "Anh trai là \"của\" người bạn, nên whose thay cho her."
+          }
+        ]
+      }
+    ]
+  }
+}

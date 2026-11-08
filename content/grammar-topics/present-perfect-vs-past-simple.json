@@ -1,0 +1,191 @@
+{
+  "slug": "present-perfect-vs-past-simple",
+  "title": "Present perfect vs past simple",
+  "summary": "Finished past or connected to now? The time words decide.",
+  "level": "B1",
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "position": 2,
+  "lesson": {
+    "introEn": "Both tenses talk about the past, so they are easy to mix up. The secret question is: is the time finished, or does it still connect to now?",
+    "introVi": "Cả hai thì đều nói về quá khứ nên rất dễ nhầm. Câu hỏi bí mật là: khoảng thời gian đó đã kết thúc chưa, hay vẫn còn nối với hiện tại?",
+    "sections": [
+      {
+        "heading": "Past simple: the story is finished",
+        "bodyEn": "Use the past simple for actions at a finished time. We usually say or know when: yesterday, last year, in 2015, two days ago.",
+        "bodyVi": "Dùng quá khứ đơn cho hành động ở một thời điểm đã kết thúc. Thường ta nói rõ hoặc ai cũng biết là khi nào: yesterday, last year, in 2015, two days ago.",
+        "examples": [
+          { "en": "I visited Da Lat last summer.", "vi": "Tôi đi Đà Lạt hè năm ngoái." },
+          { "en": "She graduated in 2020.", "vi": "Cô ấy tốt nghiệp năm 2020." }
+        ]
+      },
+      {
+        "heading": "Present perfect: past action, present connection",
+        "bodyEn": "Use the present perfect when the time is not finished or not important: experiences (ever, never), time up to now (since, for, so far) and past actions with a result now.",
+        "bodyVi": "Dùng hiện tại hoàn thành khi thời gian chưa kết thúc hoặc không quan trọng: trải nghiệm (ever, never), khoảng thời gian tới bây giờ (since, for, so far) và hành động quá khứ có kết quả ở hiện tại.",
+        "examples": [
+          {
+            "en": "Have you ever tried durian?",
+            "vi": "Bạn đã bao giờ ăn sầu riêng chưa?",
+            "note": "Experience: when is not important."
+          },
+          {
+            "en": "I have lived here since 2018.",
+            "vi": "Tôi sống ở đây từ năm 2018.",
+            "note": "I still live here."
+          },
+          {
+            "en": "I've lost my keys!",
+            "vi": "Tôi làm mất chìa khoá rồi!",
+            "note": "Result now: I can't get in."
+          }
+        ]
+      },
+      {
+        "heading": "Let the time words decide",
+        "bodyEn": "Ago, last, yesterday and \"when\" questions point to the past simple. Since, already, yet, ever and so far point to the present perfect.",
+        "bodyVi": "Ago, last, yesterday và câu hỏi \"when\" kéo về quá khứ đơn. Since, already, yet, ever và so far kéo về hiện tại hoàn thành. Hãy để \"từ chỉ thời gian\" làm trọng tài.",
+        "examples": [
+          {
+            "en": "When did you start learning English?",
+            "vi": "Bạn bắt đầu học tiếng Anh khi nào?"
+          },
+          { "en": "I haven't finished my essay yet.", "vi": "Tôi vẫn chưa viết xong bài luận." }
+        ]
+      }
+    ],
+    "commonMistakes": [
+      {
+        "wrong": "I have visited Hue last year.",
+        "right": "I visited Hue last year.",
+        "whyEn": "Last year is a finished time, so use the past simple.",
+        "whyVi": "Last year là thời gian đã kết thúc, nên dùng quá khứ đơn."
+      },
+      {
+        "wrong": "I live here since 2018.",
+        "right": "I have lived here since 2018.",
+        "whyEn": "Since connects the past to now, so use the present perfect.",
+        "whyVi": "Since nối quá khứ với hiện tại, nên dùng hiện tại hoàn thành. Tiếng Việt chỉ nói \"sống ở đây từ 2018\" nên ta hay quên."
+      },
+      {
+        "wrong": "Did you ever try durian?",
+        "right": "Have you ever tried durian?",
+        "whyEn": "Asking about life experience uses the present perfect in British English.",
+        "whyVi": "Hỏi về trải nghiệm trong đời dùng hiện tại hoàn thành (theo tiếng Anh–Anh)."
+      }
+    ],
+    "ieltsTipEn": "In Writing Task 1, a graph about 2000–2020 is finished time: use the past simple. In Task 2, \"In recent years, online learning has grown\" uses the present perfect because the trend continues.",
+    "ieltsTipVi": "Trong Writing Task 1, biểu đồ 2000–2020 là thời gian đã kết thúc: dùng quá khứ đơn. Trong Task 2, \"In recent years, online learning has grown\" dùng hiện tại hoàn thành vì xu hướng vẫn tiếp diễn."
+  },
+  "practice": {
+    "groups": [
+      {
+        "type": "multiple_choice",
+        "instructions": "Choose the correct option.",
+        "questions": [
+          {
+            "number": 1,
+            "prompt": "I ___ my keys. I can't open the door!",
+            "options": [
+              { "id": "A", "text": "lost" },
+              { "id": "B", "text": "have lost" },
+              { "id": "C", "text": "was losing" }
+            ],
+            "accepted": ["B"],
+            "explanation": "The result is now (I can't open the door), so use the present perfect.",
+            "explanationVi": "Kết quả ở hiện tại (không mở được cửa), nên dùng hiện tại hoàn thành."
+          },
+          {
+            "number": 2,
+            "prompt": "We ___ to Nha Trang in 2019.",
+            "options": [
+              { "id": "A", "text": "have gone" },
+              { "id": "B", "text": "went" },
+              { "id": "C", "text": "have been" }
+            ],
+            "accepted": ["B"],
+            "explanation": "In 2019 is a finished time, so use the past simple.",
+            "explanationVi": "Năm 2019 đã qua, nên dùng quá khứ đơn."
+          },
+          {
+            "number": 3,
+            "prompt": "How long ___ English?",
+            "options": [
+              { "id": "A", "text": "do you study" },
+              { "id": "B", "text": "did you study" },
+              { "id": "C", "text": "have you studied" }
+            ],
+            "accepted": ["C"],
+            "explanation": "How long asks about time up to now, so use the present perfect.",
+            "explanationVi": "How long hỏi khoảng thời gian tới bây giờ, nên dùng hiện tại hoàn thành."
+          }
+        ]
+      },
+      {
+        "type": "gap_fill",
+        "instructions": "Write the correct form of the verb in brackets.",
+        "questions": [
+          {
+            "number": 4,
+            "prompt": "She ___ (not finish) her essay yet.",
+            "accepted": ["hasn't finished", "has not finished"],
+            "maxWords": 3,
+            "explanation": "Yet goes with the present perfect.",
+            "explanationVi": "Yet đi với hiện tại hoàn thành."
+          },
+          {
+            "number": 5,
+            "prompt": "Two years ago, my family ___ (move) to Hanoi.",
+            "accepted": ["moved"],
+            "maxWords": 1,
+            "explanation": "Ago marks a finished time, so use the past simple.",
+            "explanationVi": "Ago chỉ thời điểm đã qua, nên dùng quá khứ đơn."
+          }
+        ]
+      },
+      {
+        "type": "error_correction",
+        "instructions": "Spot the mistake: tap the word that is wrong.",
+        "questions": [
+          {
+            "number": 6,
+            "prompt": "I have seen that film last week.",
+            "accepted": ["have"],
+            "correction": "I saw that film last week.",
+            "explanation": "Last week is finished time, so we need the past simple: saw.",
+            "explanationVi": "Last week đã kết thúc, nên dùng quá khứ đơn: saw."
+          },
+          {
+            "number": 7,
+            "prompt": "She works here since 2020.",
+            "accepted": ["works"],
+            "correction": "She has worked here since 2020.",
+            "explanation": "Since 2020 connects the past to now: has worked.",
+            "explanationVi": "Since 2020 nối quá khứ với hiện tại: has worked."
+          }
+        ]
+      },
+      {
+        "type": "sentence_transformation",
+        "instructions": "Rewrite the sentence using the word in brackets.",
+        "questions": [
+          {
+            "number": 8,
+            "prompt": "I started learning English five years ago. (for)",
+            "accepted": [
+              "I have been learning English for five years.",
+              "I have learned English for five years.",
+              "I have learnt English for five years.",
+              "I've been learning English for five years.",
+              "I've learned English for five years.",
+              "I've learnt English for five years."
+            ],
+            "explanation": "Started five years ago and still learning: present perfect with for.",
+            "explanationVi": "Bắt đầu từ 5 năm trước và vẫn đang học: hiện tại hoàn thành với for."
+          }
+        ]
+      }
+    ]
+  }
+}

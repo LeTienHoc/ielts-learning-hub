@@ -1,0 +1,326 @@
+{
+  "slug": "health",
+  "title": "Health",
+  "summary": "Words for diet, exercise and public health, useful in Writing Task 2 and Speaking.",
+  "level": "B1",
+  "topics": ["health"],
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "words": [
+    {
+      "slug": "obesity",
+      "lemma": "obesity",
+      "partOfSpeech": "noun",
+      "ipa": "/əʊˈbiːsəti/",
+      "meaningEn": "the condition of being very overweight in a way that is unhealthy",
+      "meaningVi": "bệnh béo phì",
+      "examples": [
+        {
+          "en": "Childhood obesity is rising in many cities.",
+          "vi": "Béo phì ở trẻ em đang tăng ở nhiều thành phố.",
+          "cloze": "obesity"
+        },
+        {
+          "en": "Fast food is often blamed for obesity.",
+          "vi": "Đồ ăn nhanh thường bị đổ lỗi gây béo phì.",
+          "cloze": "obesity"
+        }
+      ],
+      "collocations": ["childhood obesity", "obesity rates", "tackle obesity"],
+      "commonMistakes": [
+        {
+          "wrong": "Many children are obesity.",
+          "right": "Many children are obese.",
+          "whyEn": "Obesity is the noun; to describe a person, use the adjective obese.",
+          "whyVi": "Obesity là danh từ; tả một người thì dùng tính từ obese."
+        }
+      ],
+      "level": "B2",
+      "topics": ["health"]
+    },
+    {
+      "slug": "sedentary",
+      "lemma": "sedentary",
+      "partOfSpeech": "adjective",
+      "ipa": "/ˈsedntri/",
+      "meaningEn": "involving a lot of sitting and little exercise",
+      "meaningVi": "ít vận động, ngồi nhiều",
+      "examples": [
+        {
+          "en": "Office workers often have a sedentary lifestyle.",
+          "vi": "Dân văn phòng thường có lối sống ít vận động.",
+          "cloze": "sedentary"
+        },
+        {
+          "en": "Long hours of gaming are very sedentary.",
+          "vi": "Chơi game nhiều giờ liền là hoạt động rất ít vận động.",
+          "cloze": "sedentary"
+        }
+      ],
+      "collocations": ["sedentary lifestyle", "sedentary job", "sedentary behaviour"],
+      "commonMistakes": [
+        {
+          "wrong": "He has a sedentary sport.",
+          "right": "He has a sedentary job.",
+          "whyEn": "Sedentary means with little movement, so it does not fit sport.",
+          "whyVi": "Sedentary là \"ít vận động\", ghép với sport là tự mâu thuẫn. Môn thể thao ngồi im thì chắc là ngủ!"
+        }
+      ],
+      "level": "B2",
+      "topics": ["health"]
+    },
+    {
+      "slug": "nutrition",
+      "lemma": "nutrition",
+      "partOfSpeech": "noun",
+      "ipa": "/njuˈtrɪʃn/",
+      "meaningEn": "the food you eat and how it affects your health",
+      "meaningVi": "dinh dưỡng",
+      "examples": [
+        {
+          "en": "Good nutrition helps children concentrate at school.",
+          "vi": "Dinh dưỡng tốt giúp trẻ tập trung ở trường.",
+          "cloze": "nutrition"
+        },
+        {
+          "en": "Schools should teach basic nutrition.",
+          "vi": "Trường học nên dạy kiến thức dinh dưỡng cơ bản.",
+          "cloze": "nutrition"
+        }
+      ],
+      "collocations": ["good nutrition", "poor nutrition", "nutrition label"],
+      "commonMistakes": [
+        {
+          "wrong": "Vegetables have a lot of nutritions.",
+          "right": "Vegetables have a lot of nutrients.",
+          "whyEn": "Nutrition is uncountable; the vitamins and minerals are nutrients.",
+          "whyVi": "Nutrition không đếm được; các chất như vitamin, khoáng chất là nutrients."
+        }
+      ],
+      "level": "B1",
+      "topics": ["health"]
+    },
+    {
+      "slug": "balanced",
+      "lemma": "balanced",
+      "partOfSpeech": "adjective",
+      "ipa": "/ˈbælənst/",
+      "meaningEn": "(of a diet) with the right amounts of different kinds of food",
+      "meaningVi": "cân bằng (chế độ ăn đủ các nhóm chất)",
+      "examples": [
+        {
+          "en": "A balanced diet includes fruit, vegetables and protein.",
+          "vi": "Một chế độ ăn cân bằng gồm trái cây, rau và chất đạm.",
+          "cloze": "balanced"
+        },
+        {
+          "en": "It is hard to eat a balanced meal when you are busy.",
+          "vi": "Khi bận rộn thì khó ăn một bữa cân bằng.",
+          "cloze": "balanced"
+        }
+      ],
+      "collocations": ["balanced diet", "balanced meal", "well-balanced"],
+      "commonMistakes": [
+        {
+          "wrong": "You should eat a balance diet.",
+          "right": "You should eat a balanced diet.",
+          "whyEn": "Before diet, use the adjective balanced (with -ed).",
+          "whyVi": "Trước diet phải là tính từ balanced (có -ed)."
+        }
+      ],
+      "level": "B1",
+      "topics": ["health"]
+    },
+    {
+      "slug": "symptom",
+      "lemma": "symptom",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈsɪmptəm/",
+      "meaningEn": "a sign that you are ill, such as a fever or a cough",
+      "meaningVi": "triệu chứng",
+      "examples": [
+        {
+          "en": "A high temperature is a common symptom of flu.",
+          "vi": "Sốt cao là triệu chứng phổ biến của cúm.",
+          "cloze": "symptom"
+        },
+        {
+          "en": "Stress can cause physical symptoms like headaches.",
+          "vi": "Căng thẳng có thể gây ra triệu chứng thể chất như đau đầu.",
+          "cloze": "symptoms"
+        }
+      ],
+      "collocations": ["common symptoms", "early symptoms", "show symptoms"],
+      "commonMistakes": [
+        {
+          "wrong": "Symptoms for flu include fever.",
+          "right": "Symptoms of flu include fever.",
+          "whyEn": "We say symptoms of an illness.",
+          "whyVi": "Triệu chứng \"của\" bệnh dùng \"of\", không dùng \"for\"."
+        }
+      ],
+      "level": "B1",
+      "topics": ["health"]
+    },
+    {
+      "slug": "chronic",
+      "lemma": "chronic",
+      "partOfSpeech": "adjective",
+      "ipa": "/ˈkrɒnɪk/",
+      "meaningEn": "(of an illness or problem) lasting a long time",
+      "meaningVi": "mãn tính, kéo dài",
+      "examples": [
+        {
+          "en": "Diabetes is a chronic disease that needs daily care.",
+          "vi": "Tiểu đường là bệnh mãn tính cần chăm sóc hằng ngày.",
+          "cloze": "chronic"
+        },
+        {
+          "en": "Many older people live with chronic pain.",
+          "vi": "Nhiều người cao tuổi sống chung với cơn đau mãn tính.",
+          "cloze": "chronic"
+        }
+      ],
+      "collocations": ["chronic disease", "chronic pain", "chronic stress"],
+      "commonMistakes": [
+        {
+          "wrong": "I have a chronic cold since yesterday.",
+          "right": "I have had a bad cold since yesterday.",
+          "whyEn": "Chronic means lasting months or years, not one day.",
+          "whyVi": "Chronic là kéo dài hàng tháng, hàng năm; cảm từ hôm qua thì chưa \"mãn tính\" đâu."
+        }
+      ],
+      "level": "B2",
+      "topics": ["health"]
+    },
+    {
+      "slug": "well-being",
+      "lemma": "well-being",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈwel biːɪŋ/",
+      "meaningEn": "the state of being healthy, happy and comfortable",
+      "meaningVi": "sức khoẻ và tinh thần tốt; sự an lạc",
+      "examples": [
+        {
+          "en": "Green spaces improve the mental well-being of city residents.",
+          "vi": "Mảng xanh giúp cải thiện sức khoẻ tinh thần của cư dân thành phố.",
+          "cloze": "well-being"
+        },
+        {
+          "en": "Companies should care about their employees' well-being.",
+          "vi": "Công ty nên quan tâm đến sức khoẻ và tinh thần của nhân viên.",
+          "cloze": "well-being"
+        }
+      ],
+      "collocations": ["mental well-being", "sense of well-being", "improve well-being"],
+      "commonMistakes": [
+        {
+          "wrong": "Exercise is good for our well-beings.",
+          "right": "Exercise is good for our well-being.",
+          "whyEn": "Well-being is uncountable.",
+          "whyVi": "Well-being không đếm được, không thêm -s."
+        }
+      ],
+      "level": "B2",
+      "topics": ["health"]
+    },
+    {
+      "slug": "sanitation",
+      "lemma": "sanitation",
+      "partOfSpeech": "noun",
+      "ipa": "/ˌsænɪˈteɪʃn/",
+      "meaningEn": "systems that keep places clean, such as clean water and toilets",
+      "meaningVi": "điều kiện vệ sinh (nước sạch, nhà vệ sinh, xử lý chất thải)",
+      "examples": [
+        {
+          "en": "Poor sanitation spreads disease quickly.",
+          "vi": "Điều kiện vệ sinh kém làm bệnh lây lan nhanh.",
+          "cloze": "sanitation"
+        },
+        {
+          "en": "Better sanitation has raised life expectancy around the world.",
+          "vi": "Vệ sinh tốt hơn đã giúp tăng tuổi thọ trên toàn thế giới.",
+          "cloze": "sanitation"
+        }
+      ],
+      "collocations": ["poor sanitation", "improve sanitation", "sanitation facilities"],
+      "commonMistakes": [
+        {
+          "wrong": "The hospital needs more sanitations.",
+          "right": "The area needs better sanitation.",
+          "whyEn": "Sanitation is uncountable; describe it as better or poor.",
+          "whyVi": "Sanitation không đếm được; hãy nói better/poor sanitation."
+        }
+      ],
+      "level": "B2",
+      "topics": ["health"]
+    },
+    {
+      "slug": "life-expectancy",
+      "lemma": "life expectancy",
+      "partOfSpeech": "noun phrase",
+      "ipa": "/ˈlaɪf ɪkˌspektənsi/",
+      "meaningEn": "the number of years a person is expected to live",
+      "meaningVi": "tuổi thọ trung bình",
+      "examples": [
+        {
+          "en": "Life expectancy in Japan is among the highest in the world.",
+          "vi": "Tuổi thọ trung bình ở Nhật thuộc hàng cao nhất thế giới.",
+          "cloze": "Life expectancy"
+        },
+        {
+          "en": "Clean water has increased life expectancy in many countries.",
+          "vi": "Nước sạch đã giúp tăng tuổi thọ trung bình ở nhiều nước.",
+          "cloze": "life expectancy"
+        }
+      ],
+      "collocations": [
+        "average life expectancy",
+        "increase life expectancy",
+        "life expectancy at birth"
+      ],
+      "commonMistakes": [
+        {
+          "wrong": "The life expectancy of Vietnam is long.",
+          "right": "Life expectancy in Vietnam is high.",
+          "whyEn": "Life expectancy is high or low, and we say in a country.",
+          "whyVi": "Tuổi thọ dùng high/low (không phải long), và nói \"in\" một quốc gia."
+        }
+      ],
+      "level": "B2",
+      "topics": ["health", "society"]
+    },
+    {
+      "slug": "vaccine",
+      "lemma": "vaccine",
+      "partOfSpeech": "noun",
+      "ipa": "/ˈvæksiːn/",
+      "meaningEn": "a substance given to people to protect them from a disease",
+      "meaningVi": "vắc-xin",
+      "examples": [
+        {
+          "en": "The new vaccine protects children against measles.",
+          "vi": "Loại vắc-xin mới bảo vệ trẻ khỏi bệnh sởi.",
+          "cloze": "vaccine"
+        },
+        {
+          "en": "Scientists developed several vaccines in record time.",
+          "vi": "Các nhà khoa học đã phát triển nhiều loại vắc-xin trong thời gian kỷ lục.",
+          "cloze": "vaccines"
+        }
+      ],
+      "collocations": ["develop a vaccine", "vaccine against", "flu vaccine"],
+      "commonMistakes": [
+        {
+          "wrong": "I vaccine my dog every year.",
+          "right": "I vaccinate my dog every year.",
+          "whyEn": "Vaccine is the noun; the verb is vaccinate.",
+          "whyVi": "Vaccine là danh từ; động từ \"tiêm phòng\" là vaccinate."
+        }
+      ],
+      "level": "B1",
+      "topics": ["health", "science"]
+    }
+  ]
+}

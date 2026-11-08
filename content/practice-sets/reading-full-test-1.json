@@ -1,0 +1,1022 @@
+{
+  "slug": "reading-full-test-1",
+  "title": "Academic Reading test 1",
+  "summary": "A complete 60-minute Academic Reading test: three passages and 40 questions on light pollution, microlearning and loneliness in cities.",
+  "level": "B2",
+  "topics": ["environment", "education", "cities"],
+  "source": "ai_assisted",
+  "reviewStatus": "published",
+  "version": 1,
+  "module": "reading",
+  "kind": "full_test",
+  "testTimeLimitMinutes": 60,
+  "passages": [
+    {
+      "title": "The disappearing night sky",
+      "text": "A  For most of human history, the night sky was a shared experience. Anyone who looked up on a clear evening could see thousands of stars and the pale band of the Milky Way stretching from one horizon to the other. Today, that view has become a rarity. According to a widely cited atlas of night-sky brightness published in 2016, more than a third of the world's population can no longer see the Milky Way from where they live, and in Europe the figure rises to around sixty per cent. The cause is not cloud or air pollution but light: the artificial glow produced by streets, buildings, car parks and advertising screens. Unlike other forms of pollution, it is rarely discussed in public debates about the environment, perhaps because a lit street feels safe and familiar rather than harmful.\n\nB  Astronomers were the first to raise the alarm. In the early twentieth century, observatories were often built on hills just outside large cities, where the skies were dark and the journey for staff was short. As those cities expanded, their light spread outwards and upwards, washing out faint objects in the sky. Several famous observatories found that their telescopes, once among the most powerful in the world, could no longer carry out the research they had been designed for. New facilities had to be built in remote deserts and on high mountains, often thousands of kilometres from the nearest town. Today, the best sites for astronomy are found in places such as northern Chile and the Canary Islands, where dry air and strict local lighting rules protect the view.\n\nC  For a long time, light pollution was treated as a problem that mattered only to scientists. That view began to change when biologists started to examine how wildlife responds to brightly lit nights. Many species are nocturnal, and their behaviour is closely tied to natural cycles of light and darkness. Newly hatched sea turtles, for example, find the ocean by moving towards the brightest horizon, which on an undeveloped beach is the sky above the water. On beaches near hotels and roads, thousands of hatchlings head inland instead and die before they reach the sea. Birds migrating at night can also become confused by illuminated buildings, circling them until they are exhausted. Insects are affected in even greater numbers: a single street lamp on a summer night can attract and kill hundreds of moths, which are an important food source for birds and bats.\n\nD  Human health may be affected too. Our bodies produce a hormone called melatonin in the hours of darkness, and this helps to regulate sleep. Laboratory studies have shown that exposure to light at night, particularly light at the blue end of the spectrum, can reduce the amount of melatonin the body releases. Some researchers have suggested links between long-term exposure to night-time lighting and a range of health problems, although they stress that much of the evidence comes from observational studies and that a direct cause has not been proven. Until more is known, many doctors recommend keeping bedrooms as dark as possible and avoiding bright screens late in the evening.\n\nE  One of the difficulties in tackling the problem is that much outdoor lighting is badly designed rather than simply excessive. Lamps that shine sideways or upwards waste energy by sending light into the sky, where nobody needs it, and they create glare that can actually make it harder for drivers and pedestrians to see. The widespread switch to LED street lamps over the past fifteen years has been a mixed blessing. LEDs use far less electricity than older lamps, but because they are so cheap to run, some councils have installed more of them, and early models gave out a harsh, bluish light. Lamps with a warmer colour are now widely available, but replacing those already installed will take many years.\n\nF  Solutions, however, are relatively simple. Fully shielded fittings direct light downwards onto the ground; warmer colours reduce the effect on wildlife; and timers or motion sensors can dim lights in the early hours when streets are empty. A number of towns have gone further and applied to be recognised as dark-sky places, committing themselves to strict rules on outdoor lighting. In several cases, the change has attracted visitors who travel specifically to see the stars, bringing unexpected benefits to the local economy. Unlike many environmental problems, light pollution can be reversed almost immediately: when a light is switched off, its pollution disappears with it.",
+      "keyWords": [
+        {
+          "form": "artificial",
+          "word": {
+            "slug": "artificial",
+            "lemma": "artificial",
+            "partOfSpeech": "adjective",
+            "ipa": "/ˌɑːtɪˈfɪʃl/",
+            "meaningEn": "made by people, not happening naturally",
+            "meaningVi": "nhân tạo: do con người tạo ra, không có sẵn trong tự nhiên",
+            "examples": [
+              {
+                "en": "Many offices rely on artificial light for most of the day.",
+                "vi": "Nhiều văn phòng dùng ánh sáng nhân tạo gần như cả ngày.",
+                "cloze": "artificial"
+              },
+              {
+                "en": "Some sports stadiums now use artificial grass instead of real turf.",
+                "vi": "Một số sân vận động hiện dùng cỏ nhân tạo thay cho cỏ thật.",
+                "cloze": "artificial"
+              }
+            ],
+            "collocations": [
+              "artificial light",
+              "artificial intelligence",
+              "artificial ingredients"
+            ],
+            "commonMistakes": [
+              {
+                "wrong": "The lake is artificial made.",
+                "right": "The lake is artificial. / The lake is man-made.",
+                "whyEn": "Artificial already means 'made by people', so do not add 'made'.",
+                "whyVi": "Artificial đã có nghĩa là 'do con người làm ra', nên không thêm 'made' phía sau."
+              }
+            ],
+            "level": "B1",
+            "topics": ["science", "technology"]
+          }
+        },
+        {
+          "form": "observatories",
+          "word": {
+            "slug": "observatory",
+            "lemma": "observatory",
+            "partOfSpeech": "noun",
+            "ipa": "/əbˈzɜːvətri/",
+            "meaningEn": "a building with large telescopes for studying the sky",
+            "meaningVi": "đài thiên văn: công trình có kính thiên văn lớn để quan sát bầu trời",
+            "examples": [
+              {
+                "en": "The observatory was built on a mountain where the air is clear and dry.",
+                "vi": "Đài thiên văn được xây trên núi, nơi không khí trong và khô.",
+                "cloze": "observatory"
+              },
+              {
+                "en": "Students visited an observatory to look at the rings of Saturn.",
+                "vi": "Học sinh đến thăm một đài thiên văn để ngắm vành đai Sao Thổ.",
+                "cloze": "observatory"
+              }
+            ],
+            "collocations": [
+              "a space observatory",
+              "build an observatory",
+              "observatory telescope"
+            ],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["science"]
+          }
+        },
+        {
+          "form": "nocturnal",
+          "word": {
+            "slug": "nocturnal",
+            "lemma": "nocturnal",
+            "partOfSpeech": "adjective",
+            "ipa": "/nɒkˈtɜːnl/",
+            "meaningEn": "(of animals) active at night and sleeping during the day",
+            "meaningVi": "(động vật) hoạt động về đêm và ngủ vào ban ngày",
+            "examples": [
+              {
+                "en": "Owls are nocturnal, so they hunt after dark.",
+                "vi": "Cú là loài hoạt động về đêm, nên chúng săn mồi khi trời tối.",
+                "cloze": "nocturnal"
+              },
+              {
+                "en": "Bright city lights can disturb nocturnal animals such as bats.",
+                "vi": "Ánh đèn thành phố có thể làm phiền các loài sống về đêm như dơi.",
+                "cloze": "nocturnal"
+              }
+            ],
+            "collocations": ["nocturnal animals", "nocturnal species", "nocturnal habits"],
+            "commonMistakes": [],
+            "level": "C1",
+            "topics": ["environment", "science"]
+          }
+        },
+        {
+          "form": "illuminated",
+          "word": {
+            "slug": "illuminated",
+            "lemma": "illuminated",
+            "partOfSpeech": "adjective",
+            "ipa": "/ɪˈluːmɪneɪtɪd/",
+            "meaningEn": "lit up, especially with electric lights",
+            "meaningVi": "được chiếu sáng, thắp sáng (thường bằng đèn điện)",
+            "examples": [
+              {
+                "en": "The old bridge looks beautiful when it is illuminated at night.",
+                "vi": "Cây cầu cũ trông rất đẹp khi được thắp sáng vào ban đêm.",
+                "cloze": "illuminated"
+              },
+              {
+                "en": "Illuminated signs make the shopping street visible from far away.",
+                "vi": "Biển hiệu phát sáng giúp con phố mua sắm dễ thấy từ xa.",
+                "cloze": "Illuminated"
+              }
+            ],
+            "collocations": ["illuminated signs", "brightly illuminated", "illuminated buildings"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["cities"]
+          }
+        },
+        {
+          "form": "excessive",
+          "word": {
+            "slug": "excessive",
+            "lemma": "excessive",
+            "partOfSpeech": "adjective",
+            "ipa": "/ɪkˈsesɪv/",
+            "meaningEn": "much more than is needed or reasonable",
+            "meaningVi": "quá mức, nhiều hơn mức cần thiết hoặc hợp lý",
+            "examples": [
+              {
+                "en": "Excessive screen time can make it harder to sleep.",
+                "vi": "Dùng màn hình quá nhiều có thể khiến khó ngủ hơn.",
+                "cloze": "Excessive"
+              },
+              {
+                "en": "Many people think the new parking fees are excessive.",
+                "vi": "Nhiều người cho rằng phí gửi xe mới quá cao.",
+                "cloze": "excessive"
+              }
+            ],
+            "collocations": ["excessive use", "excessive amounts", "excessive noise"],
+            "commonMistakes": [
+              {
+                "wrong": "He drinks excessive coffee.",
+                "right": "He drinks an excessive amount of coffee. / He drinks too much coffee.",
+                "whyEn": "Excessive usually describes an amount, a level or a use, not the thing itself.",
+                "whyVi": "Excessive thường đi với lượng, mức độ hoặc việc sử dụng, không đứng ngay trước bản thân đồ vật."
+              }
+            ],
+            "level": "B2",
+            "topics": ["environment", "health"]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Learning in small pieces",
+      "text": "A  Ten years ago, the typical online course looked much like a university lecture that had been filmed and uploaded: an hour of a speaker standing in front of slides, followed by a long quiz. Many learners signed up with good intentions, but completion rates were notoriously low, often below ten per cent. Since then, a very different model has spread rapidly through language apps, workplace training and even school homework. Known as microlearning, it breaks material into short units, usually lasting between two and ten minutes, each focused on a single idea or skill. Supporters claim that the format fits naturally into modern life, since a lesson can be completed while waiting for a bus or during a coffee break.\n\nB  The approach is often presented as a response to shrinking attention spans, but researchers who study memory argue that its real strength lies elsewhere. More than a century ago, the German psychologist Hermann Ebbinghaus showed that people forget new information quickly unless they meet it again. Spacing practice over several days produces far better long-term memory than the same amount of study packed into a single session. Short units are simply easier to spread out, so microlearning makes it practical to follow advice that has been known for generations. In other words, the benefit comes less from the shortness of each lesson than from the regular return to the same material.\n\nC  A second argument concerns motivation. Finishing a five-minute lesson gives a small but genuine sense of achievement, and app designers have become skilled at building on that feeling. Daily streaks, progress bars and gentle reminders encourage learners to return at the same time each day until studying becomes a habit. Critics, however, warn that these features can reward the wrong thing. A learner who protects a long streak by completing the easiest possible lesson every evening may feel productive while making very little real progress.\n\nD  There are also limits to what can be learned in small pieces. Microlearning works well for vocabulary, facts and clearly defined procedures, such as the steps needed to use a new piece of software. It is far less suited to complex skills that require extended concentration, such as writing a persuasive essay or analysing a difficult text. In these cases, the ability to connect ideas across a longer task is exactly what learners need to develop, and dividing the task into fragments may prevent them from doing so. Some teachers also worry that a steady diet of short tasks may make longer reading feel more tiring than before, although there is little research on this so far.\n\nE  Employers have been among the most enthusiastic adopters. For companies, short online modules are cheaper to produce than classroom training and can be completed without taking staff away from their work for a whole day. A study of several hundred employees at a European logistics firm found that workers who received safety training in weekly five-minute sessions remembered more of the rules six months later than colleagues who had attended a single half-day course. The researchers noted, though, that the short sessions were most effective when supervisors discussed the content with their teams afterwards. Similar results have been reported in hospitals and retail chains, where staff work irregular shifts and full-day courses are difficult to arrange.\n\nF  That finding points to a wider lesson. Short units appear to work best as part of a larger structure rather than as a complete course in themselves. Teachers who use microlearning successfully tend to combine it with longer activities: a few minutes of daily vocabulary practice, for example, followed by a weekly discussion in which students use the new words. Without this connecting framework, learners risk collecting isolated pieces of knowledge that they are unable to apply. In this sense, microlearning is better understood as a method of practice than as a replacement for teaching.\n\nG  Looking ahead, some developers believe that new technology will allow each learner to receive exactly the right unit at exactly the right moment, based on a detailed record of what they have already mastered. Others are more cautious, pointing out that personalisation depends on large amounts of data about learners' behaviour. Whatever the technology, most experts agree on one point: the length of a lesson matters less than whether learners return to what they have studied, and whether they are asked to use it.",
+      "keyWords": [
+        {
+          "form": "notoriously",
+          "word": {
+            "slug": "notoriously",
+            "lemma": "notoriously",
+            "partOfSpeech": "adverb",
+            "ipa": "/nəʊˈtɔːriəsli/",
+            "meaningEn": "in a way that is well known for being bad or difficult",
+            "meaningVi": "nổi tiếng (theo nghĩa xấu): ai cũng biết là tệ hoặc khó",
+            "examples": [
+              {
+                "en": "Traffic in the city centre is notoriously slow at rush hour.",
+                "vi": "Giao thông ở trung tâm thành phố nổi tiếng là chậm vào giờ cao điểm.",
+                "cloze": "notoriously"
+              },
+              {
+                "en": "English spelling is notoriously difficult for learners.",
+                "vi": "Chính tả tiếng Anh nổi tiếng là khó với người học.",
+                "cloze": "notoriously"
+              }
+            ],
+            "collocations": [
+              "notoriously difficult",
+              "notoriously unreliable",
+              "notoriously expensive"
+            ],
+            "commonMistakes": [
+              {
+                "wrong": "She is notoriously kind to everyone.",
+                "right": "She is famously kind to everyone.",
+                "whyEn": "Notoriously is for things known as bad or difficult. For good qualities, use famously or well known for.",
+                "whyVi": "Notoriously dùng cho điều tiêu cực hoặc khó khăn. Với điều tốt, dùng famously hoặc well known for."
+              }
+            ],
+            "level": "C1",
+            "topics": ["society"]
+          }
+        },
+        {
+          "form": "fragments",
+          "word": {
+            "slug": "fragment",
+            "lemma": "fragment",
+            "partOfSpeech": "noun",
+            "ipa": "/ˈfræɡmənt/",
+            "meaningEn": "a small piece or part of something larger",
+            "meaningVi": "mảnh, mẩu nhỏ: một phần nhỏ tách ra từ cái lớn hơn",
+            "examples": [
+              {
+                "en": "Archaeologists found fragments of pottery near the river.",
+                "vi": "Các nhà khảo cổ tìm thấy những mảnh gốm gần con sông.",
+                "cloze": "fragments"
+              },
+              {
+                "en": "I only heard a fragment of their conversation.",
+                "vi": "Tôi chỉ nghe được một mẩu cuộc trò chuyện của họ.",
+                "cloze": "fragment"
+              }
+            ],
+            "collocations": [
+              "small fragments",
+              "fragments of glass",
+              "a fragment of a conversation"
+            ],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["science", "education"]
+          }
+        },
+        {
+          "form": "enthusiastic",
+          "word": {
+            "slug": "enthusiastic",
+            "lemma": "enthusiastic",
+            "partOfSpeech": "adjective",
+            "ipa": "/ɪnˌθjuːziˈæstɪk/",
+            "meaningEn": "showing a lot of interest and excitement about something",
+            "meaningVi": "nhiệt tình, hăng hái, rất hứng thú với điều gì đó",
+            "examples": [
+              {
+                "en": "The students were enthusiastic about the new science club.",
+                "vi": "Học sinh rất hào hứng với câu lạc bộ khoa học mới.",
+                "cloze": "enthusiastic"
+              },
+              {
+                "en": "Young people are often the most enthusiastic users of new apps.",
+                "vi": "Người trẻ thường là những người dùng ứng dụng mới nhiệt tình nhất.",
+                "cloze": "enthusiastic"
+              }
+            ],
+            "collocations": [
+              "enthusiastic about",
+              "enthusiastic support",
+              "an enthusiastic welcome"
+            ],
+            "commonMistakes": [
+              {
+                "wrong": "She is enthusiastic for learning Japanese.",
+                "right": "She is enthusiastic about learning Japanese.",
+                "whyEn": "The usual preposition after enthusiastic is about.",
+                "whyVi": "Giới từ thường đi sau enthusiastic là about."
+              }
+            ],
+            "level": "B1",
+            "topics": ["work", "education"]
+          }
+        },
+        {
+          "form": "isolated",
+          "word": {
+            "slug": "isolated",
+            "lemma": "isolated",
+            "partOfSpeech": "adjective",
+            "ipa": "/ˈaɪsəleɪtɪd/",
+            "meaningEn": "separate from other things or people; not connected",
+            "meaningVi": "tách biệt, rời rạc, không kết nối với những thứ hoặc người khác",
+            "examples": [
+              {
+                "en": "Older people living alone can feel very isolated in winter.",
+                "vi": "Người già sống một mình có thể cảm thấy rất cô lập vào mùa đông.",
+                "cloze": "isolated"
+              },
+              {
+                "en": "These are isolated cases, not a general trend.",
+                "vi": "Đây chỉ là những trường hợp riêng lẻ, không phải xu hướng chung.",
+                "cloze": "isolated"
+              }
+            ],
+            "collocations": ["feel isolated", "an isolated case", "socially isolated"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["society"]
+          }
+        },
+        {
+          "form": "personalisation",
+          "word": {
+            "slug": "personalisation",
+            "lemma": "personalisation",
+            "partOfSpeech": "noun",
+            "ipa": "/ˌpɜːsənəlaɪˈzeɪʃn/",
+            "meaningEn": "changing something so that it suits one particular person",
+            "meaningVi": "cá nhân hoá: điều chỉnh cho phù hợp với từng người",
+            "examples": [
+              {
+                "en": "Personalisation lets the app choose lessons that match your level.",
+                "vi": "Tính năng cá nhân hoá giúp ứng dụng chọn bài phù hợp với trình độ của bạn.",
+                "cloze": "Personalisation"
+              },
+              {
+                "en": "Some users worry that personalisation requires too much personal data.",
+                "vi": "Một số người dùng lo rằng việc cá nhân hoá đòi hỏi quá nhiều dữ liệu cá nhân.",
+                "cloze": "personalisation"
+              }
+            ],
+            "collocations": [
+              "greater personalisation",
+              "personalisation of learning",
+              "content personalisation"
+            ],
+            "commonMistakes": [],
+            "level": "C1",
+            "topics": ["technology", "education"]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Crowded but alone? Cities and loneliness",
+      "text": "A  It has become almost a cliché to say that cities are lonely places. Popular articles describe commuters packed into trains without exchanging a word, and apartment dwellers who have never learned their neighbours' names. Yet the evidence for a simple link between city life and loneliness is surprisingly weak. Large surveys in several countries have found that people in rural areas report feeling lonely about as often as those in cities, and in some studies slightly more often. Being alone and feeling lonely are, after all, very different things: many people enjoy solitude, while others feel cut off in a crowded room. In my view, the idea that urban life inevitably isolates people says more about our nostalgia for village life than about how people actually live.\n\nB  That is not to say that the design of cities is irrelevant. What seems to matter is not the number of people around us but the quality and frequency of casual contact. Sociologists distinguish between strong ties, such as close friends and family, and weak ties, the shopkeeper we greet each morning or the parent we chat to at the school gate. Research by the psychologist Gillian Sandstrom found that people who had more of these brief everyday interactions reported a greater sense of belonging and happier days, even when they did not consider the people involved to be friends. Such moments may seem trivial, but they remind people that they are recognised members of a community.\n\nC  Weak ties depend heavily on physical space. A street with small shops, benches and wide pavements gives people reasons to linger and repeated chances to meet the same faces. A district designed around fast roads and large car parks does the opposite: residents drive from home to work to a supermarket, and the only people they meet are strangers. Housing design matters too. In tall residential towers, residents may share a lift but rarely a space where conversation feels natural, and studies have linked such buildings to weaker community networks, although the effect varies widely depending on how they are managed. Even the position of mailboxes and entrances can influence whether neighbours ever see one another.\n\nD  Several cities have begun to treat social connection as a planning goal. In Barcelona, the so-called superblocks scheme has closed groups of streets to through traffic and turned junctions into small squares with seating, play areas and trees. Early surveys suggest that residents spend more time outdoors and know more of their neighbours. Elsewhere, planners have experimented with shared courtyards, community gardens and ground floors that house cafés and workshops rather than blank walls. It is too early to say how much difference these projects make to loneliness itself, but I believe the direction is the right one. Similar ideas have been tried in Paris, where the city has promoted the goal of providing everyday services within a fifteen-minute walk of every home.\n\nE  Some commentators argue that technology has made such efforts unnecessary, since people can now maintain friendships online regardless of where they live. I find this unconvincing. Online contact can certainly support existing relationships, particularly over long distances, but it rarely produces the unplanned, low-pressure encounters that weak ties are built on. Nor does it help the people most at risk of loneliness, who include older residents living alone and newcomers who have not yet formed any local connections. Indeed, some studies suggest that heavy use of social media is associated with greater, not lesser, feelings of loneliness, although the direction of cause is unclear.\n\nF  None of this means that planners can solve loneliness by themselves. Personal circumstances, health and income all play a large part, and a well-designed square will not help someone who cannot afford to leave home. But the places we build either make small encounters easy or make them unlikely. Benches, wide pavements and shared spaces cost relatively little compared with roads and car parks, yet they are often the first items removed when budgets are cut. If cities are to be good places to live, they should be judged not only by how efficiently they move people around, but also by how often they allow people to stop.",
+      "keyWords": [
+        {
+          "form": "cliché",
+          "word": {
+            "slug": "cliche",
+            "lemma": "cliché",
+            "partOfSpeech": "noun",
+            "ipa": "/ˈkliːʃeɪ/",
+            "meaningEn": "an idea or phrase used so often that it is no longer original or interesting",
+            "meaningVi": "lối nói sáo rỗng, ý tưởng cũ mòn vì bị dùng quá nhiều",
+            "examples": [
+              {
+                "en": "It is a cliché, but practice really does make perfect.",
+                "vi": "Nghe thì sáo, nhưng luyện tập thật sự giúp ta giỏi lên.",
+                "cloze": "cliché"
+              },
+              {
+                "en": "Examiners prefer clear ideas to clichés in an essay.",
+                "vi": "Giám khảo thích ý tưởng rõ ràng hơn những câu sáo rỗng trong bài luận.",
+                "cloze": "clichés"
+              }
+            ],
+            "collocations": ["an old cliché", "become a cliché", "avoid clichés"],
+            "commonMistakes": [],
+            "level": "C1",
+            "topics": ["culture", "media"]
+          }
+        },
+        {
+          "form": "dwellers",
+          "word": {
+            "slug": "dweller",
+            "lemma": "dweller",
+            "partOfSpeech": "noun",
+            "ipa": "/ˈdwelə(r)/",
+            "meaningEn": "a person who lives in a particular place",
+            "meaningVi": "cư dân: người sống ở một nơi cụ thể (city dweller = người sống ở thành phố)",
+            "examples": [
+              {
+                "en": "Most city dwellers live within walking distance of a bus stop.",
+                "vi": "Phần lớn cư dân thành phố sống gần một trạm xe buýt, đi bộ là tới.",
+                "cloze": "dwellers"
+              },
+              {
+                "en": "A cave dweller in the story finally sees the sun.",
+                "vi": "Một người sống trong hang trong câu chuyện cuối cùng cũng được thấy mặt trời.",
+                "cloze": "dweller"
+              }
+            ],
+            "collocations": ["city dwellers", "urban dwellers", "apartment dwellers"],
+            "commonMistakes": [],
+            "level": "C1",
+            "topics": ["cities", "society"]
+          }
+        },
+        {
+          "form": "inevitably",
+          "word": {
+            "slug": "inevitably",
+            "lemma": "inevitably",
+            "partOfSpeech": "adverb",
+            "ipa": "/ɪnˈevɪtəbli/",
+            "meaningEn": "in a way that cannot be avoided or prevented",
+            "meaningVi": "chắc chắn, không thể tránh khỏi",
+            "examples": [
+              {
+                "en": "As cities grow, traffic inevitably increases.",
+                "vi": "Khi thành phố lớn lên, giao thông chắc chắn sẽ tăng.",
+                "cloze": "inevitably"
+              },
+              {
+                "en": "Inevitably, some students found the test too long.",
+                "vi": "Không tránh khỏi việc một số học sinh thấy bài thi quá dài.",
+                "cloze": "Inevitably"
+              }
+            ],
+            "collocations": ["almost inevitably", "inevitably lead to", "inevitably involve"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["society"]
+          }
+        },
+        {
+          "form": "residential",
+          "word": {
+            "slug": "residential",
+            "lemma": "residential",
+            "partOfSpeech": "adjective",
+            "ipa": "/ˌrezɪˈdenʃl/",
+            "meaningEn": "(of an area or building) where people live, not where they work or shop",
+            "meaningVi": "(khu vực, toà nhà) dân cư, dùng để ở chứ không phải làm việc hay buôn bán",
+            "examples": [
+              {
+                "en": "Heavy trucks are not allowed in residential areas.",
+                "vi": "Xe tải nặng không được vào khu dân cư.",
+                "cloze": "residential"
+              },
+              {
+                "en": "The old factory was turned into a residential building.",
+                "vi": "Nhà máy cũ được cải tạo thành một toà nhà ở.",
+                "cloze": "residential"
+              }
+            ],
+            "collocations": ["residential area", "residential street", "residential building"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["cities"]
+          }
+        },
+        {
+          "form": "encounters",
+          "word": {
+            "slug": "encounter",
+            "lemma": "encounter",
+            "partOfSpeech": "noun",
+            "ipa": "/ɪnˈkaʊntə(r)/",
+            "meaningEn": "a meeting, especially one that is not planned",
+            "meaningVi": "cuộc gặp gỡ, nhất là gặp tình cờ, không hẹn trước",
+            "examples": [
+              {
+                "en": "A chance encounter at the library led to a lifelong friendship.",
+                "vi": "Một cuộc gặp tình cờ ở thư viện đã mở ra một tình bạn trọn đời.",
+                "cloze": "encounter"
+              },
+              {
+                "en": "Small daily encounters with neighbours can improve your mood.",
+                "vi": "Những lần gặp hàng xóm nho nhỏ mỗi ngày có thể làm bạn vui hơn.",
+                "cloze": "encounters"
+              }
+            ],
+            "collocations": ["a chance encounter", "a brief encounter", "everyday encounters"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["society", "cities"]
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "type": "true_false_not_given",
+      "passage": 1,
+      "instructions": "Questions 1–6. Do the following statements agree with the information in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+      "questions": [
+        {
+          "number": 1,
+          "prompt": "A higher proportion of people in Europe than in the world as a whole cannot see the Milky Way from home.",
+          "accepted": ["TRUE"],
+          "explanation": "Worldwide the figure is more than a third; in Europe it rises to around sixty per cent, which is higher.",
+          "explanationVi": "Trên thế giới là hơn một phần ba; ở châu Âu con số tăng lên khoảng 60%, tức là cao hơn.",
+          "evidence": "in Europe the figure rises to around sixty per cent"
+        },
+        {
+          "number": 2,
+          "prompt": "Air pollution is the main reason why the Milky Way cannot be seen in many places.",
+          "accepted": ["FALSE"],
+          "explanation": "The passage says the cause is not cloud or air pollution but light.",
+          "explanationVi": "Bài nói rõ nguyên nhân không phải mây hay ô nhiễm không khí mà là ánh sáng.",
+          "evidence": "The cause is not cloud or air pollution but light"
+        },
+        {
+          "number": 3,
+          "prompt": "Early observatories were placed near cities partly so that their staff did not have far to travel.",
+          "accepted": ["TRUE"],
+          "explanation": "They were built just outside cities, where the skies were dark and the journey for staff was short.",
+          "explanationVi": "Chúng được xây ngay ngoài thành phố, nơi trời tối và nhân viên đi lại gần.",
+          "evidence": "where the skies were dark and the journey for staff was short"
+        },
+        {
+          "number": 4,
+          "prompt": "The new observatories in deserts and on mountains cost more to run than the older ones.",
+          "accepted": ["NOT_GIVEN"],
+          "explanation": "The passage says new facilities had to be built far away, but it says nothing about their running costs.",
+          "explanationVi": "Bài chỉ nói phải xây đài mới ở nơi xa, không hề nhắc đến chi phí vận hành của chúng."
+        },
+        {
+          "number": 5,
+          "prompt": "Newly hatched sea turtles move towards the darkest part of the horizon.",
+          "accepted": ["FALSE"],
+          "explanation": "They move towards the brightest horizon, not the darkest.",
+          "explanationVi": "Rùa con bò về phía đường chân trời sáng nhất, không phải tối nhất.",
+          "evidence": "find the ocean by moving towards the brightest horizon"
+        },
+        {
+          "number": 6,
+          "prompt": "Scientists have proved that night-time lighting causes health problems in humans.",
+          "accepted": ["FALSE"],
+          "explanation": "Researchers stress that a direct cause has not been proven.",
+          "explanationVi": "Các nhà nghiên cứu nhấn mạnh rằng quan hệ nhân quả trực tiếp chưa được chứng minh.",
+          "evidence": "a direct cause has not been proven"
+        }
+      ]
+    },
+    {
+      "type": "sentence_completion",
+      "passage": 1,
+      "instructions": "Questions 7–10. Complete the sentences. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+      "questions": [
+        {
+          "number": 7,
+          "prompt": "Birds that fly at night may keep ______ lit buildings until they are exhausted.",
+          "accepted": ["circling"],
+          "maxWords": 2,
+          "explanation": "Confused birds keep circling illuminated buildings until they are exhausted.",
+          "explanationVi": "Chim bị rối hướng cứ bay vòng quanh (circling) các toà nhà sáng đèn đến kiệt sức.",
+          "evidence": "circling them until they are exhausted"
+        },
+        {
+          "number": 8,
+          "prompt": "In darkness, the body produces a hormone called ______, which helps to control sleep.",
+          "accepted": ["melatonin"],
+          "maxWords": 2,
+          "explanation": "The body produces melatonin in the hours of darkness, and it helps to regulate sleep.",
+          "explanationVi": "Cơ thể tiết melatonin khi trời tối, và hormone này giúp điều hoà giấc ngủ.",
+          "evidence": "Our bodies produce a hormone called melatonin in the hours of darkness"
+        },
+        {
+          "number": 9,
+          "prompt": "Light at the ______ of the spectrum is especially likely to reduce melatonin.",
+          "accepted": ["blue end"],
+          "maxWords": 2,
+          "explanation": "The passage singles out light at the blue end of the spectrum.",
+          "explanationVi": "Bài nhấn mạnh ánh sáng ở đầu xanh lam (blue end) của quang phổ.",
+          "evidence": "particularly light at the blue end of the spectrum"
+        },
+        {
+          "number": 10,
+          "prompt": "Lamps that shine sideways or upwards create ______, which makes it harder to see.",
+          "accepted": ["glare"],
+          "maxWords": 2,
+          "explanation": "Badly aimed lamps create glare that makes it harder for drivers and pedestrians to see.",
+          "explanationVi": "Đèn chiếu sai hướng gây chói (glare), khiến người lái xe và người đi bộ khó nhìn hơn.",
+          "evidence": "they create glare that can actually make it harder"
+        }
+      ]
+    },
+    {
+      "type": "short_answer",
+      "passage": 1,
+      "instructions": "Questions 11–13. Answer the questions. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+      "questions": [
+        {
+          "number": 11,
+          "prompt": "What type of street lamp has been widely introduced over the past fifteen years?",
+          "accepted": ["LED street lamps", "LED lamps", "LEDs", "LED"],
+          "maxWords": 3,
+          "explanation": "The passage mentions the widespread switch to LED street lamps over the past fifteen years.",
+          "explanationVi": "Bài nhắc đến việc chuyển đổi rộng rãi sang đèn đường LED trong 15 năm qua.",
+          "evidence": "The widespread switch to LED street lamps"
+        },
+        {
+          "number": 12,
+          "prompt": "What kind of fittings send light down onto the ground?",
+          "accepted": ["fully shielded fittings", "shielded fittings", "fully shielded"],
+          "maxWords": 3,
+          "explanation": "Fully shielded fittings direct light downwards onto the ground.",
+          "explanationVi": "Chụp đèn che kín hoàn toàn (fully shielded fittings) hướng ánh sáng xuống mặt đất.",
+          "evidence": "Fully shielded fittings direct light downwards onto the ground"
+        },
+        {
+          "number": 13,
+          "prompt": "What have some towns applied to be recognised as?",
+          "accepted": ["dark-sky places", "dark-sky place", "dark sky places"],
+          "maxWords": 3,
+          "explanation": "Some towns have applied to be recognised as dark-sky places.",
+          "explanationVi": "Một số thị trấn đã đăng ký để được công nhận là \"địa điểm bầu trời tối\" (dark-sky places).",
+          "evidence": "applied to be recognised as dark-sky places"
+        }
+      ]
+    },
+    {
+      "type": "matching_headings",
+      "passage": 2,
+      "instructions": "Questions 14–19. Reading Passage 2 has seven paragraphs, A–G. Choose the correct heading for paragraphs B–G from the list of headings.",
+      "options": [
+        {
+          "id": "i",
+          "text": "Why repetition over time matters more than attention span"
+        },
+        {
+          "id": "ii",
+          "text": "Useful for some kinds of learning but not others"
+        },
+        {
+          "id": "iii",
+          "text": "A business case supported by evidence"
+        },
+        {
+          "id": "iv",
+          "text": "Short lessons need a bigger plan"
+        },
+        {
+          "id": "v",
+          "text": "The hidden cost of producing video lectures"
+        },
+        {
+          "id": "vi",
+          "text": "Small rewards and their risks"
+        },
+        {
+          "id": "vii",
+          "text": "Uncertain promises of tailored learning"
+        },
+        {
+          "id": "viii",
+          "text": "Why learners prefer apps to teachers"
+        }
+      ],
+      "questions": [
+        {
+          "number": 14,
+          "prompt": "Paragraph B",
+          "accepted": ["i"],
+          "explanation": "Paragraph B says the real strength is not attention spans but spacing practice over time, as Ebbinghaus showed.",
+          "explanationVi": "Đoạn B cho rằng điểm mạnh thật sự không nằm ở khả năng tập trung mà ở việc ôn cách quãng theo thời gian.",
+          "evidence": "its real strength lies elsewhere"
+        },
+        {
+          "number": 15,
+          "prompt": "Paragraph C",
+          "accepted": ["vi"],
+          "explanation": "Paragraph C describes streaks and progress bars as small rewards, then warns they can reward the wrong thing.",
+          "explanationVi": "Đoạn C nói về chuỗi ngày học và thanh tiến độ như phần thưởng nhỏ, rồi cảnh báo chúng có thể thưởng nhầm điều.",
+          "evidence": "these features can reward the wrong thing"
+        },
+        {
+          "number": 16,
+          "prompt": "Paragraph D",
+          "accepted": ["ii"],
+          "explanation": "Paragraph D says microlearning suits vocabulary and procedures but not complex skills.",
+          "explanationVi": "Đoạn D nói microlearning hợp với từ vựng và quy trình, nhưng không hợp với kỹ năng phức tạp.",
+          "evidence": "There are also limits to what can be learned in small pieces."
+        },
+        {
+          "number": 17,
+          "prompt": "Paragraph E",
+          "accepted": ["iii"],
+          "explanation": "Paragraph E explains why companies like short modules and gives a study as evidence.",
+          "explanationVi": "Đoạn E giải thích vì sao doanh nghiệp thích các học phần ngắn và đưa ra một nghiên cứu làm bằng chứng.",
+          "evidence": "Employers have been among the most enthusiastic adopters."
+        },
+        {
+          "number": 18,
+          "prompt": "Paragraph F",
+          "accepted": ["iv"],
+          "explanation": "Paragraph F says short units work best inside a larger structure.",
+          "explanationVi": "Đoạn F nói các bài ngắn hiệu quả nhất khi nằm trong một kế hoạch lớn hơn.",
+          "evidence": "Short units appear to work best as part of a larger structure"
+        },
+        {
+          "number": 19,
+          "prompt": "Paragraph G",
+          "accepted": ["vii"],
+          "explanation": "Paragraph G discusses lessons matched to each learner, and some people are cautious about it.",
+          "explanationVi": "Đoạn G bàn về bài học được điều chỉnh cho từng người, và có người còn dè dặt về điều này.",
+          "evidence": "Others are more cautious"
+        }
+      ]
+    },
+    {
+      "type": "multiple_choice",
+      "passage": 2,
+      "instructions": "Questions 20–22. Choose the correct letter, A, B, C or D.",
+      "questions": [
+        {
+          "number": 20,
+          "prompt": "According to the writer, the online courses of ten years ago",
+          "options": [
+            {
+              "id": "A",
+              "text": "were designed mainly for university students."
+            },
+            {
+              "id": "B",
+              "text": "were rarely finished by the people who joined them."
+            },
+            {
+              "id": "C",
+              "text": "included too many short quizzes."
+            },
+            {
+              "id": "D",
+              "text": "were more expensive than classroom courses."
+            }
+          ],
+          "accepted": ["B"],
+          "explanation": "Completion rates were notoriously low, often below ten per cent.",
+          "explanationVi": "Tỉ lệ hoàn thành rất thấp, thường dưới 10%.",
+          "evidence": "completion rates were notoriously low"
+        },
+        {
+          "number": 21,
+          "prompt": "What did Hermann Ebbinghaus show?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Attention spans are becoming shorter."
+            },
+            {
+              "id": "B",
+              "text": "One long study session is the most efficient method."
+            },
+            {
+              "id": "C",
+              "text": "New information is lost quickly unless it is met again."
+            },
+            {
+              "id": "D",
+              "text": "Short lessons are easier to design."
+            }
+          ],
+          "accepted": ["C"],
+          "explanation": "He showed that people forget new information quickly unless they meet it again.",
+          "explanationVi": "Ông chỉ ra rằng người ta quên thông tin mới rất nhanh nếu không gặp lại nó.",
+          "evidence": "people forget new information quickly unless they meet it again"
+        },
+        {
+          "number": 22,
+          "prompt": "In the logistics study, the short safety sessions worked best when",
+          "options": [
+            {
+              "id": "A",
+              "text": "they were delivered in a classroom."
+            },
+            {
+              "id": "B",
+              "text": "workers chose their own topics."
+            },
+            {
+              "id": "C",
+              "text": "supervisors talked about them with their teams."
+            },
+            {
+              "id": "D",
+              "text": "they lasted at least half a day."
+            }
+          ],
+          "accepted": ["C"],
+          "explanation": "The sessions were most effective when supervisors discussed the content with their teams afterwards.",
+          "explanationVi": "Các buổi ngắn hiệu quả nhất khi quản lý thảo luận lại nội dung với nhóm sau đó.",
+          "evidence": "most effective when supervisors discussed the content with their teams afterwards"
+        }
+      ]
+    },
+    {
+      "type": "multiple_choice_multi",
+      "passage": 2,
+      "instructions": "Questions 23–24. Choose TWO letters, A–E.",
+      "questions": [
+        {
+          "number": 23,
+          "prompt": "Which TWO kinds of learning does the writer say microlearning suits well?",
+          "options": [
+            {
+              "id": "A",
+              "text": "learning vocabulary"
+            },
+            {
+              "id": "B",
+              "text": "writing a persuasive essay"
+            },
+            {
+              "id": "C",
+              "text": "learning the steps to use new software"
+            },
+            {
+              "id": "D",
+              "text": "analysing a difficult text"
+            },
+            {
+              "id": "E",
+              "text": "taking part in group discussions"
+            }
+          ],
+          "accepted": ["A", "C"],
+          "explanation": "Microlearning works well for vocabulary and for clearly defined procedures such as using new software. Essays and difficult texts are given as examples of what it does not suit.",
+          "explanationVi": "Microlearning hợp với từ vựng và các quy trình rõ ràng như cách dùng phần mềm mới. Viết luận và phân tích văn bản khó là ví dụ cho điều nó không hợp.",
+          "evidence": "Microlearning works well for vocabulary, facts and clearly defined procedures"
+        }
+      ]
+    },
+    {
+      "type": "summary_completion",
+      "passage": 2,
+      "instructions": "Questions 25–26. Complete the summary. Write ONE WORD ONLY from the passage for each answer.",
+      "questions": [
+        {
+          "number": 25,
+          "prompt": "Features such as daily streaks and reminders help studying to become a ______.",
+          "accepted": ["habit"],
+          "maxWords": 1,
+          "explanation": "Reminders encourage learners to return each day until studying becomes a habit.",
+          "explanationVi": "Lời nhắc khuyến khích người học quay lại mỗi ngày cho đến khi việc học thành thói quen (habit).",
+          "evidence": "until studying becomes a habit"
+        },
+        {
+          "number": 26,
+          "prompt": "A learner who keeps a streak by doing the easiest lesson may feel ______ while making little real progress.",
+          "accepted": ["productive"],
+          "maxWords": 1,
+          "explanation": "Such a learner may feel productive while making very little real progress.",
+          "explanationVi": "Người học như vậy có thể cảm thấy mình năng suất (productive) dù tiến bộ rất ít.",
+          "evidence": "may feel productive while making very little real progress"
+        }
+      ]
+    },
+    {
+      "type": "yes_no_not_given",
+      "passage": 3,
+      "instructions": "Questions 27–31. Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES, NO or NOT GIVEN.",
+      "questions": [
+        {
+          "number": 27,
+          "prompt": "People who live in cities are much more likely to feel lonely than people in the countryside.",
+          "accepted": ["NO"],
+          "explanation": "The writer reports that rural people feel lonely about as often as city people, sometimes more often.",
+          "explanationVi": "Tác giả dẫn khảo sát cho thấy người ở nông thôn cô đơn ngang, thậm chí hơn, người thành phố.",
+          "evidence": "people in rural areas report feeling lonely about as often as those in cities"
+        },
+        {
+          "number": 28,
+          "prompt": "The belief that cities isolate people is partly based on a romantic view of village life.",
+          "accepted": ["YES"],
+          "explanation": "The writer says the idea says more about our nostalgia for village life.",
+          "explanationVi": "Tác giả cho rằng quan niệm này phản ánh nỗi hoài niệm về cuộc sống làng quê nhiều hơn.",
+          "evidence": "says more about our nostalgia for village life"
+        },
+        {
+          "number": 29,
+          "prompt": "Brief conversations with strangers are more valuable than time spent with close friends.",
+          "accepted": ["NOT_GIVEN"],
+          "explanation": "The writer says brief interactions help, but never compares their value with time spent with close friends.",
+          "explanationVi": "Tác giả nói các cuộc trò chuyện ngắn có ích, nhưng không so sánh chúng với thời gian bên bạn thân."
+        },
+        {
+          "number": 30,
+          "prompt": "Planning projects that aim to increase social contact are a sensible approach.",
+          "accepted": ["YES"],
+          "explanation": "Although it is too early to measure their effect, the writer believes the direction is the right one.",
+          "explanationVi": "Dù còn sớm để đo hiệu quả, tác giả tin rằng đây là hướng đi đúng.",
+          "evidence": "I believe the direction is the right one"
+        },
+        {
+          "number": 31,
+          "prompt": "Online friendships can fully replace local contact for people who are at risk of loneliness.",
+          "accepted": ["NO"],
+          "explanation": "The writer finds this argument unconvincing and says online contact does not help those most at risk.",
+          "explanationVi": "Tác giả thấy lập luận này không thuyết phục và cho rằng liên lạc online không giúp được nhóm dễ cô đơn nhất.",
+          "evidence": "I find this unconvincing."
+        }
+      ]
+    },
+    {
+      "type": "matching_information",
+      "passage": 3,
+      "instructions": "Questions 32–35. Reading Passage 3 has six paragraphs, A–F. Which paragraph contains the following information?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Paragraph A"
+        },
+        {
+          "id": "B",
+          "text": "Paragraph B"
+        },
+        {
+          "id": "C",
+          "text": "Paragraph C"
+        },
+        {
+          "id": "D",
+          "text": "Paragraph D"
+        },
+        {
+          "id": "E",
+          "text": "Paragraph E"
+        },
+        {
+          "id": "F",
+          "text": "Paragraph F"
+        }
+      ],
+      "questions": [
+        {
+          "number": 32,
+          "prompt": "an example of a city reducing traffic to create public spaces",
+          "accepted": ["D"],
+          "explanation": "Paragraph D describes Barcelona closing streets to through traffic and creating small squares.",
+          "explanationVi": "Đoạn D kể Barcelona cấm xe chạy xuyên qua một số phố và biến giao lộ thành quảng trường nhỏ.",
+          "evidence": "closed groups of streets to through traffic"
+        },
+        {
+          "number": 33,
+          "prompt": "a description of two types of social relationship",
+          "accepted": ["B"],
+          "explanation": "Paragraph B explains the difference between strong ties and weak ties.",
+          "explanationVi": "Đoạn B giải thích sự khác nhau giữa quan hệ thân thiết (strong ties) và quan hệ xã giao (weak ties).",
+          "evidence": "Sociologists distinguish between strong ties"
+        },
+        {
+          "number": 34,
+          "prompt": "a reference to factors other than design that affect loneliness",
+          "accepted": ["F"],
+          "explanation": "Paragraph F mentions personal circumstances, health and income.",
+          "explanationVi": "Đoạn F nhắc đến hoàn cảnh cá nhân, sức khoẻ và thu nhập.",
+          "evidence": "Personal circumstances, health and income all play a large part"
+        },
+        {
+          "number": 35,
+          "prompt": "a contrast between two kinds of neighbourhood layout",
+          "accepted": ["C"],
+          "explanation": "Paragraph C contrasts a street with small shops and benches with a district built around fast roads.",
+          "explanationVi": "Đoạn C so sánh con phố có cửa hàng nhỏ, ghế ngồi với khu vực xây quanh đường cao tốc và bãi đỗ xe.",
+          "evidence": "A district designed around fast roads and large car parks does the opposite"
+        }
+      ]
+    },
+    {
+      "type": "summary_completion",
+      "passage": 3,
+      "instructions": "Questions 36–40. Complete the summary. Write ONE WORD ONLY from the passage for each answer.",
+      "questions": [
+        {
+          "number": 36,
+          "prompt": "Sandstrom found that brief everyday interactions gave people a greater sense of ______.",
+          "accepted": ["belonging"],
+          "maxWords": 1,
+          "explanation": "People with more brief interactions reported a greater sense of belonging.",
+          "explanationVi": "Người có nhiều tương tác ngắn hằng ngày cảm thấy gắn bó (belonging) hơn.",
+          "evidence": "reported a greater sense of belonging"
+        },
+        {
+          "number": 37,
+          "prompt": "Streets with small shops, benches and wide pavements give people reasons to ______.",
+          "accepted": ["linger"],
+          "maxWords": 1,
+          "explanation": "Such streets give people reasons to linger, that is, to stay a little longer.",
+          "explanationVi": "Những con phố như vậy cho người ta lý do nán lại (linger) lâu hơn.",
+          "evidence": "gives people reasons to linger"
+        },
+        {
+          "number": 38,
+          "prompt": "In tall towers, residents may share a ______ but have no natural place for conversation.",
+          "accepted": ["lift"],
+          "maxWords": 1,
+          "explanation": "Residents may share a lift but rarely a space where conversation feels natural.",
+          "explanationVi": "Cư dân có thể đi chung thang máy (lift) nhưng hiếm có chỗ để trò chuyện tự nhiên.",
+          "evidence": "residents may share a lift"
+        },
+        {
+          "number": 39,
+          "prompt": "In Barcelona's scheme, junctions were turned into small ______ with seating and trees.",
+          "accepted": ["squares"],
+          "maxWords": 1,
+          "explanation": "The superblocks scheme turned junctions into small squares.",
+          "explanationVi": "Dự án superblocks biến các giao lộ thành những quảng trường nhỏ (squares).",
+          "evidence": "turned junctions into small squares"
+        },
+        {
+          "number": 40,
+          "prompt": "People most at risk of loneliness include older residents living alone and ______ with no local connections yet.",
+          "accepted": ["newcomers"],
+          "maxWords": 1,
+          "explanation": "Newcomers who have not yet formed local connections are named as being at risk.",
+          "explanationVi": "Người mới chuyển đến (newcomers) chưa có mối quan hệ nào ở địa phương là nhóm dễ cô đơn.",
+          "evidence": "newcomers who have not yet formed any local connections"
+        }
+      ]
+    }
+  ]
+}

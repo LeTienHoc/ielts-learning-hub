@@ -13,7 +13,158 @@
   "passages": [
     {
       "title": "Rooftop gardens in growing cities",
-      "text": "A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.\n\nB  The most frequently cited benefit is temperature control. A layer of vegetation shades the roof and releases moisture into the air, so the building beneath it stays cooler. Researchers in several Asian cities have measured roof surfaces that were more than twenty degrees cooler than nearby bare concrete on hot afternoons. Lower roof temperatures also reduce the energy needed for air conditioning on the top floors.\n\nC  Green roofs also help with water. Instead of rushing straight into drains, rain is absorbed by the soil and released slowly over several hours. In neighbourhoods where old drainage systems flood after heavy storms, this delay can make a noticeable difference. Some of the water evaporates, while the rest reaches the drains after the peak of the storm has passed.\n\nD  Not every roof is suitable. Soil becomes extremely heavy when it is wet, and older buildings may need structural reinforcement before any planting begins. Installation costs are therefore higher than for a conventional roof, and owners must also budget for regular maintenance, including weeding and the repair of waterproof layers.\n\nE  City governments have tried different ways of encouraging the idea. Some offer tax reductions to owners who install green roofs, while others have made them compulsory on large new commercial buildings. Supporters argue that the long-term savings on energy and flood damage justify the public cost, although critics point out that the benefits are hard to measure for individual buildings."
+      "text": "A  Across many fast-growing cities, flat roofs are among the least used spaces. They collect heat in summer, shed rainwater too quickly during storms and are rarely visited by anyone except maintenance workers. Over the past two decades, however, a growing number of building owners have begun to cover these surfaces with soil and plants.\n\nB  The most frequently cited benefit is temperature control. A layer of vegetation shades the roof and releases moisture into the air, so the building beneath it stays cooler. Researchers in several Asian cities have measured roof surfaces that were more than twenty degrees cooler than nearby bare concrete on hot afternoons. Lower roof temperatures also reduce the energy needed for air conditioning on the top floors.\n\nC  Green roofs also help with water. Instead of rushing straight into drains, rain is absorbed by the soil and released slowly over several hours. In neighbourhoods where old drainage systems flood after heavy storms, this delay can make a noticeable difference. Some of the water evaporates, while the rest reaches the drains after the peak of the storm has passed.\n\nD  Not every roof is suitable. Soil becomes extremely heavy when it is wet, and older buildings may need structural reinforcement before any planting begins. Installation costs are therefore higher than for a conventional roof, and owners must also budget for regular maintenance, including weeding and the repair of waterproof layers.\n\nE  City governments have tried different ways of encouraging the idea. Some offer tax reductions to owners who install green roofs, while others have made them compulsory on large new commercial buildings. Supporters argue that the long-term savings on energy and flood damage justify the public cost, although critics point out that the benefits are hard to measure for individual buildings.",
+      "keyWords": [
+        {
+          "form": "drainage",
+          "word": {
+            "slug": "drainage",
+            "lemma": "drainage",
+            "partOfSpeech": "noun",
+            "ipa": "/ˈdreɪnɪdʒ/",
+            "meaningEn": "the system of pipes and channels that carries away water",
+            "meaningVi": "hệ thống thoát nước: ống, rãnh dẫn nước đi",
+            "examples": [
+              {
+                "en": "Poor drainage causes streets to flood after heavy rain.",
+                "vi": "Hệ thống thoát nước kém khiến đường phố ngập sau mưa lớn.",
+                "cloze": "drainage"
+              },
+              {
+                "en": "The city spent millions on a new drainage system.",
+                "vi": "Thành phố chi hàng triệu cho một hệ thống thoát nước mới.",
+                "cloze": "drainage"
+              }
+            ],
+            "collocations": ["drainage system", "poor drainage", "drainage pipes"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["cities", "environment"]
+          }
+        },
+        {
+          "form": "vegetation",
+          "word": {
+            "slug": "vegetation",
+            "lemma": "vegetation",
+            "partOfSpeech": "noun",
+            "ipa": "/ˌvedʒəˈteɪʃn/",
+            "meaningEn": "plants in general, especially those growing in a particular area",
+            "meaningVi": "cây cối, thảm thực vật nói chung ở một khu vực",
+            "examples": [
+              {
+                "en": "Thick vegetation covers the hills after the rainy season.",
+                "vi": "Cây cối rậm rạp phủ kín các ngọn đồi sau mùa mưa.",
+                "cloze": "vegetation"
+              },
+              {
+                "en": "Removing vegetation from riverbanks can increase the risk of floods.",
+                "vi": "Phá bỏ thảm thực vật ven sông có thể làm tăng nguy cơ lũ lụt.",
+                "cloze": "vegetation"
+              }
+            ],
+            "collocations": ["dense vegetation", "natural vegetation", "a layer of vegetation"],
+            "commonMistakes": [
+              {
+                "wrong": "There are many vegetations on the roof.",
+                "right": "There is a lot of vegetation on the roof.",
+                "whyEn": "Vegetation is uncountable, so it has no plural and takes 'a lot of' or 'much'.",
+                "whyVi": "Vegetation là danh từ không đếm được, không có dạng số nhiều và đi với 'a lot of' hoặc 'much'."
+              }
+            ],
+            "level": "B2",
+            "topics": ["environment"]
+          }
+        },
+        {
+          "form": "conventional",
+          "word": {
+            "slug": "conventional",
+            "lemma": "conventional",
+            "partOfSpeech": "adjective",
+            "ipa": "/kənˈvenʃənl/",
+            "meaningEn": "of the usual or traditional type",
+            "meaningVi": "thông thường, truyền thống, kiểu phổ biến xưa nay",
+            "examples": [
+              {
+                "en": "Electric cars are cheaper to run than conventional cars.",
+                "vi": "Xe điện tốn ít chi phí vận hành hơn xe thông thường.",
+                "cloze": "conventional"
+              },
+              {
+                "en": "Online classes are replacing conventional lectures in some universities.",
+                "vi": "Lớp học trực tuyến đang thay thế bài giảng truyền thống ở một số trường đại học.",
+                "cloze": "conventional"
+              }
+            ],
+            "collocations": ["conventional methods", "conventional wisdom", "conventional energy"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["society", "technology"]
+          }
+        },
+        {
+          "form": "evaporates",
+          "word": {
+            "slug": "evaporate",
+            "lemma": "evaporate",
+            "partOfSpeech": "verb",
+            "ipa": "/ɪˈvæpəreɪt/",
+            "meaningEn": "(of a liquid) to change into gas and disappear",
+            "meaningVi": "bay hơi: chất lỏng chuyển thành hơi và biến mất",
+            "examples": [
+              {
+                "en": "In hot weather, water in the pond evaporates quickly.",
+                "vi": "Khi trời nóng, nước trong ao bay hơi rất nhanh.",
+                "cloze": "evaporates"
+              },
+              {
+                "en": "Leave the paint to dry until the water has evaporated.",
+                "vi": "Để sơn khô cho đến khi nước đã bay hơi hết.",
+                "cloze": "evaporated"
+              }
+            ],
+            "collocations": ["evaporate quickly", "water evaporates", "evaporate into the air"],
+            "commonMistakes": [],
+            "level": "B2",
+            "topics": ["science", "environment"]
+          }
+        },
+        {
+          "form": "justify",
+          "word": {
+            "slug": "justify",
+            "lemma": "justify",
+            "partOfSpeech": "verb",
+            "ipa": "/ˈdʒʌstɪfaɪ/",
+            "meaningEn": "to show that something is reasonable or worth doing",
+            "meaningVi": "biện minh, chứng tỏ điều gì là hợp lý hoặc đáng làm",
+            "examples": [
+              {
+                "en": "The benefits of the new park justify the cost.",
+                "vi": "Lợi ích của công viên mới đáng với chi phí bỏ ra.",
+                "cloze": "justify"
+              },
+              {
+                "en": "How can the council justify closing the library?",
+                "vi": "Hội đồng thành phố biện minh thế nào cho việc đóng cửa thư viện?",
+                "cloze": "justify"
+              }
+            ],
+            "collocations": ["justify the cost", "justify a decision", "hard to justify"],
+            "commonMistakes": [
+              {
+                "wrong": "They justified to spend more money.",
+                "right": "They justified spending more money.",
+                "whyEn": "Justify is followed by a noun or an -ing form, not 'to' + verb.",
+                "whyVi": "Sau justify là danh từ hoặc V-ing, không dùng 'to' + động từ."
+              }
+            ],
+            "level": "B2",
+            "topics": ["society", "work"]
+          }
+        }
+      ]
     }
   ],
   "groups": [

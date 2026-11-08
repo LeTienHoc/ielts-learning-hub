@@ -1,4 +1,5 @@
-// Turns validated practice-set sources into SQL for supabase/seed.sql.
+// Turns validated content sources (practice sets, vocabulary sets, grammar topics) into SQL for
+// supabase/seed.sql.
 // Pure functions (no file access) so they can be unit tested; see build-content-seed.mts.
 
 import { createHash } from "node:crypto"
@@ -6,8 +7,11 @@ import { createHash } from "node:crypto"
 import {
   DEFAULT_TYPE_OPTIONS,
   QUESTION_TYPE_RESPONSE_KIND,
+  tokenizeSentence,
   type PracticeSetSource,
 } from "../src/lib/content/practice-set-schema.ts"
+import type { GrammarTopicSource } from "../src/lib/content/grammar-schema.ts"
+import type { VocabularySetSource, WordSource } from "../src/lib/content/vocabulary-schema.ts"
 
 /**
  * Stable UUID (version 5 layout, SHA-1) for a content name, so regenerated seeds keep ids and
@@ -99,6 +103,15 @@ values (${[
         question.evidence && set.passage
           ? locateEvidence(set.passage.text, question.evidence)
           : undefined
+      // Spot the mistake: the words of the sentence are the options; the key is the wrong word.
+      const tokens =
+        group.type === "error_correction" ? tokenizeSentence(question.prompt) : undefined
+      const options = tokens ? tokens.map(({ id, text }) => ({ id, text })) : question.options
+      const accepted = tokens
+        ? tokens
+            .filter((token) => token.word === question.accepted[0]?.toLowerCase())
+            .map((token) => token.id)
+        : question.accepted
 
       statements.push(
         `insert into public.questions (id, practice_set_id, group_id, position, number, prompt, options, response_kind, select_count, max_words)
@@ -109,19 +122,20 @@ values (${[
           sql(questionIndex + 1),
           sql(question.number),
           sql(question.prompt),
-          question.options ? json(question.options) : "null",
+          options ? json(options) : "null",
           sql(kind),
           sql(kind === "multiple" ? question.accepted.length : null),
           sql(question.maxWords),
         ].join(", ")});`,
-        `insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end)
+        `insert into public.question_keys (question_id, accepted, explanation, explanation_vi, evidence_start, evidence_end, correction)
 values (${[
           sql(questionId),
-          json(question.accepted),
+          json(accepted),
           sql(question.explanation),
           sql(question.explanationVi),
           sql(evidence?.start),
           sql(evidence?.end),
+          sql(question.correction),
         ].join(", ")});`,
       )
     })
@@ -130,19 +144,126 @@ values (${[
   return statements.join("\n")
 }
 
-/** The whole seed file: a header and one block per set, ordered by slug for stable diffs. */
-export function buildSeedSql(sets: readonly PracticeSetSource[]): string {
-  const slugs = sets.map((set) => set.slug)
-  const duplicate = slugs.find((slug, index) => slugs.indexOf(slug) !== index)
+/** A catalogue row shared by every content type. */
+function contentItemSql(
+  id: string,
+  type: "practice_set" | "vocabulary_set" | "grammar_topic",
+  item: {
+    slug: string
+    title: string
+    summary?: string | undefined
+    level: string
+    topics?: readonly string[]
+    source: string
+    reviewStatus: string
+    version: number
+  },
+): string {
+  return `insert into public.content_items (id, type, slug, title, summary, level, topics, source, review_status, version)
+values (${[
+    sql(id),
+    sql(type),
+    sql(item.slug),
+    sql(item.title),
+    sql(item.summary),
+    sql(item.level),
+    sql(item.topics ?? []),
+    sql(item.source),
+    sql(item.reviewStatus),
+    sql(item.version),
+  ].join(", ")});`
+}
+
+/** One word (shared by every set that lists it). */
+export function buildWordSql(word: WordSource): string {
+  return `insert into public.words (id, slug, lemma, part_of_speech, ipa, meaning_en, meaning_vi, examples, collocations, common_mistakes, level, topics)
+values (${[
+    sql(contentUuid(`word:${word.slug}`)),
+    sql(word.slug),
+    sql(word.lemma),
+    sql(word.partOfSpeech),
+    sql(word.ipa),
+    sql(word.meaningEn),
+    sql(word.meaningVi),
+    json(word.examples),
+    json(word.collocations),
+    json(word.commonMistakes),
+    sql(word.level),
+    sql(word.topics),
+  ].join(", ")});`
+}
+
+/** A vocabulary set and the ordered links to its words (the words are inserted separately). */
+export function buildVocabularySetSql(set: VocabularySetSource): string {
+  const setId = contentUuid(`vocabulary-set:${set.slug}`)
+  return [
+    `-- vocabulary set ${set.slug} (${set.reviewStatus}, v${set.version})`,
+    contentItemSql(setId, "vocabulary_set", set),
+    `insert into public.vocabulary_sets (id) values (${sql(setId)});`,
+    ...set.words.map(
+      (word, index) =>
+        `insert into public.vocabulary_set_words (set_id, word_id, position) values (${sql(setId)}, ${sql(contentUuid(`word:${word.slug}`))}, ${index + 1});`,
+    ),
+  ].join("\n")
+}
+
+/** A grammar topic: its catalogue row, its learn-mode practice set and the lesson. */
+export function buildGrammarTopicSql(topic: GrammarTopicSource): string {
+  const topicId = contentUuid(`grammar-topic:${topic.slug}`)
+  return [
+    `-- grammar topic ${topic.slug} (${topic.reviewStatus}, v${topic.version})`,
+    contentItemSql(topicId, "grammar_topic", topic),
+    buildPracticeSetSql(topic.practice),
+    `insert into public.grammar_topics (id, position, lesson, practice_set_id)
+values (${[
+      sql(topicId),
+      sql(topic.position),
+      json(topic.lesson),
+      sql(contentUuid(`practice-set:${topic.practice.slug}`)),
+    ].join(", ")});`,
+  ].join("\n")
+}
+
+const sameDefinition = (a: WordSource, b: WordSource) => JSON.stringify(a) === JSON.stringify(b)
+
+/** The whole seed file in one transaction, ordered by slug for stable diffs. */
+export function buildSeedSql(input: {
+  practiceSets: readonly PracticeSetSource[]
+  vocabularySets: readonly VocabularySetSource[]
+  grammarTopics: readonly GrammarTopicSource[]
+}): string {
+  const practiceSlugs = [
+    ...input.practiceSets.map((set) => set.slug),
+    ...input.grammarTopics.map((topic) => topic.practice.slug),
+  ]
+  const duplicate = practiceSlugs.find((slug, index) => practiceSlugs.indexOf(slug) !== index)
   if (duplicate) throw new Error(`Duplicate practice set slug: ${duplicate}`)
 
-  const blocks = [...sets]
-    .sort((a, b) => a.slug.localeCompare(b.slug))
-    .map((set) => buildPracticeSetSql(set))
+  // A word may appear in several sets; it is inserted once and must be defined identically.
+  const words = new Map<string, WordSource>()
+  for (const set of input.vocabularySets) {
+    for (const word of set.words) {
+      const existing = words.get(word.slug)
+      if (existing && !sameDefinition(existing, word)) {
+        throw new Error(`Conflicting definitions for word "${word.slug}"`)
+      }
+      words.set(word.slug, word)
+    }
+  }
+
+  const bySlug = <T extends { slug: string }>(items: readonly T[]) =>
+    [...items].sort((a, b) => a.slug.localeCompare(b.slug))
+
+  const blocks = [
+    ...bySlug(input.practiceSets).map((set) => buildPracticeSetSql(set)),
+    ...bySlug([...words.values()]).map((word) => buildWordSql(word)),
+    ...bySlug(input.vocabularySets).map((set) => buildVocabularySetSql(set)),
+    ...bySlug(input.grammarTopics).map((topic) => buildGrammarTopicSql(topic)),
+  ]
 
   const header = [
-    "-- GENERATED by `pnpm content:seed` from content/practice-sets/*.json. Do not edit by hand.",
-    "-- Loaded into the LOCAL database by `pnpm db:reset`; not applied to production.",
+    "-- GENERATED by `pnpm content:seed` from content/{practice-sets,vocabulary-sets,grammar-topics}.",
+    "-- Do not edit by hand. Loaded into the LOCAL database by `pnpm db:reset`; not applied to production.",
     "begin;",
   ].join("\n")
   return `${[header, ...blocks, "commit;"].join("\n\n")}\n`

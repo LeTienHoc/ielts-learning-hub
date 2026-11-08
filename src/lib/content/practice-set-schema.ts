@@ -41,6 +41,9 @@ export const QUESTION_TYPE_RESPONSE_KIND = {
   summary_completion: "text",
   short_answer: "text",
   gap_fill: "text",
+  // "Spot the mistake": the options are the sentence's words (see tokenizeSentence).
+  error_correction: "single",
+  sentence_transformation: "text",
 } as const satisfies Record<string, ResponseKind>
 
 export type QuestionType = keyof typeof QUESTION_TYPE_RESPONSE_KIND
@@ -61,6 +64,8 @@ export const QUESTION_TYPE_LABELS: Record<QuestionType, string> = {
   summary_completion: "Summary completion",
   short_answer: "Short answer",
   gap_fill: "Gap fill",
+  error_correction: "Spot the mistake",
+  sentence_transformation: "Sentence transformation",
 }
 
 /** Options used when a True/False/Not Given or Yes/No/Not Given group lists none. */
@@ -75,6 +80,21 @@ export const DEFAULT_TYPE_OPTIONS: Partial<Record<QuestionType, readonly AnswerO
     { id: "NO", text: "NO" },
     { id: "NOT_GIVEN", text: "NOT GIVEN" },
   ],
+}
+
+/**
+ * Splits a sentence into tappable words for "Spot the mistake". `word` is the lower-case
+ * word without surrounding punctuation, used to find the mistake.
+ */
+export function tokenizeSentence(sentence: string): { id: string; text: string; word: string }[] {
+  return sentence
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((text, index) => ({
+      id: `t${index + 1}`,
+      text,
+      word: text.replace(/^[^\p{L}\p{N}']+|[^\p{L}\p{N}']+$/gu, "").toLowerCase(),
+    }))
 }
 
 export const answerOptionSchema = z.object({
@@ -105,6 +125,8 @@ const questionSchema = z.object({
   explanationVi: z.string().min(1).max(2000).optional(),
   /** Exact quote from the passage that supports the answer (located automatically). */
   evidence: z.string().min(1).max(2000).optional(),
+  /** Spot the mistake: the corrected sentence shown after answering. */
+  correction: z.string().min(1).max(1000).optional(),
 })
 
 const groupSchema = z.object({
@@ -149,6 +171,39 @@ export const practiceSetSourceSchema = z
       const kind = QUESTION_TYPE_RESPONSE_KIND[group.type]
       group.questions.forEach((question) => {
         const where = `Group ${groupIndex + 1}, question ${question.number}`
+
+        if (group.type === "error_correction") {
+          if (question.options || group.options) {
+            context.addIssue({
+              code: "custom",
+              message: `${where}: Spot-the-mistake options come from the sentence`,
+            })
+          }
+          const [mistake, ...extra] = question.accepted
+          const matches = tokenizeSentence(question.prompt).filter(
+            (token) => token.word === mistake?.toLowerCase(),
+          )
+          if (extra.length > 0 || matches.length !== 1) {
+            context.addIssue({
+              code: "custom",
+              message: `${where}: the mistake must be exactly one word that appears once`,
+            })
+          }
+          if (!question.correction) {
+            context.addIssue({
+              code: "custom",
+              message: `${where}: Spot-the-mistake items need a correction`,
+            })
+          }
+          return
+        }
+        if (question.correction) {
+          context.addIssue({
+            code: "custom",
+            message: `${where}: only Spot-the-mistake items take a correction`,
+          })
+        }
+
         const options = question.options ?? group.options ?? DEFAULT_TYPE_OPTIONS[group.type]
 
         if (kind === "text") {

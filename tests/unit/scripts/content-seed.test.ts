@@ -1,10 +1,15 @@
 import { describe, expect, it } from "vitest"
 
+import { grammarTopicSourceSchema } from "@/lib/content/grammar-schema"
 import { practiceSetSourceSchema } from "@/lib/content/practice-set-schema"
+import { vocabularySetSourceSchema } from "@/lib/content/vocabulary-schema"
 
+import { sampleTopic, sampleWord } from "../fixtures/content"
 import {
+  buildGrammarTopicSql,
   buildPracticeSetSql,
   buildSeedSql,
+  buildVocabularySetSql,
   contentUuid,
   locateEvidence,
   sql,
@@ -97,19 +102,90 @@ describe("buildPracticeSetSql", () => {
   })
 
   it("stores the evidence offsets", () => {
-    expect(output).toMatch(/'Stated\.', null, 15, 33\);/)
+    expect(output).toMatch(/'Stated\.', null, 15, 33, null\);/)
+  })
+})
+
+const vocabularySet = (slug: string, words: ReturnType<typeof sampleWord>[]) =>
+  vocabularySetSourceSchema.parse({
+    slug,
+    title: slug,
+    level: "B2",
+    topics: ["environment"],
+    source: "ai_assisted",
+    reviewStatus: "published",
+    words,
+  })
+
+describe("buildVocabularySetSql", () => {
+  it("inserts the set and links its words in order", () => {
+    const output = buildVocabularySetSql(
+      vocabularySet("environment", [sampleWord("sustainable"), sampleWord("emission")]),
+    )
+    expect(output).toContain("'vocabulary_set'")
+    expect(output).toContain("insert into public.vocabulary_sets")
+    expect(output.match(/insert into public\.vocabulary_set_words/g)).toHaveLength(2)
+    expect(output).toContain(`'${contentUuid("word:emission")}', 2)`)
+  })
+})
+
+describe("buildGrammarTopicSql", () => {
+  const output = buildGrammarTopicSql(grammarTopicSourceSchema.parse(sampleTopic))
+
+  it("inserts the topic, its grammar practice set and the lesson", () => {
+    expect(output).toContain("'grammar_topic'")
+    expect(output).toContain(`'${contentUuid("practice-set:articles-practice")}', 'grammar', null`)
+    expect(output).toContain("insert into public.grammar_topics")
+    expect(output).toContain('"introVi":"Mạo từ là những từ nhỏ nhưng việc to."')
+  })
+
+  it("turns a Spot-the-mistake sentence into word options with the wrong word as the key", () => {
+    expect(output).toContain(
+      '[{"id":"t1","text":"She"},{"id":"t2","text":"is"},{"id":"t3","text":"a"}',
+    )
+    expect(output).toContain(
+      `'["t3"]'::jsonb, 'Honest starts with a vowel sound.', null, null, null, 'She is an honest student.'`,
+    )
   })
 })
 
 describe("buildSeedSql", () => {
-  it("wraps sets in one transaction", () => {
-    const output = buildSeedSql([set])
+  const empty = { practiceSets: [], vocabularySets: [], grammarTopics: [] }
+
+  it("wraps everything in one transaction", () => {
+    const output = buildSeedSql({ ...empty, practiceSets: [set] })
     expect(output).toMatch(/^-- GENERATED/)
     expect(output).toContain("begin;")
     expect(output.trimEnd().endsWith("commit;")).toBe(true)
   })
 
-  it("rejects duplicate slugs", () => {
-    expect(() => buildSeedSql([set, set])).toThrow("Duplicate practice set slug: seed-sample")
+  it("rejects duplicate practice set slugs", () => {
+    expect(() => buildSeedSql({ ...empty, practiceSets: [set, set] })).toThrow(
+      "Duplicate practice set slug: seed-sample",
+    )
+  })
+
+  it("inserts a word shared by two sets once", () => {
+    const output = buildSeedSql({
+      ...empty,
+      vocabularySets: [
+        vocabularySet("environment", [sampleWord("sustainable")]),
+        vocabularySet("cities", [sampleWord("sustainable")]),
+      ],
+    })
+    expect(output.match(/insert into public\.words /g)).toHaveLength(1)
+    expect(output.match(/insert into public\.vocabulary_set_words/g)).toHaveLength(2)
+  })
+
+  it("rejects conflicting definitions of the same word", () => {
+    expect(() =>
+      buildSeedSql({
+        ...empty,
+        vocabularySets: [
+          vocabularySet("environment", [sampleWord("sustainable")]),
+          vocabularySet("cities", [sampleWord("sustainable", { meaningVi: "khác" })]),
+        ],
+      }),
+    ).toThrow('Conflicting definitions for word "sustainable"')
   })
 })

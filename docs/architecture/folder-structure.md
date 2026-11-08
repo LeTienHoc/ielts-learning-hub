@@ -13,12 +13,12 @@ change that needs them.
 │  ├─ design-system/            tokens and component inventory
 │  ├─ development/              setup, Claude Code governance
 │  └─ product/                  requirements, IA, user journeys, MVP roadmap
-├─ content/practice-sets/       practice content as JSON (validated, then seeded)
+├─ content/                     practice-sets/, vocabulary-sets/, grammar-topics/ as JSON (validated, then seeded)
 ├─ public/                      static assets
 ├─ scripts/
 │  ├─ supabase.mjs              runs the Supabase CLI (inside WSL on Windows); used by pnpm db:*
 │  ├─ write-local-env.mjs       pnpm env:local — writes .env.local from the local stack
-│  ├─ build-content-seed.mts    pnpm content:seed — content/practice-sets/*.json → supabase/seed.sql
+│  ├─ build-content-seed.mts    pnpm content:seed — content/**/*.json → supabase/seed.sql
 │  └─ content-seed.mts          pure SQL generation used by the seed script (unit tested)
 ├─ src/
 │  ├─ proxy.ts                  session refresh + optimistic auth redirects (every request)
@@ -27,7 +27,8 @@ change that needs them.
 │  │  ├─ (auth)/                sign-in, sign-up, forgot-password, reset-password,
 │  │  │                         auth/confirm (email-link route handler)
 │  │  ├─ (focus)/               focus-mode pages without the app shell (no sidebar):
-│  │  │                         reading/[setSlug]/attempt/[attemptId], loading, error
+│  │  │                         reading/…/attempt/[attemptId], grammar/…/practice/[attemptId],
+│  │  │                         vocabulary/review, loading, error
 │  │  ├─ (app)/                 authenticated-area routes sharing the app shell
 │  │  │  ├─ layout.tsx          wraps pages in <AppShell>
 │  │  │  ├─ loading.tsx         route skeleton
@@ -43,7 +44,7 @@ change that needs them.
 │  │  ├─ ui/                    shadcn/ui primitives + IconButton (business-agnostic)
 │  │  ├─ layout/                AppShell, FocusShell, AppSidebar, AppHeader, AppBreadcrumb, PageHeader,
 │  │  │                         RoutePage, SearchDialog, NotificationsMenu, UserMenu
-│  │  ├─ shared/                ThemeProvider, ThemeScript, ThemeSwitcher, FormField, BrandMark
+│  │  ├─ shared/                ThemeProvider, ThemeScript, ThemeSwitcher, FormField, BrandMark, Mascot
 │  │  └─ feedback/              EmptyState, ErrorState
 │  ├─ config/
 │  │  ├─ env/                   schema.ts (Zod), client.ts (public), server.ts (server-only)
@@ -53,22 +54,27 @@ change that needs them.
 │  │  └─ theme.ts               theme names and storage key
 │  ├─ features/
 │  │  ├─ auth/                  sign-in/up/reset forms, AccountMenu, auth Server Actions
-│  │  ├─ settings/              profile form, account deletion, settings Server Actions
+│  │  ├─ settings/              profile form (incl. daily new words), account deletion, actions
 │  │  ├─ practice/              practice engine UI: AttemptRunner, question inputs, timer,
 │  │  │                         autosave hook, AttemptReview, engine Server Actions
-│  │  └─ reading/               Reading library, set intro, attempt and results (uses practice)
-│  ├─ hooks/use-mobile.ts       viewport breakpoint hook (used by the sidebar)
+│  │  ├─ reading/               Reading library, set intro, attempt and results (uses practice)
+│  │  ├─ grammar/               topic catalogue + mastery, bilingual lessons, practice and results
+│  │  └─ vocabulary/            sets, word cards, My words, daily review session, games, word garden
+│  ├─ hooks/                    use-mobile (sidebar breakpoint), use-reduced-motion
 │  ├─ lib/
 │  │  ├─ utils/                 cn (token-aware class merging)
 │  │  ├─ helpers/               safe-redirect, full-page-navigation
 │  │  ├─ validators/            activity-event (Zod)
-│  │  ├─ content/               practice-set authoring schema + question-type constants
+│  │  ├─ content/               authoring schemas: practice sets, vocabulary sets, grammar topics
+│  │  ├─ learning/              mastery + garden stages, engine error codes (pure)
 │  │  └─ query-client.ts        TanStack Query defaults
 │  ├─ server/                   server-only (`import "server-only"`)
 │  │  ├─ auth/                  session DAL (getCurrentUser, requireUser), proxy session refresh
 │  │  ├─ database/              Supabase server client, generated database.types.ts
 │  │  ├─ activity/              recordActivityEvent
-│  │  └─ practice/              practice-service: sets, attempts, engine RPCs, answer keys
+│  │  ├─ practice/              practice-service: sets, attempts, engine RPCs, answer keys, check
+│  │  ├─ vocabulary/            vocabulary-service: sets, words, SRS session, garden, weekly goal
+│  │  └─ grammar/               grammar-service: topics, lessons, mastery
 │  ├─ stores/                   planned: Zustand stores, only if needed
 │  └─ types/                    planned: shared types
 ├─ supabase/

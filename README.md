@@ -4,14 +4,18 @@ A personalised English and IELTS learning SaaS for individual learners: structur
 grammar and vocabulary, practice for all four IELTS skills, an AI personal tutor and progress
 analytics.
 
-> **Status: P2 — content & practice engine.**
+> **Status: P3 — vocabulary & grammar.**
 >
 > - **Phase 0** (architecture, design system, app shell, tooling, tests) is complete.
 > - **P1** added Supabase, email authentication and Settings.
-> - **P2** adds the content catalogue, a server-side practice engine (attempts, autosave,
->   timer, scoring, explanations) and a first Reading practice flow with one local sample set.
+> - **P2** added the content catalogue, a server-side practice engine and a first Reading flow.
+> - **P3** adds:
+>   - a daily vocabulary session with spaced repetition and mini-games;
+>   - grammar lessons with instantly-checked practice;
+>   - a play layer: combo, mascot, word garden and weekly goal.
 >
-> Google sign-in, Grammar, Vocabulary, Writing, Speaking and AI are not implemented yet.
+> Starter content is AI-drafted and local only. Google sign-in, Listening, Writing, Speaking
+> and AI are not implemented yet.
 
 ## Technology stack
 

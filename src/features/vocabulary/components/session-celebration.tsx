@@ -17,7 +17,7 @@ const CONFETTI = Array.from({ length: 18 }, (_, index) => ({
 
 function cheer(summary: SessionSummary): string {
   if (summary.reviewed === 0) return "Nothing due right now. Your words are resting."
-  if (summary.bestCombo >= 5) return `A ${summary.bestCombo}-answer combo. You're on fire!`
+  if (summary.bestCombo >= 5) return `${summary.bestCombo} right in a row. You're on fire!`
   return "Nice work. A little every day really adds up."
 }
 

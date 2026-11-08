@@ -35,8 +35,18 @@ P2 (content & practice engine) is **implemented** (ADR 0007):
   `src/features/reading`. Routes: `/reading`, `/reading/[setSlug]`, attempt in the `(focus)`
   route group, and results.
 
-Reading is wired only minimally. P4 extras (filters, highlight, band conversion, history) and
-Grammar, Vocabulary, Writing, Speaking and AI are not implemented. Do not start them unasked.
+P3 (vocabulary & grammar) is **implemented** (ADR 0008, spec and plan in `docs/superpowers/`):
+
+- SRS in SQL (daily new-word limit in the learner's local day, server-graded reviews).
+- Grammar lessons with learn-mode instant check.
+- A play layer: mini-games, combo, mascot, word garden and weekly goal.
+- Routes: `/vocabulary` (+ `sets`, `words`, focus `review`) and `/grammar` (+ lesson, focus
+  practice, results).
+- Starter content in `content/{vocabulary-sets,grammar-topics}` is AI-drafted and local only,
+  pending the user's review.
+
+Reading is wired only minimally. P4 extras (filters, highlight, band conversion, history),
+Listening, Writing, Speaking and AI are not implemented. Do not start them unasked.
 `src/stores`, `src/types` and `tests/integration` do not exist yet; create them with the first
 change that needs them.
 

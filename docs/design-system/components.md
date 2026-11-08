@@ -6,15 +6,16 @@ adapt to the tokens. Business-specific (IELTS/learning) components never go in `
 
 ## Inventory
 
-| Category   | Components (`@/components/ui/*` unless noted)                                                                                        |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Actions    | `Button`, `IconButton`, `DropdownMenu`                                                                                               |
-| Forms      | `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Label`, `Field*`, `FormField` (`@/components/shared/form-field`) |
-| Navigation | `Sidebar*`, `Breadcrumb`, `Tabs`, `NavigationMenu`, `Pagination`; app shell and `FocusShell` in `@/components/layout`                |
-| Feedback   | `Alert`, `Toaster` (sonner), `Tooltip`, `Progress`, `Skeleton`, `EmptyState` / `ErrorState` (`@/components/feedback`)                |
-| Overlays   | `Dialog`, `Sheet`, `Drawer`, `Popover`                                                                                               |
-| Data       | `Card`, `Badge`, `Avatar`, `Table`, `Separator`, `Empty`                                                                             |
-| Theme      | `ThemeProvider`, `useTheme`, `ThemeScript`, `ThemeSwitcher` (`@/components/shared`)                                                  |
+| Category   | Components (`@/components/ui/*` unless noted)                                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Actions    | `Button`, `IconButton`, `DropdownMenu`                                                                                                     |
+| Forms      | `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Label`, `Field*`, `FormField` (`@/components/shared/form-field`)       |
+| Navigation | `Sidebar*`, `Breadcrumb`, `Tabs`, `NavigationMenu`, `Pagination`; app shell and `FocusShell` in `@/components/layout`                      |
+| Feedback   | `Alert`, `Toaster` (sonner), `Tooltip`, `Progress`, `Skeleton`, `EmptyState` / `ErrorState` (`@/components/feedback`)                      |
+| Overlays   | `Dialog`, `Sheet`, `Drawer`, `Popover`                                                                                                     |
+| Data       | `Card`, `Badge`, `Avatar`, `Table`, `Separator`, `Empty`                                                                                   |
+| Theme      | `ThemeProvider`, `useTheme`, `ThemeScript`, `ThemeSwitcher` (`@/components/shared`)                                                        |
+| Play       | `Mascot` (`@/components/shared/mascot`): decorative, moods `idle` / `happy` / `thinking` / `cheering`; text next to it carries the message |
 
 ## Variants and sizes
 

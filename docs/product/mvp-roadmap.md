@@ -92,6 +92,32 @@ updated docs, and a demo on staging. Phase 0 is complete.
   D-13). P3/P4 build on the engine: grammar instant checking, Reading filters, highlight, band
   conversion and history.
 
+**P3 status (2026-11-09): implemented locally**
+([ADR 0008](../decisions/0008-vocabulary-srs-and-grammar.md),
+[design](../superpowers/specs/2026-11-08-p3-vocabulary-grammar-design.md)).
+
+- Vocabulary:
+  - VOC-01: topic sets.
+  - VOC-02: bilingual word cards with examples, collocations, mistakes and device-voice
+    pronunciation.
+  - VOC-03: add from sets.
+  - VOC-04: SM-2 review through mini-games.
+  - VOC-05: daily session with a 5/10/15 new-word limit.
+- Grammar:
+  - GRAM-01: catalogue.
+  - GRAM-02: bilingual lessons.
+  - GRAM-03: practice with instant check, including Spot the mistake.
+  - GRAM-04: mastery.
+- Learning through play: combo, mascot, celebration, word garden and weekly goal.
+- Starter content: 4 vocabulary sets × 10 words and 4 grammar topics, AI-drafted and local only.
+- Open:
+  - review of the starter content by the user;
+  - TTS audio (D-08);
+  - adding words from passages (P4) or feedback (P6);
+  - the AI tutor (VOC-06, P7);
+  - GRAM-05 (P6);
+  - roadmap use of mastery (P8: revisit the retake rule).
+
 ```
 P0 Foundation ✔
  └─ P1 Platform: Supabase, Auth, Profile, events

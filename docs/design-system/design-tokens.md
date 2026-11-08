@@ -125,6 +125,16 @@ Dark mode uses deeper, darker shadows via the same tokens. Prefer borders; avoid
 | `--layout-header-height`           | 64px   | `h-header`        |
 | `--layout-content-max-width`       | 1440px | `max-w-content`   |
 
+## Motion
+
+Play feedback in vocabulary games. Use these with `motion-safe:`. The global
+`prefers-reduced-motion` rule also shortens every animation.
+
+| Token                | Keyframes       | Utility / use                                                                 |
+| -------------------- | --------------- | ----------------------------------------------------------------------------- |
+| `--animate-shake`    | `shake`         | `motion-safe:animate-shake`: wrong pair in Match pairs                        |
+| `--animate-confetti` | `confetti-fall` | `animate-confetti`: celebration pieces (rendered only without reduced motion) |
+
 ## Responsive breakpoints
 
 Tailwind defaults, mobile-first:

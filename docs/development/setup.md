@@ -43,14 +43,27 @@ The app needs a Supabase project. For development, use the local stack from the 
 | `pnpm env:local`            | Write `.env.local` (URL, publishable key, Mailpit URL); never prints keys. `--force` overwrites |
 | `pnpm content:seed`         | Validate `content/practice-sets/*.json` and regenerate `supabase/seed.sql`                      |
 
-### Practice content
+### Learning content
 
-Practice sets are JSON files in `content/practice-sets/`. Their format is
-`practiceSetSourceSchema` in `src/lib/content/practice-set-schema.ts`. After adding or editing a
-file, run `pnpm content:seed`, then `pnpm db:reset`. The script reports invalid fields per file.
-`evidence` must be an exact quote that appears once in the passage. Only sets with
-`"reviewStatus": "published"` are visible to learners. Real content must be reviewed by a person
-before it is published (decision D-04). `supabase/seed.sql` is generated; do not edit it by hand.
+Content is JSON in three folders, each validated by a Zod schema in `src/lib/content/`:
+
+| Folder                     | Schema                      | Notes                                                                                                                        |
+| -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `content/practice-sets/`   | `practiceSetSourceSchema`   | `evidence` must be an exact quote that appears once in the passage                                                           |
+| `content/vocabulary-sets/` | `vocabularySetSourceSchema` | each example's `cloze` must appear once in its sentence; a word shared by sets must be defined identically                   |
+| `content/grammar-topics/`  | `grammarTopicSourceSchema`  | `practice` lists only question groups; for Spot the mistake, `accepted` is the one wrong word and a `correction` is required |
+
+After adding or editing a file:
+
+1. Run `pnpm content:seed`. The script reports invalid fields per file.
+2. Run `pnpm db:reset`.
+
+Other rules:
+
+- Only content with `"reviewStatus": "published"` is visible to learners.
+- Real content must be reviewed by a person before it is published (decision D-04).
+- The starter content is AI-drafted (`"source": "ai_assisted"`) and local only.
+- `supabase/seed.sql` is generated; do not edit it by hand.
 
 Schema changes go in a new migration (`pnpm supabase migration new <name>`), with RLS
 policies and pgTAP tests. Then run `pnpm db:reset`, `pnpm db:test` and `pnpm db:types`.

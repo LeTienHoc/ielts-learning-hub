@@ -41,6 +41,18 @@ export function AttemptReview({
   actions,
 }: AttemptReviewProps) {
   const questions = set.groups.flatMap((group) => group.questions)
+  // "Spot the mistake" options are the sentence's words: show the word, not its id.
+  const spotIds = new Set(
+    set.groups
+      .filter((group) => group.type === "error_correction")
+      .flatMap((group) => group.questions.map((question) => question.id)),
+  )
+  const wordsOf = (question: PracticeQuestion, response: readonly string[] | undefined) =>
+    isAnswered(response)
+      ? (response ?? [])
+          .map((id) => question.options.find((option) => option.id === id)?.text ?? id)
+          .join(", ")
+      : null
   const correctCount = questions.filter(
     (question) => outcomeOf(question, attempt) === "correct",
   ).length
@@ -75,12 +87,17 @@ export function AttemptReview({
         {questions.map((question) => {
           const key = keys[question.id]
           const outcome = OUTCOME[outcomeOf(question, attempt)]
-          const yourAnswer = describeResponse(attempt.answers[question.id], question.options)
-          const correctAnswer = key
-            ? question.responseKind === "text"
-              ? key.accepted.join(" / ")
-              : describeResponse(key.accepted, question.options)
-            : null
+          const isSpot = spotIds.has(question.id)
+          const yourAnswer = isSpot
+            ? wordsOf(question, attempt.answers[question.id])
+            : describeResponse(attempt.answers[question.id], question.options)
+          const correctAnswer = !key
+            ? null
+            : isSpot
+              ? [wordsOf(question, key.accepted), key.correction].filter(Boolean).join(" → ")
+              : question.responseKind === "text"
+                ? key.accepted.join(" / ")
+                : describeResponse(key.accepted, question.options)
           const explanation =
             key && explanationLanguage === "vi" && key.explanationVi
               ? key.explanationVi

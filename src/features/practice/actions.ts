@@ -1,6 +1,12 @@
 "use server"
 
-import { saveAnswer, startAttempt, submitAttempt } from "@/server/practice/practice-service"
+import { getCurrentUser } from "@/server/auth/session"
+import {
+  checkAnswer,
+  saveAnswer,
+  startAttempt,
+  submitAttempt,
+} from "@/server/practice/practice-service"
 
 import {
   attemptIdSchema,
@@ -51,6 +57,9 @@ export async function saveAnswerAction(input: SaveAnswerInput): Promise<SaveAnsw
       return { ok: false, reason: "expired" }
     case "attempt_submitted":
       return { ok: false, reason: "submitted" }
+    case "answer_locked":
+      // Already checked instantly: the stored answer is the checked one, nothing to save.
+      return { ok: true }
     case "failed":
       return { ok: false, reason: "retry" }
     default:
@@ -70,4 +79,44 @@ export async function submitAttemptAction(attemptId: string): Promise<SubmitAtte
     return { ok: false, error: "This attempt could not be found." }
   }
   return { ok: false, error: "Your answers could not be submitted. Please try again." }
+}
+
+export type CheckAnswerResult =
+  | {
+      ok: true
+      isCorrect: boolean
+      accepted: string[]
+      explanation: string
+      correction: string | null
+    }
+  | { ok: false; error: string }
+
+/** Learn mode: checks one answer and returns its explanation in the learner's language. */
+export async function checkAnswerAction(input: SaveAnswerInput): Promise<CheckAnswerResult> {
+  const parsed = saveAnswerSchema.safeParse(input)
+  if (!parsed.success) return { ok: false, error: "Choose or write an answer first." }
+
+  const { attemptId, questionId, response } = parsed.data
+  const [result, user] = await Promise.all([
+    checkAnswer(attemptId, questionId, response),
+    getCurrentUser(),
+  ])
+  if (result.ok) {
+    const { isCorrect, accepted, explanation, explanationVi, correction } = result.value
+    return {
+      ok: true,
+      isCorrect,
+      accepted,
+      explanation:
+        user?.explanationLanguage === "vi" && explanationVi ? explanationVi : explanation,
+      correction,
+    }
+  }
+  if (result.code === "answer_locked") {
+    return { ok: false, error: "You have already checked this answer." }
+  }
+  if (result.code === "attempt_submitted" || result.code === "attempt_not_found") {
+    return { ok: false, error: "This practice has ended. Open your results to see the answers." }
+  }
+  return { ok: false, error: TRY_AGAIN }
 }

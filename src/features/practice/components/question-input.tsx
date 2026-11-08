@@ -1,5 +1,6 @@
 "use client"
 
+import { RadioGroup as RadioGroupPrimitive } from "radix-ui"
 import { useId, type ReactNode } from "react"
 
 import { Checkbox } from "@/components/ui/checkbox"
@@ -43,6 +44,8 @@ export function QuestionInput({
   const promptId = useId()
   const hintId = useId()
   const label = `Question ${question.number}`
+  // "Spot the mistake": the sentence itself is the answer, shown as tappable words.
+  const isSpotTheMistake = groupType === "error_correction"
 
   return (
     <div role="group" aria-labelledby={promptId} className="flex flex-col gap-3">
@@ -51,8 +54,30 @@ export function QuestionInput({
           {question.number}
           <span className="sr-only">.</span>
         </span>
-        {question.prompt}
+        <span className={isSpotTheMistake ? "sr-only" : undefined}>{question.prompt}</span>
       </p>
+
+      {isSpotTheMistake && (
+        <RadioGroupPrimitive.Root
+          aria-label={`Tap the wrong word in ${label}`}
+          value={response[0] ?? ""}
+          onValueChange={(value) => onChange([value])}
+          disabled={disabled}
+          orientation="horizontal"
+          className="flex flex-wrap gap-1.5"
+        >
+          {question.options.map((option) => (
+            <RadioGroupPrimitive.Item
+              key={option.id}
+              value={option.id}
+              aria-label={option.text}
+              className="rounded-md border border-border bg-background px-2.5 py-1.5 text-body text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-70 data-[state=checked]:border-error data-[state=checked]:bg-error-subtle data-[state=checked]:text-error-emphasis data-[state=checked]:line-through"
+            >
+              {option.text}
+            </RadioGroupPrimitive.Item>
+          ))}
+        </RadioGroupPrimitive.Root>
+      )}
 
       {question.responseKind === "text" && (
         <div className="flex flex-col gap-1.5">
@@ -78,40 +103,44 @@ export function QuestionInput({
         </div>
       )}
 
-      {question.responseKind === "single" && groupType.startsWith("matching_") && (
-        <Select
-          value={response[0] ?? ""}
-          onValueChange={(value) => onChange([value])}
-          disabled={disabled}
-        >
-          <SelectTrigger className="w-full max-w-sm" aria-label={`Answer for ${label}`}>
-            <SelectValue placeholder="Choose an answer" />
-          </SelectTrigger>
-          <SelectContent>
-            {question.options.map((option) => (
-              <SelectItem key={option.id} value={option.id}>
-                {optionLabel(option)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      )}
+      {question.responseKind === "single" &&
+        !isSpotTheMistake &&
+        groupType.startsWith("matching_") && (
+          <Select
+            value={response[0] ?? ""}
+            onValueChange={(value) => onChange([value])}
+            disabled={disabled}
+          >
+            <SelectTrigger className="w-full max-w-sm" aria-label={`Answer for ${label}`}>
+              <SelectValue placeholder="Choose an answer" />
+            </SelectTrigger>
+            <SelectContent>
+              {question.options.map((option) => (
+                <SelectItem key={option.id} value={option.id}>
+                  {optionLabel(option)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
 
-      {question.responseKind === "single" && !groupType.startsWith("matching_") && (
-        <RadioGroup
-          aria-label={`Answer for ${label}`}
-          value={response[0] ?? ""}
-          onValueChange={(value) => onChange([value])}
-          disabled={disabled}
-          className="gap-1"
-        >
-          {question.options.map((option) => (
-            <OptionRow key={option.id} option={option}>
-              {(id) => <RadioGroupItem id={id} value={option.id} />}
-            </OptionRow>
-          ))}
-        </RadioGroup>
-      )}
+      {question.responseKind === "single" &&
+        !isSpotTheMistake &&
+        !groupType.startsWith("matching_") && (
+          <RadioGroup
+            aria-label={`Answer for ${label}`}
+            value={response[0] ?? ""}
+            onValueChange={(value) => onChange([value])}
+            disabled={disabled}
+            className="gap-1"
+          >
+            {question.options.map((option) => (
+              <OptionRow key={option.id} option={option}>
+                {(id) => <RadioGroupItem id={id} value={option.id} />}
+              </OptionRow>
+            ))}
+          </RadioGroup>
+        )}
 
       {question.responseKind === "multiple" && (
         <div role="group" aria-label={`Answers for ${label}`} className="flex flex-col gap-1">

@@ -18,11 +18,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { saveAnswerAction, submitAttemptAction } from "../actions"
+import { saveAnswerAction, submitAttemptAction, type CheckAnswerResult } from "../actions"
 import { useAttemptAnswers } from "../hooks/use-attempt-answers"
 import type { AttemptMode, PracticeSetDetail } from "../types"
-import { countAnswered, type Answers } from "../utils/answers"
+import { countAnswered, isAnswered, type Answers } from "../utils/answers"
 import { AttemptTimer } from "./attempt-timer"
+import { InstantFeedback, type CheckedView } from "./instant-feedback"
 import { PassageView } from "./passage-view"
 import { QuestionInput } from "./question-input"
 import { SaveStatus } from "./save-status"
@@ -34,6 +35,17 @@ type AttemptRunnerProps = {
   initialRemainingMs: number | null
   exitHref: string
   reviewHref: string
+  /**
+   * Learn mode with instant feedback (grammar): each question gets a Check button, and a
+   * checked question is locked.
+   */
+  instantCheck?: (input: {
+    attemptId: string
+    questionId: string
+    response: string[]
+  }) => Promise<CheckAnswerResult>
+  /** Questions already checked before this page load (resume). */
+  initialChecked?: Readonly<Record<string, { isCorrect: boolean }>>
 }
 
 /** Runs a practice attempt in focus mode: passage, questions, autosave, timer and submit. */
@@ -43,8 +55,13 @@ export function AttemptRunner({
   initialRemainingMs,
   exitHref,
   reviewHref,
+  instantCheck,
+  initialChecked = {},
 }: AttemptRunnerProps) {
   const router = useRouter()
+  const [checked, setChecked] = useState<Record<string, CheckedView>>(initialChecked)
+  const [checkingId, setCheckingId] = useState<string | null>(null)
+  const [checkErrors, setCheckErrors] = useState<Record<string, string>>({})
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [isSubmitting, startSubmitting] = useTransition()
   const isFinishing = useRef(false)
@@ -87,6 +104,31 @@ export function AttemptRunner({
       await flush()
       await finish()
     })
+
+  const check = async (questionId: string, response: readonly string[]) => {
+    if (!instantCheck) return
+    setCheckingId(questionId)
+    setCheckErrors(({ [questionId]: _cleared, ...rest }) => rest)
+    const result = await instantCheck({
+      attemptId: attempt.id,
+      questionId,
+      response: [...response],
+    })
+    setCheckingId(null)
+    if (!result.ok) {
+      setCheckErrors((current) => ({ ...current, [questionId]: result.error }))
+      return
+    }
+    setChecked((current) => ({
+      ...current,
+      [questionId]: {
+        isCorrect: result.isCorrect,
+        explanation: result.explanation,
+        correction: result.correction,
+        accepted: result.accepted,
+      },
+    }))
+  }
 
   const questionIds = set.groups.flatMap((group) => group.questions.map((question) => question.id))
   const answeredCount = countAnswered(questionIds, answers)
@@ -168,16 +210,46 @@ export function AttemptRunner({
                   ))}
                 </ul>
               )}
-              {group.questions.map((question) => (
-                <QuestionInput
-                  key={question.id}
-                  question={question}
-                  groupType={group.type}
-                  response={answers[question.id] ?? []}
-                  onChange={(response, debounceMs) => setAnswer(question.id, response, debounceMs)}
-                  disabled={isSubmitting}
-                />
-              ))}
+              {group.questions.map((question) => {
+                const result = checked[question.id]
+                const response = answers[question.id] ?? []
+                return (
+                  <div key={question.id} className="flex flex-col gap-3">
+                    <QuestionInput
+                      question={question}
+                      groupType={group.type}
+                      response={response}
+                      onChange={(next, debounceMs) => setAnswer(question.id, next, debounceMs)}
+                      disabled={isSubmitting || result !== undefined}
+                    />
+                    {instantCheck && !result && (
+                      <div className="flex flex-col items-start gap-1.5">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          aria-label={`Check answer ${question.number}`}
+                          disabled={!isAnswered(response) || checkingId !== null || isSubmitting}
+                          onClick={() => void check(question.id, response)}
+                        >
+                          {checkingId === question.id ? "Checking…" : "Check"}
+                        </Button>
+                        {checkErrors[question.id] && (
+                          <p role="alert" className="text-body-sm text-error-emphasis">
+                            {checkErrors[question.id]}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    {result && (
+                      <InstantFeedback
+                        question={question}
+                        isSpotTheMistake={group.type === "error_correction"}
+                        result={result}
+                      />
+                    )}
+                  </div>
+                )
+              })}
             </section>
           ))}
         </div>

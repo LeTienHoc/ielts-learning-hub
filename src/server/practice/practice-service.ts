@@ -15,6 +15,7 @@ import {
   type QuestionType,
   type ResponseKind,
 } from "@/lib/content/practice-set-schema"
+import { toEngineError, type EngineResult } from "@/lib/learning/engine-errors"
 import { createSupabaseServerClient } from "@/server/database/server-client"
 
 // Practice engine data access. Reads use RLS (published content, own attempts); writes go
@@ -84,28 +85,8 @@ export type AnswerKey = {
   explanation: string
   explanationVi: string | null
   evidence: { start: number; end: number } | null
-}
-
-/** Error messages raised (SQLSTATE P0001) by the engine functions in the P2 migration. */
-const ENGINE_ERRORS = [
-  "set_not_found",
-  "test_mode_unavailable",
-  "attempt_not_found",
-  "attempt_submitted",
-  "attempt_expired",
-  "question_not_found",
-  "invalid_response",
-  "not_authenticated",
-] as const
-
-/** Engine failures the UI can explain. Anything else is reported as "failed". */
-export type EngineErrorCode = (typeof ENGINE_ERRORS)[number] | "failed"
-
-export type EngineResult<T> = { ok: true; value: T } | { ok: false; code: EngineErrorCode }
-
-function toEngineError(error: { code?: string; message: string }): EngineErrorCode {
-  if (error.code !== "P0001") return "failed"
-  return ENGINE_ERRORS.find((code) => code === error.message) ?? "failed"
+  /** Spot the mistake: the corrected sentence. */
+  correction: string | null
 }
 
 const summaryRowSchema = z.object({
@@ -356,6 +337,7 @@ const reviewRowSchema = z.object({
   explanation_vi: z.string().nullable(),
   evidence_start: z.number().nullable(),
   evidence_end: z.number().nullable(),
+  correction: z.string().nullable(),
 })
 
 /** Answer keys for the learner's own submitted attempt, keyed by question id. */
@@ -379,7 +361,58 @@ export async function getAttemptReview(
         row.evidence_start !== null && row.evidence_end !== null
           ? { start: row.evidence_start, end: row.evidence_end }
           : null,
+      correction: row.correction,
     }
   }
   return { ok: true, value: keys }
+}
+
+export type CheckedAnswer = {
+  isCorrect: boolean
+  points: number
+  accepted: string[]
+  explanation: string
+  explanationVi: string | null
+  correction: string | null
+}
+
+const checkRowSchema = z.object({
+  is_correct: z.boolean(),
+  points: z.number(),
+  accepted: z.array(z.string()),
+  explanation: z.string(),
+  explanation_vi: z.string().nullable(),
+  correction: z.string().nullable(),
+})
+
+/**
+ * Learn mode: saves, locks and checks one answer, returning that question's key only.
+ * Errors include answer_locked (already checked) and check_unavailable (test mode).
+ */
+export async function checkAnswer(
+  attemptId: string,
+  questionId: string,
+  response: string[],
+): Promise<EngineResult<CheckedAnswer>> {
+  const supabase = await createSupabaseServerClient()
+  const { data, error } = await supabase.rpc("check_answer", {
+    target_attempt_id: attemptId,
+    target_question_id: questionId,
+    answer: response,
+  })
+  if (error) return { ok: false, code: toEngineError(error) }
+
+  const [row] = z.array(checkRowSchema).length(1).parse(data)
+  if (!row) return { ok: false, code: "failed" }
+  return {
+    ok: true,
+    value: {
+      isCorrect: row.is_correct,
+      points: row.points,
+      accepted: row.accepted,
+      explanation: row.explanation,
+      explanationVi: row.explanation_vi,
+      correction: row.correction,
+    },
+  }
 }

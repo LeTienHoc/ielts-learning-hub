@@ -249,6 +249,7 @@ describe("AttemptReview", () => {
       explanation: "They are rarely visited.",
       explanationVi: "Hiếm khi có người lên.",
       evidence: { start: 0, end: 25 },
+      correction: null,
     },
     q2: {
       questionId: "q2",
@@ -256,6 +257,7 @@ describe("AttemptReview", () => {
       explanation: "Stated in paragraph D.",
       explanationVi: null,
       evidence: null,
+      correction: null,
     },
     q3: {
       questionId: "q3",
@@ -263,6 +265,7 @@ describe("AttemptReview", () => {
       explanation: "Weeding and windows.",
       explanationVi: null,
       evidence: null,
+      correction: null,
     },
   }
 

@@ -12,6 +12,8 @@ export type CurrentUser = {
   email: string
   displayName: string | null
   explanationLanguage: "en" | "vi"
+  /** New vocabulary words per day (5, 10 or 15). */
+  dailyNewWords: 5 | 10 | 15
 }
 
 /**
@@ -26,7 +28,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("display_name, explanation_language")
+    .select("display_name, explanation_language, daily_new_words")
     .eq("id", userId)
     .maybeSingle()
   if (profileError) throw new Error("Could not load the user profile.")
@@ -38,6 +40,10 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     email,
     displayName: profile?.display_name ?? null,
     explanationLanguage: profile?.explanation_language === "vi" ? "vi" : "en",
+    dailyNewWords:
+      profile?.daily_new_words === 5 || profile?.daily_new_words === 15
+        ? profile.daily_new_words
+        : 10,
   }
 })
 

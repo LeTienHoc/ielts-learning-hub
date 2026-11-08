@@ -43,6 +43,7 @@ export type Database = {
       attempt_answers: {
         Row: {
           attempt_id: string
+          checked_at: string | null
           is_correct: boolean | null
           points: number | null
           question_id: string
@@ -52,6 +53,7 @@ export type Database = {
         ComputedFields: never
         Insert: {
           attempt_id: string
+          checked_at?: string | null
           is_correct?: boolean | null
           points?: number | null
           question_id: string
@@ -60,6 +62,7 @@ export type Database = {
         }
         Update: {
           attempt_id?: string
+          checked_at?: string | null
           is_correct?: boolean | null
           points?: number | null
           question_id?: string
@@ -183,6 +186,43 @@ export type Database = {
         }
         Relationships: []
       }
+      grammar_topics: {
+        Row: {
+          id: string
+          lesson: NonNullable<Json>
+          position: number
+          practice_set_id: string | null
+        }
+        ComputedFields: never
+        Insert: {
+          id: string
+          lesson: NonNullable<Json>
+          position: number
+          practice_set_id?: string | null
+        }
+        Update: {
+          id?: string
+          lesson?: NonNullable<Json>
+          position?: number
+          practice_set_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grammar_topics_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grammar_topics_practice_set_id_fkey"
+            columns: ["practice_set_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       practice_sets: {
         Row: {
           id: string
@@ -286,6 +326,7 @@ export type Database = {
       question_keys: {
         Row: {
           accepted: NonNullable<Json>
+          correction: string | null
           evidence_end: number | null
           evidence_start: number | null
           explanation: string
@@ -295,6 +336,7 @@ export type Database = {
         ComputedFields: never
         Insert: {
           accepted: NonNullable<Json>
+          correction?: string | null
           evidence_end?: number | null
           evidence_start?: number | null
           explanation: string
@@ -303,6 +345,7 @@ export type Database = {
         }
         Update: {
           accepted?: NonNullable<Json>
+          correction?: string | null
           evidence_end?: number | null
           evidence_start?: number | null
           explanation?: string
@@ -379,12 +422,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_answer: {
+        Args: { answer: Json; target_attempt_id: string; target_question_id: string }
+        Returns: {
+          accepted: Json
+          correction: string
+          explanation: string
+          explanation_vi: string
+          is_correct: boolean
+          points: number
+        }[]
+      }
       delete_current_user: { Args: Record<PropertyKey, never>; Returns: undefined }
       finalize_attempt: { Args: { reason: string; target_attempt_id: string }; Returns: undefined }
       get_attempt_review: {
         Args: { target_attempt_id: string }
         Returns: {
           accepted: Json
+          correction: string
           evidence_end: number
           evidence_start: number
           explanation: string
@@ -392,12 +447,14 @@ export type Database = {
           question_id: string
         }[]
       }
+      is_published_content: { Args: { item_id: string }; Returns: boolean }
       is_published_practice_set: { Args: { set_id: string }; Returns: boolean }
       normalize_text_answer: { Args: { value: string }; Returns: string }
       save_answer: {
         Args: { answer: Json; target_attempt_id: string; target_question_id: string }
         Returns: undefined
       }
+      score_answer: { Args: { answer: Json; target_question_id: string }; Returns: number }
       start_attempt: { Args: { attempt_mode: string; target_set_id: string }; Returns: string }
       submit_attempt: { Args: { target_attempt_id: string }; Returns: undefined }
     }

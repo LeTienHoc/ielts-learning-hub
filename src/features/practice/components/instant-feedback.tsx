@@ -1,5 +1,6 @@
 import { CircleCheck, CircleMinus } from "lucide-react"
 
+import { Mascot } from "@/components/shared/mascot"
 import { cn } from "@/lib/utils"
 
 import type { PracticeQuestion } from "../types"
@@ -41,10 +42,13 @@ export function InstantFeedback({ question, isSpotTheMistake, result }: InstantF
           : "border-warning/30 bg-warning-subtle text-warning-emphasis",
       )}
     >
-      <p className="flex items-center gap-1.5 font-semibold">
-        <Icon aria-hidden="true" className="size-4" />
-        {result.isCorrect ? "Correct!" : "Not quite"}
-      </p>
+      <div className="flex items-center gap-2">
+        <Mascot mood={result.isCorrect ? "happy" : "thinking"} className="size-9" />
+        <p className="flex items-center gap-1.5 font-semibold">
+          <Icon aria-hidden="true" className="size-4" />
+          {result.isCorrect ? "Correct!" : "Not quite"}
+        </p>
+      </div>
       {rightAnswer && (
         <p>
           Answer: <span className="font-semibold">{rightAnswer}</span>

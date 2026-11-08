@@ -1,13 +1,16 @@
 "use client"
 
 import { useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from "react"
+import { Volume2, VolumeX } from "lucide-react"
 
 import { FocusShell } from "@/components/layout/focus-shell"
+import { Mascot, type MascotMood } from "@/components/shared/mascot"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 import { finishReviewSessionAction, reviewWordAction, type ReviewWordInput } from "../actions"
+import { useFeedbackSound } from "../hooks/use-feedback-sound"
 import { VOCABULARY_HREF } from "../routes"
 import type { ReviewCard, ReviewSessionPlan } from "../types"
 import { checkCloze, splitCloze, stableShuffle } from "../utils/cloze"
@@ -19,9 +22,10 @@ import {
   type Grade,
   type SessionStep,
 } from "../utils/review-session"
+import { ComboMeter } from "./combo-meter"
 import { ListenButton } from "./listen-button"
 import { MatchPairs } from "./match-pairs"
-import { SessionDone } from "./session-done"
+import { SessionCelebration } from "./session-celebration"
 import { WordCard } from "./word-card"
 
 type Language = "en" | "vi"
@@ -36,6 +40,14 @@ const EXERCISE: Record<Exclude<SessionStep["kind"], "card">, Exercise> = {
 }
 
 type ReviewSessionProps = { plan: ReviewSessionPlan; language: Language }
+
+// Short, kind lines from the mascot. Never mocking (spec §5.5).
+const MOOD_LINES: Record<MascotMood, string> = {
+  idle: "Let's grow some words today.",
+  happy: "Nice one! Keep it going.",
+  thinking: "Oops, so close! It will come back soon.",
+  cheering: "You did it!",
+}
 
 /**
  * Today's vocabulary session in focus mode: games for due words, then new word cards.
@@ -54,6 +66,12 @@ export function ReviewSession({ plan, language }: ReviewSessionProps) {
     ),
   )
   const [notice, setNotice] = useState<string | null>(null)
+  const [mood, setMood] = useState<MascotMood>("idle")
+  const sound = useFeedbackSound()
+  const soundRef = useRef(sound)
+  useEffect(() => {
+    soundRef.current = sound
+  })
 
   // Server grading: one chain per word so expected review counts stay in order.
   const reviewCounts = useRef(
@@ -67,6 +85,13 @@ export function ReviewSession({ plan, language }: ReviewSessionProps) {
     const isNew = newIds.has(wordId) && !gradedOnce.current.has(wordId)
     gradedOnce.current.add(wordId)
     dispatch({ type: "result", wordId, grade: value, isNew })
+    if (value === "again") {
+      setMood("thinking")
+      sound.playMiss()
+    } else {
+      setMood("happy")
+      sound.playCorrect()
+    }
 
     const exercise: Exercise = isNew ? "intro" : EXERCISE[stepKind]
     const previous = chains.current.get(wordId) ?? Promise.resolve()
@@ -96,6 +121,7 @@ export function ReviewSession({ plan, language }: ReviewSessionProps) {
   const isDone = state.summary !== null
   useEffect(() => {
     if (!isDone) return
+    soundRef.current.playCelebrate()
     // Record the session only after every grade has reached the server.
     void Promise.allSettled([...inFlight.current]).then(() =>
       finishReviewSessionAction(plan.startedAt),
@@ -109,6 +135,19 @@ export function ReviewSession({ plan, language }: ReviewSessionProps) {
     <FocusShell
       title="Today's session"
       exitHref={VOCABULARY_HREF}
+      status={
+        <div className="flex items-center gap-1">
+          <ComboMeter combo={state.combo} />
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={sound.isMuted ? "Turn sound on" : "Turn sound off"}
+            onClick={sound.toggleMute}
+          >
+            {sound.isMuted ? <VolumeX aria-hidden="true" /> : <Volume2 aria-hidden="true" />}
+          </Button>
+        </div>
+      }
       footer={
         <p className="text-body-sm text-muted-foreground" aria-live="polite">
           {isDone ? "Session complete" : `Step ${Math.min(state.index + 1, total)} of ${total}`}
@@ -117,8 +156,14 @@ export function ReviewSession({ plan, language }: ReviewSessionProps) {
       }
     >
       <div className="mx-auto flex max-w-2xl flex-col gap-6">
+        {!isDone && (
+          <div className="flex items-center gap-3">
+            <Mascot mood={mood} />
+            <p className="text-body-sm text-muted-foreground">{MOOD_LINES[mood]}</p>
+          </div>
+        )}
         {state.summary ? (
-          <SessionDone summary={state.summary} />
+          <SessionCelebration summary={state.summary} />
         ) : step ? (
           <StepView
             key={`${state.index}-${step.kind}`}

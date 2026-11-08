@@ -79,7 +79,8 @@ export function MatchPairs({ words, onResult, onComplete }: MatchPairsProps) {
                 onClick={() => chooseMeaning(word.id)}
                 className={cn(
                   "w-full rounded-md border border-border bg-background px-3 py-2.5 text-left text-body-sm text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring",
-                  missed === word.id && "border-warning bg-warning-subtle",
+                  missed === word.id &&
+                    "border-warning bg-warning-subtle motion-safe:animate-shake",
                 )}
               >
                 {word.meaning}

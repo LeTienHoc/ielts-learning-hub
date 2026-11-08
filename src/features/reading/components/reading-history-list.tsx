@@ -28,8 +28,10 @@ export function ReadingHistoryList({ items, hideTitle = false }: ReadingHistoryL
                 <span className="truncate text-label text-foreground">{item.setTitle}</span>
               )}
               <span className="flex flex-wrap items-center gap-x-2 text-caption text-muted-foreground">
-                <LocalDateTime value={item.submittedAt} />
-                <span aria-hidden="true">·</span>
+                {/* The separator stays with the date so it never starts a wrapped line. */}
+                <span>
+                  <LocalDateTime value={item.submittedAt} /> <span aria-hidden="true">·</span>
+                </span>
                 <span>{item.mode === "test" ? "Test mode" : "Learn mode"}</span>
               </span>
             </span>

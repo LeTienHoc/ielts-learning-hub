@@ -7,8 +7,26 @@ export function isAnswered(response: readonly string[] | undefined): boolean {
   return !!response && response.some((value) => value.trim().length > 0)
 }
 
-export function countAnswered(questionIds: readonly string[], answers: Answers): number {
-  return questionIds.filter((id) => isAnswered(answers[id])).length
+type CountedQuestion = { id: string; selectCount: number | null }
+
+/** Questions in IELTS terms: a "choose TWO" question counts as two (one per mark). */
+export function markCount(questions: readonly CountedQuestion[]): number {
+  return questions.reduce((total, question) => total + (question.selectCount ?? 1), 0)
+}
+
+/** Answered questions in IELTS terms: each choice made in a multi-answer question counts. */
+export function countAnswered(questions: readonly CountedQuestion[], answers: Answers): number {
+  return questions.reduce((total, question) => {
+    const response = answers[question.id]
+    if (!isAnswered(response)) return total
+    return total + Math.min(response?.length ?? 0, question.selectCount ?? 1)
+  }, 0)
+}
+
+/** The number(s) a question occupies: "23–24" for a "choose TWO" question at 23. */
+export function questionNumbers(question: { number: number; selectCount: number | null }): string {
+  const count = question.selectCount ?? 1
+  return count > 1 ? `${question.number}–${question.number + count - 1}` : String(question.number)
 }
 
 /** "mm:ss", or "h:mm:ss" from one hour. Negative values show as 0:00. */

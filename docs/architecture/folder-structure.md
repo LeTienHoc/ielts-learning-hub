@@ -44,7 +44,8 @@ change that needs them.
 │  │  ├─ ui/                    shadcn/ui primitives + IconButton (business-agnostic)
 │  │  ├─ layout/                AppShell, FocusShell, AppSidebar, AppHeader, AppBreadcrumb, PageHeader,
 │  │  │                         RoutePage, SearchDialog, NotificationsMenu, UserMenu
-│  │  ├─ shared/                ThemeProvider, ThemeScript, ThemeSwitcher, FormField, BrandMark, Mascot
+│  │  ├─ shared/                ThemeProvider, ThemeScript, ThemeSwitcher, FormField, BrandMark, Mascot,
+│  │  │                         LocalDateTime
 │  │  └─ feedback/              EmptyState, ErrorState
 │  ├─ config/
 │  │  ├─ env/                   schema.ts (Zod), client.ts (public), server.ts (server-only)
@@ -55,9 +56,10 @@ change that needs them.
 │  ├─ features/
 │  │  ├─ auth/                  sign-in/up/reset forms, AccountMenu, auth Server Actions
 │  │  ├─ settings/              profile form (incl. daily new words), account deletion, actions
-│  │  ├─ practice/              practice engine UI: AttemptRunner, question inputs, timer,
-│  │  │                         autosave hook, AttemptReview, engine Server Actions
-│  │  ├─ reading/               Reading library, set intro, attempt and results (uses practice)
+│  │  ├─ practice/              practice engine UI: AttemptRunner, PassagePanel (highlights,
+│  │  │                         key words, evidence), question inputs, timer, autosave hook
+│  │  │                         with offline buffer, AttemptReview, engine Server Actions
+│  │  ├─ reading/               Reading library + filters, set intro, history (uses practice)
 │  │  ├─ grammar/               topic catalogue + mastery, bilingual lessons, practice and results
 │  │  └─ vocabulary/            sets, word cards, My words, daily review session, games, word garden
 │  ├─ hooks/                    use-mobile (sidebar breakpoint), use-reduced-motion
@@ -66,7 +68,7 @@ change that needs them.
 │  │  ├─ helpers/               safe-redirect, full-page-navigation
 │  │  ├─ validators/            activity-event (Zod)
 │  │  ├─ content/               authoring schemas: practice sets, vocabulary sets, grammar topics
-│  │  ├─ learning/              mastery + garden stages, engine error codes (pure)
+│  │  ├─ learning/              mastery + garden stages, reading band, engine error codes (pure)
 │  │  └─ query-client.ts        TanStack Query defaults
 │  ├─ server/                   server-only (`import "server-only"`)
 │  │  ├─ auth/                  session DAL (getCurrentUser, requireUser), proxy session refresh

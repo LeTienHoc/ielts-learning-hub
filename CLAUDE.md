@@ -45,7 +45,14 @@ P3 (vocabulary & grammar) is **implemented** (ADR 0008, spec and plan in `docs/s
 - Starter content in `content/{vocabulary-sets,grammar-topics}` is AI-drafted and local only,
   pending the user's review.
 
-Reading is wired only minimally. P4 extras (filters, highlight, band conversion, history),
+P4 (Reading) is **implemented** (ADR 0009, spec and plan in `docs/superpowers/`):
+
+- Multi-passage sets and full tests (`practice_set_passages`, `practice_sets.kind`), passage key
+  words (`practice_set_words`) and a band estimate for full 40-mark tests.
+- `PassagePanel` (passage tabs, device-only highlights, key words, evidence), mobile tabs and
+  an offline answer buffer. Routes: `/reading?type=&level=` and `/reading/history`.
+- `content/practice-sets/reading-full-test-1.json` is AI-drafted and local only.
+
 Listening, Writing, Speaking and AI are not implemented. Do not start them unasked.
 `src/stores`, `src/types` and `tests/integration` do not exist yet; create them with the first
 change that needs them.

@@ -188,14 +188,15 @@ describe("AttemptRunner", () => {
     expect(screen.getByRole("article", { name: "Reading passage" })).toHaveTextContent(
       "Roofs are rarely visited.",
     )
-    expect(screen.getByText("1 of 3 answered")).toBeInTheDocument()
+    // "Choose TWO" counts as two questions (IELTS numbering): 4 in total.
+    expect(screen.getByText("1 of 4 answered")).toBeInTheDocument()
 
     await user.click(screen.getByRole("checkbox", { name: /weeding/ }))
-    expect(screen.getByText("2 of 3 answered")).toBeInTheDocument()
+    expect(screen.getByText("2 of 4 answered")).toBeInTheDocument()
 
     await user.click(screen.getByRole("button", { name: "Submit" }))
     const dialog = screen.getByRole("dialog")
-    expect(dialog).toHaveTextContent("You have 1 unanswered question.")
+    expect(dialog).toHaveTextContent("You have 2 unanswered questions.")
     await user.click(within(dialog).getByRole("button", { name: "Submit answers" }))
 
     await vi.waitFor(() =>
@@ -347,6 +348,8 @@ describe("AttemptReview score and evidence", () => {
     )
     expect(screen.getByText("8 / 13")).toBeInTheDocument()
     expect(screen.queryByText(/Estimated band/)).not.toBeInTheDocument()
+    // "Choose TWO" counts as two questions, as in IELTS numbering.
+    expect(screen.getByText("4 questions · Test mode")).toBeInTheDocument()
   })
 
   it("shows the evidence of an answer in its passage", async () => {

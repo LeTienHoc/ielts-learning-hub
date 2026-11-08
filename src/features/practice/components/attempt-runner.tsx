@@ -22,7 +22,13 @@ import { cn } from "@/lib/utils"
 import { saveAnswerAction, submitAttemptAction, type CheckAnswerResult } from "../actions"
 import { useAttemptAnswers } from "../hooks/use-attempt-answers"
 import type { AttemptMode, PracticeSetDetail } from "../types"
-import { countAnswered, isAnswered, type Answers } from "../utils/answers"
+import {
+  countAnswered,
+  isAnswered,
+  markCount,
+  questionNumbers,
+  type Answers,
+} from "../utils/answers"
 import { AttemptTimer } from "./attempt-timer"
 import { InstantFeedback, type CheckedView } from "./instant-feedback"
 import { PassagePanel } from "./passage-panel"
@@ -149,13 +155,20 @@ export function AttemptRunner({
   const hasPassage = set.passages.length > 0
   const passagePosition = new Map(set.passages.map((passage) => [passage.id, passage.position]))
   const sectionLabel = (group: PracticeSetDetail["groups"][number]) => {
-    const questions = `Questions ${group.questions[0]?.number ?? ""}–${group.questions.at(-1)?.number ?? ""}`
+    const first = group.questions[0]
+    const last = group.questions.at(-1)
+    const lastNumber = last ? questionNumbers(last).split("–").at(-1) : ""
+    const questions =
+      first && last && first.number.toString() !== lastNumber
+        ? `Questions ${first.number}–${lastNumber}`
+        : `Question ${first?.number ?? ""}`
     const position = group.passageId ? passagePosition.get(group.passageId) : undefined
     return set.passages.length > 1 && position ? `Passage ${position} · ${questions}` : questions
   }
-  const questionIds = set.groups.flatMap((group) => group.questions.map((question) => question.id))
-  const answeredCount = countAnswered(questionIds, answers)
-  const unansweredCount = questionIds.length - answeredCount
+  const questions = set.groups.flatMap((group) => group.questions)
+  const totalCount = markCount(questions)
+  const answeredCount = countAnswered(questions, answers)
+  const unansweredCount = totalCount - answeredCount
 
   return (
     <FocusShell
@@ -172,7 +185,7 @@ export function AttemptRunner({
         <>
           <div className="flex min-w-0 flex-1 flex-col gap-0.5">
             <p className="text-label text-foreground">
-              {answeredCount} of {questionIds.length} answered
+              {answeredCount} of {totalCount} answered
             </p>
             <SaveStatus status={status} />
           </div>

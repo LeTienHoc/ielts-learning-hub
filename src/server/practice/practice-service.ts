@@ -163,15 +163,25 @@ export async function listPublishedPracticeSets(
   const { data, error } = await supabase
     .from("practice_sets")
     .select(
-      "id, kind, test_time_limit_seconds, content_items!inner(slug, title, summary, level, topics), question_groups(position, question_type), practice_set_passages(id), questions(count)",
+      "id, kind, test_time_limit_seconds, content_items!inner(slug, title, summary, level, topics), question_groups(position, question_type), practice_set_passages(id), questions(select_count)",
     )
     .eq("module", module)
   if (error) throw new Error("Could not load practice sets.")
 
   return z
-    .array(summaryRowSchema.extend({ questions: z.array(z.object({ count: z.number() })) }))
+    .array(
+      summaryRowSchema.extend({
+        questions: z.array(z.object({ select_count: z.number().nullable() })),
+      }),
+    )
     .parse(data)
-    .map((row) => toSummary(row, row.questions[0]?.count ?? 0))
+    .map((row) =>
+      toSummary(
+        row,
+        // IELTS counting: a "choose TWO" question is two questions (one per mark).
+        row.questions.reduce((total, question) => total + (question.select_count ?? 1), 0),
+      ),
+    )
     .sort((a, b) => a.title.localeCompare(b.title))
 }
 
@@ -299,7 +309,12 @@ export async function getPracticeSetBySlug(
   return {
     ...toSummary(
       row,
-      groups.reduce((count, group) => count + group.questions.length, 0),
+      // IELTS counting: a "choose TWO" question is two questions (one per mark).
+      groups.reduce(
+        (count, group) =>
+          count + group.questions.reduce((sum, question) => sum + (question.selectCount ?? 1), 0),
+        0,
+      ),
     ),
     passages,
     groups,

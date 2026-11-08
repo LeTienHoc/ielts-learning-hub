@@ -118,6 +118,22 @@ updated docs, and a demo on staging. Phase 0 is complete.
   - GRAM-05 (P6);
   - roadmap use of mastery (P8: revisit the retake rule).
 
+**P4 status (2026-11-09): implemented locally**
+([ADR 0009](../decisions/0009-reading-passages-and-band.md),
+[design](../superpowers/specs/2026-11-09-p4-reading-design.md)).
+
+- READ-01: library filters by question type and level (in the URL).
+- READ-02: learn and test modes, including a 60-minute full test with three passages.
+- READ-03: split view with passage tabs, device-only highlights and mobile Passage / Questions
+  tabs.
+- READ-04: explanations with "Show in passage" evidence.
+- READ-05: estimated band for full 40-question tests (with a not-official note).
+- READ-06: passage key words with meanings and "Add to My words".
+- READ-07: attempt history (`/reading/history`) and recent attempts on each set.
+- Also: an offline answer buffer for attempts.
+- Content: one AI-drafted full test and key words for the rooftop set, local only.
+- Open: review of the drafted test by the user; synced highlights; more full tests.
+
 ```
 P0 Foundation ✔
  └─ P1 Platform: Supabase, Auth, Profile, events

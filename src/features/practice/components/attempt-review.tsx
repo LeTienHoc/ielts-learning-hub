@@ -9,7 +9,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { bandEstimate } from "@/lib/learning/reading-band"
 
 import type { AnswerKey, AttemptState, PracticeQuestion, PracticeSetDetail } from "../types"
-import { describeResponse, evidenceExcerpt, isAnswered } from "../utils/answers"
+import {
+  describeResponse,
+  evidenceExcerpt,
+  isAnswered,
+  markCount,
+  questionNumbers,
+} from "../utils/answers"
 import { PassagePanel, type PassageEvidence } from "./passage-panel"
 
 type AttemptReviewProps = {
@@ -83,9 +89,6 @@ export function AttemptReview({
   const maxScore = attempt.maxScore ?? 0
   const band = bandEstimate(set.kind, score, maxScore)
   const hasPassage = set.passages.length > 0
-  const correctCount = questions.filter(
-    (question) => outcomeOf(question, attempt) === "correct",
-  ).length
 
   return (
     <div className="flex flex-col gap-6">
@@ -101,7 +104,7 @@ export function AttemptReview({
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <p className="text-body text-foreground">
-            {correctCount} of {questions.length} questions fully correct ·{" "}
+            {markCount(questions)} questions ·{" "}
             {attempt.mode === "test" ? "Test mode" : "Learn mode"}
           </p>
           {attempt.submitReason === "time_expired" && (
@@ -160,7 +163,10 @@ export function AttemptReview({
                 <Card>
                   <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-2">
                     <CardTitle className="text-h4">
-                      <h2>Question {question.number}</h2>
+                      <h2>
+                        {(question.selectCount ?? 1) > 1 ? "Questions" : "Question"}{" "}
+                        {questionNumbers(question)}
+                      </h2>
                     </CardTitle>
                     <Badge variant={outcome.variant}>
                       <outcome.icon aria-hidden="true" />

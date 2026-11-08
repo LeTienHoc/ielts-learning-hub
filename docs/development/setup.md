@@ -47,11 +47,11 @@ The app needs a Supabase project. For development, use the local stack from the 
 
 Content is JSON in three folders, each validated by a Zod schema in `src/lib/content/`:
 
-| Folder                     | Schema                      | Notes                                                                                                                        |
-| -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `content/practice-sets/`   | `practiceSetSourceSchema`   | `evidence` must be an exact quote that appears once in the passage                                                           |
-| `content/vocabulary-sets/` | `vocabularySetSourceSchema` | each example's `cloze` must appear once in its sentence; a word shared by sets must be defined identically                   |
-| `content/grammar-topics/`  | `grammarTopicSourceSchema`  | `practice` lists only question groups; for Spot the mistake, `accepted` is the one wrong word and a `correction` is required |
+| Folder                     | Schema                      | Notes                                                                                                                                                                                                                                         |
+| -------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `content/practice-sets/`   | `practiceSetSourceSchema`   | `evidence` must be an exact quote that appears once in its group's passage (`passage`, default 1); `kind: "full_test"` needs 3 passages, 40 marks and 60 minutes; passage `keyWords` must appear in the passage and use full word definitions |
+| `content/vocabulary-sets/` | `vocabularySetSourceSchema` | each example's `cloze` must appear once in its sentence; a word shared by sets must be defined identically                                                                                                                                    |
+| `content/grammar-topics/`  | `grammarTopicSourceSchema`  | `practice` lists only question groups; for Spot the mistake, `accepted` is the one wrong word and a `correction` is required                                                                                                                  |
 
 After adding or editing a file:
 

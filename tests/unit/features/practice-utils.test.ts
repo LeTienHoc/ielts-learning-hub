@@ -7,6 +7,8 @@ import {
   evidenceExcerpt,
   formatDuration,
   isAnswered,
+  markCount,
+  questionNumbers,
   splitParagraphs,
 } from "@/features/practice/utils/answers"
 
@@ -18,8 +20,25 @@ describe("isAnswered / countAnswered", () => {
     expect(isAnswered(["A"])).toBe(true)
   })
 
+  const questions = [
+    { id: "q1", number: 22, selectCount: null },
+    { id: "q2", number: 23, selectCount: 2 },
+    { id: "q3", number: 25, selectCount: null },
+  ]
+
   it("counts answered questions only", () => {
-    expect(countAnswered(["q1", "q2", "q3"], { q1: ["A"], q2: [], q4: ["x"] })).toBe(1)
+    expect(countAnswered(questions, { q1: ["A"], q3: [], q4: ["x"] })).toBe(1)
+  })
+
+  it("counts each choice of a multi-answer question as one question", () => {
+    expect(markCount(questions)).toBe(4)
+    expect(countAnswered(questions, { q2: ["B"] })).toBe(1)
+    expect(countAnswered(questions, { q1: ["A"], q2: ["B", "D"] })).toBe(3)
+  })
+
+  it("gives a multi-answer question one number per choice", () => {
+    expect(questionNumbers({ number: 23, selectCount: 2 })).toBe("23–24")
+    expect(questionNumbers({ number: 22, selectCount: null })).toBe("22")
   })
 })
 
